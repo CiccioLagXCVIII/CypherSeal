@@ -1,0 +1,77 @@
+/* verifica.css */
+
+/* SS Pannello di Stato */
+.statusPanelNeutral {
+    background-color: rgba(22, 27, 34, 0.95);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* SS Badge di Verifica */
+/* Badge di verifica grandi */
+.verificationBadge {
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.badgeValid {
+    background: rgba(35, 209, 96, 0.1);
+    border: 1px solid #23d160;
+    color: #23d160;
+}
+
+.badgeRevoked {
+    background: rgba(248, 81, 73, 0.1);
+    border: 1px solid #f85149;
+    color: #f85149;
+}
+
+.badgeNotFound {
+    background: rgba(139, 148, 158, 0.1);
+    border: 1px solid #8b949e;
+    color: #8b949e;
+}
+
+/* SS Elementi Identità */
+.identityIconWrapper {
+    background: rgba(88, 166, 255, 0.1);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+#authorIdentityBox.verified {
+    background: rgba(56, 139, 253, 0.1);
+    border: 1px solid rgba(56, 139, 253, 0.3);
+    display: block !important;
+    animation: slideUp 0.3s ease-out;
+}
+
+/* SS Animazioni */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* SS Utility */
+.extraSmall {
+    font-size: 0.7rem;
+}

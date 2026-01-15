@@ -1,0 +1,200 @@
+/* style.css */
+
+/* SS ############### Variabili ############### */
+:root {
+    --bg-dark: #0d1117;
+    --sidebar-bg: #010409;
+    --card-bg: #161b22;
+    --accent-color: #58a6ff;
+    --border-color: #30363d;
+    --text-main: #c9d1d9;
+    --text-muted: #a1aab5;
+    --white: #f0f6fc;
+    --success-color: #23d160;
+    --active-bg: rgba(88, 166, 255, 0.1);
+}
+
+/* SS ############### Reset e Layout Core ############### */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: "Segoe UI", system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.main-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 16rem;
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.content-area {
+    flex: 1;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+
+    position: relative;
+    z-index: 1;
+}
+
+.custom-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.5);
+}
+
+/* SS ############### Elementi Comuni ############### */
+.app-header {
+    height: 4rem;
+    background-color: var(--bg-dark);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+
+    position: relative;
+    z-index: 1040;
+}
+
+.sidebar .nav-link {
+    color: var(--text-muted);
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: 0.2s;
+
+    position: relative;
+    z-index: 1050;
+}
+
+.sidebar .github-link {
+    color: var(--text-muted);
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: 0.2s;
+}
+
+.sidebar .nav-link.active {
+    color: var(--white);
+    background-color: var(--active-bg);
+    border-left: 0.25rem solid var(--accent-color);
+}
+
+.smallest {
+    font-size: 0.75rem;
+}
+
+/* Scrollbar sottile per la card */
+.custom-card::-webkit-scrollbar {
+    width: 0.4rem;
+}
+.custom-card::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 1rem;
+}
+
+#connectWalletBtn i {
+    padding: 0.5rem;
+}
+
+.text-muted {
+    color: #8b949e !important;
+}
+/* SS ############### Protected Pages Overlay ############### */
+
+.protected-overlay {
+    position: relative;
+    overflow: hidden;
+}
+
+.protected-overlay > *:not(#accessDeniedModal) {
+    filter: blur(10px);
+    pointer-events: none;
+    user-select: none;
+}
+
+#accessDeniedModal {
+    filter: none !important;
+    pointer-events: auto !important;
+    z-index: 100;
+}
+
+/* Pulsanti VerifyData */
+/* SS ########## SELETTORE UNIFICATO BUTTON (Specificità Alta) ########## */
+button.btnVerifyData,
+a.btnVerifyData {
+    /* Colore e Sfondo */
+    background: linear-gradient(135deg, #58a6ff 0%, #1f6feb 100%) !important;
+    color: #ffffff !important;
+    font-weight: bold !important;
+    text-decoration: none !important;
+
+    /* Struttura Base */
+    border: none !important;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    /* Effetti */
+    box-shadow: 0 4px 15px rgba(88, 166, 255, 0.2);
+    transition: all 0.3s ease !important;
+}
+
+/* Stato Hover */
+button.btnVerifyData:hover,
+a.btnVerifyData:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(88, 166, 255, 0.4);
+    color: #ffffff !important;
+    opacity: 0.9;
+}
+
+/* Stato Active (Click) */
+button.btnVerifyData:active,
+a.btnVerifyData:active {
+    transform: translateY(0) !important;
+}
+
+/* Supporto per bottoni disabilitati */
+button.btnVerifyData:disabled {
+    background: #30363d !important;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none !important;
+}

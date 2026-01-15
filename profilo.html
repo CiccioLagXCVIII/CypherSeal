@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>VerifyData - Profilo</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/profile.css" />
+    </head>
+    <body>
+        <header class="app-header d-flex justify-content-between align-items-center px-4" id="navbar">
+            <h5 class="mb-0 text-white">
+                <i class="bi bi-layers-half me-2 text-primary"></i>
+                VerifyData
+            </h5>
+            <!-- Pulsante Accesso a destra -->
+            <div id="headerActions" class="d-flex align-items-center gap-2">
+                <!-- Nella Pagina Profilo Non Mostriamo Il Pulsante Di Connessione Perché L'Utente È Già Connesso -->
+                <a href="connessione.html" class="btn btn-sm rounded-pill btnVerifyData" id="connectWalletBtn">
+                    <i class="bi bi-wallet-fill"></i>
+                    Connetti Wallet
+                </a>
+            </div>
+        </header>
+
+        <div class="main-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="nav-links">
+                    <a href="index.html" class="nav-link">
+                        <i class="bi bi-house-door"></i>
+                        <span>Presentazione</span>
+                    </a>
+                    <a href="profilo.html" class="nav-link active">
+                        <i class="bi bi-person-vcard"></i>
+                        <span>Profilo SSI</span>
+                    </a>
+                    <a href="certifica.html" class="nav-link">
+                        <i class="bi bi-shield-check"></i>
+                        <span>Certifica Documento</span>
+                    </a>
+                    <a href="verifica.html" class="nav-link">
+                        <i class="bi bi-search"></i>
+                        <span>Verifica Pubblica</span>
+                    </a>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <a href="https://github.com/CiccioLagXCVIII" target="_blank" class="github-link">
+                        <i class="bi bi-github me-2"></i>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+            </aside>
+
+            <main class="content-area" id="mainContent">
+                <div class="d-flex justify-content-between align-items-end mb-4">
+                    <div>
+                        <h2 class="mb-1 fw-bold text-white">Identità Digitale Sovrana</h2>
+                        <p class="text-muted mb-0">Gestisci il tuo profilo SSI, visualizza il tuo Badge SBT e monitora lo storico delle notarizzazioni.</p>
+                    </div>
+                    <div class="d-none d-md-block" id="sbtBadgeContainer" style="display: none !important">
+                        <span class="badge rounded-pill bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-2">
+                            <i class="bi bi-patch-check-fill me-2"></i>
+                            Identità SBT Verificata
+                        </span>
+                    </div>
+                </div>
+
+                <!-- NN Loader -->
+                <div id="loadingSection" class="custom-card h-100 w-100 d-flex align-items-center justify-content-center d-none">
+                    <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem" role="status">
+                        <span class="visually-hidden">Caricamento...</span>
+                    </div>
+                    <p class="text-muted small animate-pulse">Sincronizzazione con Ethereum...</p>
+                </div>
+
+                <!-- NN Visibile Se Non Ha Identità -->
+                <div id="identityRequest" class="custom-card h-100 d-flex align-items-center justify-content-center d-none">
+                    <div class="text-center">
+                        <!-- Icona Grande ed Evocativa -->
+                        <div class="mb-4">
+                            <div
+                                class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle"
+                                style="width: 100px; height: 100px">
+                                <i class="bi bi-person-vcard text-primary display-3"></i>
+                            </div>
+                        </div>
+
+                        <h2 class="fw-bold text-white mb-3">Profilo Non Verificato</h2>
+                        <p class="text-muted mb-4 px-3">
+                            Wallet connesso correttamente. Per sbloccare le funzioni e
+                            <strong>certificare documenti</strong>
+                            è necessario attivare il profilo attraverso il minting dell'Identity Badge (SBT).
+                        </p>
+
+                        <!-- Lista Vantaggi -->
+                        <div class="row g-4 mb-5 px-4 justify-content-center">
+                            <div class="col-md-4">
+                                <div class="vantageCard h-100">
+                                    <div class="advantage-icon">
+                                        <i class="bi bi-shield-check"></i>
+                                    </div>
+                                    <h6 class="text-white mb-1">Integrità</h6>
+                                    <p class="extra-small text-muted mb-0">
+                                        Trasforma un semplice hash in una prova di proprietà intellettuale opponibile a terzi.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="vantageCard h-100">
+                                    <div class="advantage-icon">
+                                        <i class="bi bi-fingerprint"></i>
+                                    </div>
+                                    <h6 class="text-white mb-1">Standard EIP-5192</h6>
+                                    <p class="extra-small text-muted mb-0">
+                                        Il badge utilizza la tecnologia Soulbound: un legame indissolubile tra la chiave pubblica e la identità.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="vantageCard h-100">
+                                    <div class="advantage-icon">
+                                        <i class="bi bi-link-45deg"></i>
+                                    </div>
+                                    <h6 class="text-white mb-1">Validità Perpetua</h6>
+                                    <p class="extra-small text-muted mb-0">
+                                        Una volta mintato, il profilo risiede permanentemente sulla blockchain, indipendente da VerifyData.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form id="mintSBTForm">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill btnVerifyData">
+                                <i class="bi bi-stars me-2"></i>
+                                Minta Il Tuo Badge SBT
+                            </button>
+                        </form>
+
+                        <p class="extra-small text-muted mt-3">
+                            <i class="bi bi-info-circle me-1"></i>
+                            L'operazione richiede il pagamento di gas fee sulla rete Sepolia.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- NN Visibile Se Ha Identità -->
+                <div id="profileDashboard" class="custom-card">
+                    <div class="d-flex flex-column h-100 p-0">
+                        <!-- AA PRIMA RIGA (Indirizzo Wallet + Badge Identità) -->
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <!-- SS Colonna Indirizzo Wallet (CARD 1) -->
+                            <div class="col-5 h-100 d-flex flex-column dashboard-card dashboard-column-left">
+                                <!-- Riga Indicatore Stato-->
+                                <div class="status-header">
+                                    <div class="status-control-strip">
+                                        <div class="status-item">
+                                            <span class="pulse-dot"></span>
+                                            <span class="status-label">Network:</span>
+                                            <span class="status-value text-white" id="networkDisplay">Sepolia Testnet</span>
+                                        </div>
+                                        <div class="status-divider"></div>
+                                        <div class="status-item">
+                                            <span class="status-label">Wallet:</span>
+                                            <span class="status-value text-white" id="walletBrand">MetaMask</span>
+                                        </div>
+                                        <div class="status-item ms-auto">
+                                            <span class="status-label">Status:</span>
+                                            <span class="status-value text-success" id="connectionStatus">Connected</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Riga Indirizzo Wallet-->
+                                <div class="address-box flex-fill d-flex flex-column justify-content-center px-4">
+                                    <label class="data-label-sm">Indirizzo Wallet</label>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span id="walletAddressDisplay" class="font-monospace wallet-address-text flex-grow-1"></span>
+                                        <button id="copyAddressBtn" class="btn btn-outline-primary btn-sm rounded-circle btnVerifyData">
+                                            <i class="bi bi-copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Riga Link Etherscan Wallet-->
+                                <div class="etherscan-footer flex-fill d-flex align-items-center px-4">
+                                    <a id="etherscanLinkDisplay" class="etherscan-btn" target="_blank">
+                                        <i class="bi bi-box-arrow-up-right me-2"></i>
+                                        Visualizza su Etherscan
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- SS Colonna Identità SBT (CARD 2) -->
+                            <div class="col-5 h-100 d-flex align-items-center justify-content-center dashboard-card">
+                                <div class="d-flex flex-column w-100 h-100 sbt-details-column">
+                                    <!-- Riga Icona + Info -->
+                                    <div class="d-flex sbt-top-row">
+                                        <!-- Colonna Icona Profilo -->
+                                        <div class="col-4 h-100 d-flex align-items-center justify-content-center p-0 hex-container">
+                                            <div class="hex-border">
+                                                <div class="hex-fill">
+                                                    <img
+                                                        id="userAvatar"
+                                                        src=""
+                                                        alt="Avatar"
+                                                        style="width: 70%; height: 70%; object-fit: contain; display: none" />
+                                                    <i id="userAvatarFallback" class="bi bi-person-fill"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Colonna Dettagli Identità -->
+                                        <div class="col-8 h-100 d-flex flex-column sbt-info-list">
+                                            <div class="info-row">
+                                                <span class="info-label">SBT Token ID</span>
+                                                <span id="sbtTokenIdDisplay" class="info-value font-monospace text-primary"></span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">Data Emissione</span>
+                                                <span id="emissionDateDisplay" class="info-value"></span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span class="info-label">Registry On</span>
+                                                <span id="registryNetDisplay" class="info-value"></span>
+                                            </div>
+                                            <div class="info-row no-border">
+                                                <span class="info-label">Trust Level</span>
+                                                <span id="trustLevelDisplay" class="trust-badge"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Riga Altre Informazioni (Stats Bar) -->
+                                    <div class="stats-footer w-100">
+                                        <div class="col-12 h-100 d-flex">
+                                            <div class="stat-item flex-fill d-flex flex-column justify-content-center align-items-center">
+                                                <span class="stat-label">Documenti Certificati</span>
+                                                <span id="numDocCertificatiDisplay" class="stat-value font-monospace"></span>
+                                            </div>
+                                            <div class="stat-divider"></div>
+                                            <div class="stat-item flex-fill d-flex flex-column justify-content-center align-items-center">
+                                                <span class="stat-label">Ultima Attività</span>
+                                                <span id="dataUltCertificaDisplay" class="stat-value font-monospace"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AA SECONDA RIGA (Tabella Documenti Certificati) -->
+                        <div class="flex-grow-1 d-flex flex-column p-2">
+                            <div id="tableData" class="w-100 h-100 overflow-auto">
+                                <table id="certifiedDocumentsTable" class="table table-sm table-hover m-0 align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="ps-3">Nome Documento</th>
+                                            <th scope="col">Data</th>
+                                            <th scope="col">Hash SHA-256</th>
+                                            <th scope="col">Transaction ID</th>
+                                            <th scope="col">Stato</th>
+                                            <th scope="col" class="pe-3">Azioni</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- SS VERIFICATO (Stato: Verificato) -->
+                                        <tr>
+                                            <td class="ps-3 fw-bold text-white">Certificato Di Laurea.pdf</td>
+                                            <td><span class="text-muted small">08/01/2026</span></td>
+                                            <td>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <span class="documentHash">7e4a1...1e2c3</span>
+                                                    <button
+                                                        class="copyHashButton"
+                                                        data-hash="7e4a1f9c8b6d3f2a4c9e0a1b7d8f6e5c3a2b1d4f9e8c7b6a5d0f1e2c3"
+                                                        title="Copia Hash">
+                                                        <i class="bi bi-copy"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="txLink">
+                                                    <i class="bi bi-box-arrow-up-right me-1"></i>
+                                                    0xd108...bcf2
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <span class="badge rounded-pill text-uppercase fw-bold py-1 px-2 verifiedBadge">
+                                                    <i class="bi bi-patch-check-fill me-1"></i>
+                                                    Certificato
+                                                </span>
+                                            </td>
+                                            <td class="pe-3 text-center">
+                                                <button class="btn revokeButton" data-hash="7e4a1f9c8b6d3f2a4c9e0a1b7d8f6e5c3a2b1d4f9e8c7b6a5d0f1e2c3">
+                                                    Revoca
+                                                </button>
+                                            </td>
+                                        </tr>
+
+                                        <!-- SS PENDING (Stato: Pending) -->
+                                        <tr>
+                                            <td class="ps-3 fw-bold text-white">Documento In Corso.pdf</td>
+                                            <td><span class="text-muted small">15/01/2026</span></td>
+                                            <td>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <span class="documentHash">a1b2c...d3e4f</span>
+                                                    <button class="copyHashButton" data-hash="a1b2c3d4e5f6g7h8i9j0" title="Copia Hash">
+                                                        <i class="bi bi-copy"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="txLink">
+                                                    <i class="bi bi-box-arrow-up-right me-1"></i>
+                                                    0x3a4b...9c8d
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <span class="badge rounded-pill text-uppercase fw-bold py-1 px-2 pendingBadge">
+                                                    <i class="bi bi-send me-1"></i>
+                                                    In Invio...
+                                                </span>
+                                            </td>
+                                            <td class="pe-3 text-center">
+                                                <button class="btn processingButton" disabled>
+                                                    <span class="spinner-border spinner-border-sm"></span>
+                                                </button>
+                                            </td>
+                                        </tr>
+
+                                        <!-- SS ATTESA GENERICO -->
+                                        <tr>
+                                            <td class="ps-3 fw-bold text-white">Contratto Lavoro.pdf</td>
+                                            <td><span class="text-muted small">14/01/2026</span></td>
+                                            <td>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <span class="documentHash">b3c9f...0f2a1</span>
+                                                    <button
+                                                        class="copyHashButton"
+                                                        data-hash="b3c9f6e4a1d8e2f7c5b0a9d4e6c1f8a7b2d3e9c4f5a1b6e8d7c0f2"
+                                                        title="Copia Hash">
+                                                        <i class="bi bi-copy"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="txLink">
+                                                    <i class="bi bi-box-arrow-up-right me-1"></i>
+                                                    0x9ef0...ff1d
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <span class="badge rounded-pill text-uppercase fw-bold py-1 px-2 neutralBadge">
+                                                    <i class="bi bi-hourglass-split me-1"></i>
+                                                    In Attesa
+                                                </span>
+                                            </td>
+                                            <td class="pe-3 text-center">
+                                                <button class="btn processingButton" disabled>Elaborazione...</button>
+                                            </td>
+                                        </tr>
+
+                                        <!-- SS FALLITO -->
+                                        <tr>
+                                            <td class="ps-3 fw-bold text-white">Errore Notarizzazione.pdf</td>
+                                            <td><span class="text-muted small">15/01/2026</span></td>
+                                            <td>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <span class="documentHash">f9e8d...c7b6a</span>
+                                                    <button class="copyHashButton" data-hash="f9e8d7c6b5a4b3c2d1" title="Copia Hash">
+                                                        <i class="bi bi-copy"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            <td><span class="text-muted small">---</span></td>
+                                            <td>
+                                                <span class="badge rounded-pill text-uppercase fw-bold py-1 px-2 failedBadge">
+                                                    <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                                                    Fallito
+                                                </span>
+                                            </td>
+                                            <td class="pe-3 text-center">
+                                                <button class="btn retryButton" data-hash="f9e8d7c6b5a4b3c2d1">Riprova</button>
+                                            </td>
+                                        </tr>
+
+                                        <!-- SS REVOCATO -->
+                                        <tr>
+                                            <td class="ps-3 textRevoked">Vecchio Contratto.docx</td>
+                                            <td>
+                                                <!-- Data Divisa In Due -->
+                                                <div class="d-flex flex-column">
+                                                    <span class="revokedLabel">Revocato il:</span>
+                                                    <span class="text-muted small">01/12/2025</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <span class="documentHash">0f8c9...1b2c4</span>
+                                                    <button class="copyHashButton" data-hash="..."><i class="bi bi-copy"></i></button>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="#" target="_blank" class="txLinkRevoked">
+                                                    <i class="bi bi-box-arrow-up-right me-1"></i>
+                                                    0x5429...6395
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <span class="badge rounded-pill text-uppercase fw-bold py-1 px-2 revokedBadge">
+                                                    <i class="bi bi-x-circle-fill me-1"></i>
+                                                    Revocato
+                                                </span>
+                                            </td>
+                                            <td class="text-center"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script type="module" src="js/app.js"></script>
+    </body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "verifydata-dapp",
+  "version": "1.0.0",
+  "description": "DApp Per La Notarizzazione Digitale E Gestione Dell'Identità SSI Su Ethereum",
+  "author": "Francesco Lo Verde",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write \"**/*.{js,html,css,sol}\""
+  },
+  "devDependencies": {
+    "prettier": "^3.7.4",
+    "prettier-plugin-solidity": "^2.2.1"
+  }
+}

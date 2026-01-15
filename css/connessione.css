@@ -1,0 +1,131 @@
+/* connessione.css */
+
+/* SS ########## ELEMENTI GENERALI & HELPERS ########### */
+.extra-small {
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+}
+
+.customLink {
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px dashed currentColor;
+    transition: 0.2s;
+}
+
+.customLink:hover {
+    color: white !important;
+}
+
+.icon-wrapper {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* SS ########## STRUTTURA CARD UNIFORMATA ########## */
+.loginCard,
+.tutorialMetamask,
+.immutabilityBox,
+.privacyBox,
+.orangeCard,
+.redCard,
+.yellowCard {
+    background: #161b22;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+
+    /* AGGIUNGI QUESTE RIGHE */
+    transition:
+        transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+        background 0.3s ease;
+    will-change: transform;
+}
+
+/* SS ########## CARD BLUE ########## */
+.loginCard {
+    border-left: 4px solid #58a6ff;
+}
+.loginIcon {
+    background: rgba(88, 166, 255, 0.1);
+    color: #58a6ff;
+}
+.loginSubtitle {
+    color: #58a6ff;
+}
+
+#connectWalletBtn {
+    padding: 15px 100px;
+}
+
+.loginCard:hover {
+    background: #15202b;
+}
+/* SS ########## CARD ORANGE (METAMASK) ########## */
+.orangeCard {
+    border-left: 4px solid #f6851b;
+}
+.orangeIcon {
+    background: rgba(246, 133, 27, 0.1);
+    color: #f6851b;
+}
+.orangeSubtitle {
+    color: #f6851b;
+}
+.text-orange {
+    color: #f6851b;
+}
+.customLink.orange {
+    color: #f6851b;
+}
+
+.orangeCard:hover {
+    background: #2a2115;
+    transform: translateX(-5px);
+}
+
+/* SS ########## CARD RED (REGISTRO) ########## */
+.redCard {
+    border-left: 4px solid #f85149;
+}
+.redIcon {
+    background: rgba(248, 81, 73, 0.1);
+    color: #f85149;
+}
+.redSubtitle {
+    color: #f85149;
+}
+
+.redCard:hover {
+    background: #2a1515;
+    transform: translateX(5px);
+}
+/* SS ########## CARD YELLOW (PRIVACY) ########## */
+.yellowCard {
+    border-left: 4px solid #d29922;
+}
+.yellowIcon {
+    background: rgba(210, 153, 34, 0.1);
+    color: #d29922;
+}
+.yellowSubtitle {
+    color: #d29922;
+}
+
+.yellowCard:hover {
+    background: #2a2415;
+    transform: translateX(5px);
+}
+/* SS ########## ANIMAZIONI & DETTAGLI ########## */
+.loginCard::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(88, 166, 255, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+}

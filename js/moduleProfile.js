@@ -1,0 +1,358 @@
+// moduleProfile.js
+import { Blockchain } from './moduleBlockchain.js';
+import { General } from './moduleGeneral.js';
+
+export const Profile = {
+
+    // Gestione Prima Colonna (Indirizzo Wallet)
+    async renderWalletInfo(walletConnected) {
+        const walletBrandDisplay = document.getElementById('walletBrand');
+        const connectionStatus = document.getElementById('connectionStatus');
+        const networkDisplay = document.getElementById('networkDisplay');
+
+        // Rilevamento Wallet e Network
+        if (Blockchain.isProviderAvailable()) {
+            // Wallet Info
+            let name = Blockchain.getWalletBrand();
+            if (walletBrandDisplay && connectionStatus) {
+                walletBrandDisplay.textContent = name;
+                connectionStatus.textContent = "Connected";
+            }
+
+            console.log("VerifyData: Wallet Identificato:", name);
+
+            // Network
+            const chainId = await Blockchain.getChainId();
+            let networkName = "Unknown Network";
+
+            const networks = {
+                '0x1': 'Ethereum Mainnet',
+                '0xaa36a7': 'Sepolia Testnet',
+                '0x5': 'Goerli Testnet',
+                '0x89': 'Polygon Mainnet',
+                '0x13881': 'Mumbai Testnet'
+            };
+
+            networkName = networks[chainId] || `Chain ID: ${chainId}`;
+
+            if (networkDisplay) {
+                networkDisplay.textContent = networkName;
+            }
+
+            // Visualizza Indirizzo Etherscan Del Wallet Collegato
+            const etherscanLinkDisplay = document.getElementById('etherscanLinkDisplay');
+            if (etherscanLinkDisplay) {
+                etherscanLinkDisplay.setAttribute('href', `https://sepolia.etherscan.io/address/${walletConnected}`);
+            }
+
+            console.log("VerifyData: Network Rilevato:", networkName);
+        } else {
+            if (walletBrandDisplay) walletBrandDisplay.textContent = "No Wallet";
+            if (connectionStatus) connectionStatus.textContent = "Disconnected";
+        }
+    },
+
+    // Gestione Seconda Colonna (Dati Identità SBT)
+    renderSBTInfo(identityInfo) {
+        // Logica Icona "Randomica" Deterministica
+        const avatarImg = document.getElementById('userAvatar');
+        const fallbackIcon = document.getElementById('userAvatarFallback');
+
+        const sbtBadge = document.getElementById('sbtBadgeContainer');
+        const identitySBT = localStorage.getItem('identitySBT');
+
+        if (sbtBadge && identitySBT === 'true') {
+            // Mostra Badge Verde SBT
+            sbtBadge.style.setProperty('display', 'block', 'important');
+        }
+
+        if (avatarImg && fallbackIcon) {
+            const avatarUrl = this.generateUserAvatar(identityInfo.userAddress);
+
+            avatarImg.src = avatarUrl;
+            avatarImg.style.display = 'block';
+            fallbackIcon.style.display = 'none';
+        }
+
+        // Dati d'esempio (verranno sostituiti dalle chiamate al contract)
+        const sbtTokenId = identityInfo.sbtTokenId;
+        const emissionDate = identityInfo.emissionDate;
+        const registryNet = identityInfo.registryNet;
+        const trustLevel = identityInfo.trustLevel;
+        const numDocCertificati = identityInfo.numDocCertificati;
+        const dataUltCertifica = identityInfo.dataUltCertifica;
+
+        // Aggiorna L'Interfaccia
+        const sbtTokenIdDisplay = document.getElementById('sbtTokenIdDisplay');
+        const emissionDateDisplay = document.getElementById('emissionDateDisplay');
+        const registryNetDisplay = document.getElementById('registryNetDisplay');
+        const trustLevelDisplay = document.getElementById('trustLevelDisplay');
+        const numDocCertDisplay = document.getElementById('numDocCertificatiDisplay');
+        const dataUltCertDisplay = document.getElementById('dataUltCertificaDisplay');
+
+        if (sbtTokenIdDisplay && emissionDateDisplay && registryNetDisplay && trustLevelDisplay && numDocCertDisplay && dataUltCertDisplay) {
+            sbtTokenIdDisplay.textContent = sbtTokenId;
+            emissionDateDisplay.textContent = emissionDate;
+            registryNetDisplay.textContent = registryNet;
+            trustLevelDisplay.textContent = trustLevel;
+            numDocCertDisplay.textContent = numDocCertificati;
+            dataUltCertDisplay.textContent = dataUltCertifica;
+        }
+    },
+
+    // Gestione Tabella Documenti Certificati
+    renderTableData(certifiedDocuments) {
+        const documentsTable = document.getElementById('certifiedDocumentsTable');
+        if (!documentsTable) return;
+
+        const tbody = documentsTable.querySelector('tbody');
+        tbody.innerHTML = '';
+
+        certifiedDocuments.forEach(element => {
+            // Gestione Data
+            const documentTimestamp = element.notarizationDate;
+            let formattedDate = "Data Non Valida";
+            if (documentTimestamp) {
+                let dateObj;
+                if (!isNaN(documentTimestamp)) {
+                    dateObj = new Date(documentTimestamp * 1000);
+                } else {
+                    dateObj = new Date(documentTimestamp);
+                }
+
+                formattedDate = dateObj.toLocaleDateString("it-IT", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric"
+                });
+            }
+
+            // Gestione Variabili Dinamiche
+            const shortHash = element.hash.slice(0, 5) + "..." + element.hash.slice(-5);
+
+            let shortTx;
+            if (element.txHash) {
+                shortTx = element.txHash.slice(0, 6) + "..." + element.txHash.slice(-4);
+            } else {
+                shortTx = "---";
+            }
+
+            let statusBadge = '';
+            let actionButton = '';
+            let nameClass = 'fw-bold text-white';
+            let dateContent = `<span class="text-muted small">${formattedDate}</span>`;
+            // Classe Default Link TX
+            let txLinkClass = 'txLink';
+            // Icona Default Link TX
+            let txIcon = 'bi-box-arrow-up-right';
+
+            // Logica Stati Documenti
+            switch (element.status) {
+                case 'Verificato':
+                    statusBadge = `<span class="badge rounded-pill text-uppercase fw-bold py-1 px-2 verifiedBadge"><i class="bi bi-patch-check-fill me-1"></i>Certificato</span>`;
+                    actionButton = `<button class="btn revokeButton" data-hash="${element.hash}">Revoca</button>`;
+                    break;
+
+                case 'Pending':
+                    statusBadge = `<span class="badge rounded-pill text-uppercase fw-bold py-1 px-2 pendingBadge"><i class="bi bi-send me-1"></i>In Invio...</span>`;
+                    actionButton = `<button class="btn processingButton" disabled><span class="spinner-border spinner-border-sm"></span></button>`;
+                    break;
+
+                case 'Fallito':
+                    statusBadge = `<span class="badge rounded-pill text-uppercase fw-bold py-1 px-2 failedBadge"><i class="bi bi-exclamation-triangle-fill me-1"></i>Fallito</span>`;
+                    actionButton = `<button class="btn retryButton" data-hash="${element.hash}">Riprova</button>`;
+                    break;
+
+                case 'Revocato':
+                    statusBadge = `<span class="badge rounded-pill text-uppercase fw-bold py-1 px-2 revokedBadge"><i class="bi bi-x-circle-fill me-1"></i>Revocato</span>`;
+                    actionButton = '';
+                    nameClass = 'textRevoked';
+                    // Modifica Link TX Per Revocato
+                    txLinkClass = 'txLinkRevoked';
+                    // Icona TX Per Revocato
+                    txIcon = 'bi-box-arrow-up-right';
+                    dateContent = `
+                    <div class="d-flex flex-column">
+                        <span class="revokedLabel">Revocato il:</span>
+                        <span class="text-muted small">${formattedDate}</span>
+                    </div>`;
+                    break;
+
+                default: // In Attesa Generico
+                    statusBadge = `<span class="badge rounded-pill text-uppercase fw-bold py-1 px-2 neutralBadge"><i class="bi bi-hourglass-split me-1"></i>In Attesa</span>`;
+                    actionButton = `<button class="btn processingButton" disabled>Elaborazione...</button>`;
+                    break;
+            }
+
+            // Contenuto Riga Transazione
+            let txColumnContent;
+            if (element.txHash) {
+                txColumnContent = `
+                    <a href="https://sepolia.etherscan.io/tx/${element.txHash}" target="_blank" class="${txLinkClass}">
+                        <i class="bi ${txIcon} me-1"></i>${shortTx}
+                    </a>`;
+            } else {
+                txColumnContent = '<span class="text-muted small"</span>';
+            }
+
+            // Generazione Riga
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td class="ps-3 ${nameClass}">${element.name}</td>
+                <td>${dateContent}</td>
+                <td>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="documentHash">${shortHash}</span>
+                        <button class="copyHashButton" data-hash="${element.hash}" title="Copia Hash">
+                            <i class="bi bi-copy"></i>
+                        </button>
+                    </div>
+                </td>
+                <td>
+                    ${txColumnContent}
+                </td>
+                <td>${statusBadge}</td>
+                <td class="pe-3 text-center">${actionButton}</td>
+            `;
+            tbody.appendChild(row);
+        });
+    },
+
+    // Copia Indirizzo Wallet Click Pulsante E Copia Indirizzo Hash Tabella
+    setupEventListeners(walletConnected) {
+        // Indirizzo Wallet - Copia Al Click Del Pulsante
+        const copyBtn = document.getElementById('copyAddressBtn');
+        if (copyBtn) {
+            copyBtn.onclick = () => {
+                navigator.clipboard.writeText(walletConnected);
+
+                const icon = copyBtn.querySelector('i');
+                const originalClass = icon.className;
+                icon.className = 'bi bi-check';
+
+                setTimeout(() => {
+                    icon.className = originalClass;
+                }, 2000);
+            };
+        }
+
+        // Listeners Per I Pulsanti Nella Tabella
+        const table = document.getElementById('certifiedDocumentsTable');
+        if (table) {
+            table.onclick = async (event) => {
+                // Gestione Click Pulsante Copia Hash
+                const copyTarget = event.target.closest('.copyHashButton');
+                if (copyTarget) {
+                    const hashToCopy = copyTarget.getAttribute('data-hash');
+
+                    if (hashToCopy) {
+                        navigator.clipboard.writeText(hashToCopy);
+
+                        const icon = copyTarget.querySelector('i');
+                        const originalClass = icon.className;
+                        icon.className = 'bi bi-check';
+
+                        setTimeout(() => {
+                            icon.className = originalClass;
+                        }, 2000);
+                    }
+                }
+
+                // Gestione Click Pulsante Revoca
+                const revokeTarget = event.target.closest('.revokeButton');
+                if (revokeTarget) {
+                    const hashToRevoke = revokeTarget.getAttribute('data-hash');
+
+                    // Feedback visivo immediato
+                    revokeTarget.textContent = "Revoca in corso...";
+                    revokeTarget.disabled = true;
+
+                    try {
+                        // Chiamata al Mock Blockchain
+                        const result = await Blockchain.revokeDocument(hashToRevoke);
+
+                        if (result.success) {
+                            alert(`Documento Revocato Con Successo!\nTX: ${result.txHash}`);
+                            // Ricarica La Pagina Per Aggiornare Lo Stato
+                            window.location.reload();
+                        }
+                    } catch (error) {
+                        console.error("Errore revoca:", error);
+                        revokeTarget.textContent = "Errore";
+                    }
+                }
+            };
+        }
+    },
+
+    // Generatore Icona Utente Randomica
+    generateUserAvatar(address) {
+        // Uso DiceBear API Con Stile 'bottts'
+        // Il 'Seed' Assicura Che Lo Stesso Indirizzo Generi Sempre La Stessa Immagine
+        return `https://api.dicebear.com/7.x/bottts/svg?seed=${address}`;
+
+        // Alternativa (Mostriciattolo) Usando Robohash:
+        // return `https://robohash.org/${address}.png?set=set1`;
+    },
+
+    async fetchDocumentData(wallet) {
+        const documents = await Blockchain.getUserDocuments(wallet);
+
+        console.log("Documenti Certificati Da ", wallet, ":", documents);
+        return documents;
+    },
+
+    // Funzione Principale
+    async updateProfileInterface() {
+        const walletConnected = localStorage.getItem('walletAddress') || "";
+        const currentPage = General.findPage();
+
+        if (currentPage === 'profilo.html' && walletConnected) {
+            const walletDisplay = document.getElementById('walletAddressDisplay');
+            const requestSection = document.getElementById('identityRequest');
+            const profileSection = document.getElementById('profileDashboard');
+            const loadingSpinner = document.getElementById('loadingSection');
+
+            // 1. STATO INIZIALE: Mostro solo lo spinner, nascondo tutto il resto
+            if (loadingSpinner) loadingSpinner.classList.remove('d-none');
+            if (requestSection) requestSection.classList.add('d-none');
+            if (profileSection) profileSection.classList.add('d-none');
+
+            console.log("VerifyData: Avvio caricamento asincrono...");
+
+            try {
+                // Interazone Con La Blockchain Per Caricare I Dati Dell'Utente (Si Ferma Qui Finché Non Riceve Tutto)
+                const hasIdentity = await Blockchain.getSBTStatus(walletConnected);
+                const certDocuments = await Blockchain.getUserDocuments(walletConnected);
+                const identityInfo = await Blockchain.getSBTInfo(walletConnected);
+
+                // Aggiorno il localStorage
+                localStorage.setItem('identitySBT', hasIdentity.toString());
+
+                // Modifiche UI Basate Sullo Stato Ottenuto Anche Se I Div Sono Nascosti
+                if (walletDisplay) walletDisplay.textContent = walletConnected;
+                await this.renderWalletInfo(walletConnected);
+                this.renderSBTInfo(identityInfo);
+                this.setupEventListeners(walletConnected);
+                this.renderTableData(certDocuments);
+
+                // Nascondo Lo Spinner E Mostro La Sezione Corretta
+                if (loadingSpinner) loadingSpinner.classList.add('d-none');
+
+                if (hasIdentity) {
+                    console.log("VerifyData: Mostro Dashboard Profilo");
+                    if (profileSection) profileSection.classList.remove('d-none');
+                    if (requestSection) requestSection.classList.add('d-none');
+                } else {
+                    console.log("VerifyData: Mostro Richiesta Minting Identità SBT");
+                    if (requestSection) requestSection.classList.remove('d-none');
+                    if (profileSection) profileSection.classList.add('d-none');
+                }
+
+            } catch (error) {
+                console.error("VerifyData: Errore Durante Il Caricamento Dati", error);
+                if (loadingSpinner) loadingSpinner.classList.add('d-none');
+            }
+        }
+    },
+}
