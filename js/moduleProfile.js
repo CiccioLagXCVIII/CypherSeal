@@ -3,6 +3,33 @@ import { Blockchain } from './moduleBlockchain.js';
 import { General } from './moduleGeneral.js';
 
 export const Profile = {
+    // Funzione Per Copiare Indirizzo Wallet Negli Appunti
+    copyAddressToClipboard() {
+        // Elemento Dove Mostrare L'Hash Calcolato
+        const fileHashDisplay = document.getElementById("walletAddressDisplay");
+        // Pulsante Per Copiare L'Hash Negli Appunti
+        const copyBtn = document.getElementById("copyAddressBtn");
+
+        // Logica Di Copia Negli Appunti E Notifiche
+        if (copyBtn) {
+            // Aggiunge Evento Click Al Pulsante Di Copia
+            copyBtn.addEventListener("click", () => {
+                // Recupera L'Hash Visualizzato
+                const text = fileHashDisplay.textContent;
+                // Verifica Che L'Hash Sia Pronto
+                if (text && text !== "Calcolo in corso...") {
+                    // Utilizza L'API Di Sistema Per Scrivere Il Testo Negli Appunti
+                    navigator.clipboard.writeText(text);
+                    // Recupera L'Elemento Toast Dalla Pagina
+                    const toast = document.getElementById("copyToast");
+                    // Mostra Il Messaggio Di Conferma Per Alcuni Secondi
+                    toast.classList.add("show");
+                    // Programma La Scomparsa Automatica Della Notifica
+                    setTimeout(() => toast.classList.remove("show"), 2000);
+                }
+            });
+        }
+    },
 
     // Gestione Prima Colonna (Indirizzo Wallet)
     async renderWalletInfo(walletConnected) {
@@ -225,7 +252,7 @@ export const Profile = {
         if (copyBtn) {
             copyBtn.onclick = () => {
                 navigator.clipboard.writeText(walletConnected);
-
+                // Feedback Visivo Sul Pulsante
                 const icon = copyBtn.querySelector('i');
                 const originalClass = icon.className;
                 icon.className = 'bi bi-check';

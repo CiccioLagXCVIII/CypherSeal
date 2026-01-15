@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             break;
         case 'profilo.html':
             Profile.updateProfileInterface();
+            Profile.copyAddressToClipboard();
             Auth.mintIdentitySBT();
             break;
         case 'certifica.html':
@@ -39,7 +40,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             break;
         case 'verifica.html':
             Notarizer.manageFileUpload();
+            Notarizer.copyHashToClipboard();
             Verifier.init();
+
             break;
         default:
             // Nessuna azione specifica

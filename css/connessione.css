@@ -14,7 +14,7 @@
 }
 
 .customLink:hover {
-    color: white !important;
+    color: var(--white) !important;
 }
 
 .icon-wrapper {
@@ -33,27 +33,25 @@
 .orangeCard,
 .redCard,
 .yellowCard {
-    background: #161b22;
+    background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 12px;
-
-    /* AGGIUNGI QUESTE RIGHE */
     transition:
         transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
         background 0.3s ease;
     will-change: transform;
 }
 
-/* SS ########## CARD BLUE ########## */
+/* SS ########## CARD BLUE (Login) ########## */
 .loginCard {
-    border-left: 4px solid #58a6ff;
+    border-left: 4px solid var(--accent-color);
 }
 .loginIcon {
-    background: rgba(88, 166, 255, 0.1);
-    color: #58a6ff;
+    background: rgba(var(--accent-rgb), 0.1);
+    color: var(--accent-color);
 }
 .loginSubtitle {
-    color: #58a6ff;
+    color: var(--accent-color);
 }
 
 #connectWalletBtn {
@@ -61,63 +59,66 @@
 }
 
 .loginCard:hover {
-    background: #15202b;
+    background: var(--card-hover-bg);
 }
+
 /* SS ########## CARD ORANGE (METAMASK) ########## */
 .orangeCard {
-    border-left: 4px solid #f6851b;
+    border-left: 4px solid var(--orange-color);
 }
 .orangeIcon {
-    background: rgba(246, 133, 27, 0.1);
-    color: #f6851b;
+    background: rgba(var(--orange-rgb), 0.1);
+    color: var(--orange-color);
 }
 .orangeSubtitle {
-    color: #f6851b;
+    color: var(--orange-color);
 }
 .text-orange {
-    color: #f6851b;
+    color: var(--orange-color);
 }
 .customLink.orange {
-    color: #f6851b;
+    color: var(--orange-color);
 }
 
 .orangeCard:hover {
-    background: #2a2115;
+    background: linear-gradient(0deg, rgba(var(--orange-rgb), 0.15), rgba(var(--orange-rgb), 0.15)), var(--card-bg);
     transform: translateX(-5px);
 }
 
-/* SS ########## CARD RED (REGISTRO) ########## */
+/* SS ########## CARD RED (REGISTRO/DANGER) ########## */
 .redCard {
-    border-left: 4px solid #f85149;
+    border-left: 4px solid var(--danger-color);
 }
 .redIcon {
-    background: rgba(248, 81, 73, 0.1);
-    color: #f85149;
+    background: rgba(var(--danger-rgb), 0.1);
+    color: var(--danger-color);
 }
 .redSubtitle {
-    color: #f85149;
+    color: var(--danger-color);
 }
 
 .redCard:hover {
-    background: #2a1515;
+    background: linear-gradient(0deg, rgba(var(--danger-rgb), 0.15), rgba(var(--danger-rgb), 0.15)), var(--card-bg);
     transform: translateX(5px);
 }
-/* SS ########## CARD YELLOW (PRIVACY) ########## */
+
+/* SS ########## CARD YELLOW (PRIVACY/WARNING) ########## */
 .yellowCard {
-    border-left: 4px solid #d29922;
+    border-left: 4px solid var(--warning-color);
 }
 .yellowIcon {
-    background: rgba(210, 153, 34, 0.1);
-    color: #d29922;
+    background: rgba(var(--warning-rgb), 0.1);
+    color: var(--warning-color);
 }
 .yellowSubtitle {
-    color: #d29922;
+    color: var(--warning-color);
 }
 
 .yellowCard:hover {
     background: #2a2415;
     transform: translateX(5px);
 }
+
 /* SS ########## ANIMAZIONI & DETTAGLI ########## */
 .loginCard::after {
     content: "";
@@ -126,6 +127,6 @@
     right: -10%;
     width: 200px;
     height: 200px;
-    background: radial-gradient(circle, rgba(88, 166, 255, 0.05) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(var(--accent-rgb), 0.05) 0%, transparent 70%);
     pointer-events: none;
 }

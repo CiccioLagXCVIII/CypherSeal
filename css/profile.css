@@ -7,7 +7,7 @@
     border: 1px solid var(--border-color);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-soft);
 }
 
 .dashboard-column-left {
@@ -15,7 +15,6 @@
 }
 
 /* SS ########## Striscia Di Stato (Top Bar) ########## */
-
 .status-header {
     height: 35px;
     background: var(--sidebar-bg);
@@ -27,7 +26,7 @@
     padding: 0 15px;
     height: 100%;
     gap: 0;
-    font-family: "Monaco", "Consolas", monospace;
+    font-family: var(--font-mono);
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -58,7 +57,6 @@
 }
 
 /* SS ########## Sezione Wallet (Sinistra) ########## */
-
 .address-box {
     border-bottom: 1px solid var(--border-color);
 }
@@ -72,13 +70,13 @@
 }
 
 .wallet-address-text {
-    color: var(--white);
+    color: var(--text-header);
     font-size: 0.9rem;
     word-break: break-all;
-    background: rgba(88, 166, 255, 0.05);
+    background: rgba(var(--accent-rgb), 0.05);
     padding: 8px;
     border-radius: 6px;
-    border: 1px solid rgba(88, 166, 255, 0.1);
+    border: 1px solid rgba(var(--accent-rgb), 0.1);
 }
 
 .etherscan-btn {
@@ -114,7 +112,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 6px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--separator-light);
 }
 
 .info-row.no-border {
@@ -128,26 +126,25 @@
 }
 
 .info-value {
-    color: var(--white);
+    color: var(--text-header);
     font-size: 0.75rem;
     font-weight: 600;
 }
 
 .trust-badge {
     font-size: 0.65rem;
-    background: rgba(35, 209, 96, 0.1);
-    color: #23d160;
+    background: rgba(var(--success-rgb), 0.1);
+    color: var(--success-color);
     padding: 2px 8px;
     border-radius: 4px;
-    border: 1px solid rgba(35, 209, 96, 0.2);
+    border: 1px solid rgba(var(--success-rgb), 0.2);
     text-transform: uppercase;
 }
 
 /* SS ########## Hexagon Avatar Style ########## */
-
 .hex-container {
     background: rgba(0, 0, 0, 0.1);
-    border-right: 1px solid var(--border-color); /* Aggiunto per separare avatar da info */
+    border-right: 1px solid var(--border-color);
 }
 
 .hex-border {
@@ -158,7 +155,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    filter: drop-shadow(0 0 10px rgba(88, 166, 255, 0.3));
+    filter: drop-shadow(0 0 10px rgba(var(--accent-rgb), 0.3));
 }
 
 .hex-fill {
@@ -177,7 +174,6 @@
 }
 
 /* SS ########## Altre Informazioni ########## */
-
 .stats-footer {
     height: 35%;
     border-top: 1px solid var(--border-color);
@@ -209,26 +205,24 @@
 }
 
 /* SS ########## Animazioni & Feedback ########## */
-
 .pulse-dot {
     width: 7px;
     height: 7px;
-    background-color: #23d160;
+    background-color: var(--success-color);
     border-radius: 50%;
     animation: simple-pulse 2s infinite;
 }
 
 @keyframes simple-pulse {
     0% {
-        box-shadow: 0 0 0 0px rgba(35, 209, 96, 0.6);
+        box-shadow: 0 0 0 0px rgba(var(--success-rgb), 0.6);
     }
     100% {
-        box-shadow: 0 0 0 8px rgba(35, 209, 96, 0);
+        box-shadow: 0 0 0 8px rgba(var(--success-rgb), 0);
     }
 }
 
 /* SS ########## Table Data ########## */
-
 .custom-card {
     display: flex;
     flex-direction: column;
@@ -253,14 +247,13 @@
     text-align: left;
 }
 
-/* Fix Intestazione Fissa */
 #certifiedDocumentsTable thead th {
     position: sticky;
     top: 0;
-    background-color: #161b22 !important;
+    background-color: var(--card-bg) !important;
     z-index: 10;
     box-shadow:
-        inset 0 -1px 0 #30363d,
+        inset 0 -1px 0 var(--border-color),
         inset 0 -2px 0 var(--accent-color);
     border-top: none;
     text-transform: uppercase;
@@ -271,80 +264,78 @@
 }
 
 #certifiedDocumentsTable .text-muted {
-    color: #a1aab5 !important;
+    color: var(--text-muted) !important;
     opacity: 0.9;
 }
 
-/* Scrollbar Tabella */
 #tableData::-webkit-scrollbar {
     width: 6px;
 }
 #tableData::-webkit-scrollbar-track {
-    background: #0d1117;
+    background: var(--bg-dark);
 }
 #tableData::-webkit-scrollbar-thumb {
-    background: #30363d;
+    background: var(--border-color);
     border-radius: 10px;
 }
 
 /* SS ########## Table Badges, Buttons E Links ########## */
 
-/* Verde: Certificato (Con Icona) */
+/* Verde: Certificato */
 .verifiedBadge {
-    background-color: rgba(35, 209, 96, 0.1) !important;
-    color: #23d160 !important;
-    border: 1px solid rgba(35, 209, 96, 0.5) !important;
+    background-color: rgba(var(--success-rgb), 0.1) !important;
+    color: var(--success-color) !important;
+    border: 1px solid rgba(var(--success-rgb), 0.5) !important;
 }
 
-/* Giallo: Invio (Con Icona) */
+/* Giallo: Invio/Pending */
 .pendingBadge {
-    background-color: rgba(255, 193, 7, 0.1) !important;
-    color: #ffc107 !important;
-    border: 1px solid rgba(255, 193, 7, 0.5) !important;
+    background-color: rgba(var(--yellow-rgb), 0.1) !important;
+    color: var(--yellow-color) !important;
+    border: 1px solid rgba(var(--yellow-rgb), 0.5) !important;
 }
 
-/* Grigio: Attesa Generica (Senza Icona) */
+/* Grigio: Neutral */
 .neutralBadge {
-    background-color: rgba(139, 148, 158, 0.1) !important;
-    color: #8b949e !important;
-    border: 1px solid rgba(139, 148, 158, 0.5) !important;
+    background-color: rgba(var(--neutral-rgb), 0.1) !important;
+    color: var(--neutral-color) !important;
+    border: 1px solid rgba(var(--neutral-rgb), 0.5) !important;
 }
 
-/* Rosso: Fallito (Con Icona) */
+/* Rosso: Fallito */
 .failedBadge {
-    background-color: rgba(248, 81, 73, 0.1) !important;
-    color: #f85149 !important;
-    border: 1px solid rgba(248, 81, 73, 0.5) !important;
+    background-color: rgba(var(--danger-rgb), 0.1) !important;
+    color: var(--danger-color) !important;
+    border: 1px solid rgba(var(--danger-rgb), 0.5) !important;
 }
 
-/* Rosso: Revocato (Senza Icona) */
+/* Rosso: Revocato */
 .revokedBadge {
-    background-color: rgba(248, 81, 73, 0.05) !important;
-    color: rgba(248, 81, 73, 0.7) !important;
-    border: 1px solid rgba(248, 81, 73, 0.3) !important;
+    background-color: rgba(var(--danger-rgb), 0.05) !important;
+    color: rgba(var(--danger-rgb), 0.7) !important;
+    border: 1px solid rgba(var(--danger-rgb), 0.3) !important;
 }
 
 .textRevoked {
     text-decoration: line-through;
-    text-decoration-color: rgba(248, 81, 73, 0.8);
+    text-decoration-color: rgba(var(--danger-rgb), 0.8);
     opacity: 0.6;
 }
 
-/* Etichetta "Revocato Il:" */
 .revokedLabel {
     font-size: 0.6rem;
     text-transform: uppercase;
     font-weight: 700;
-    color: #f85149; /* Rosso */
+    color: var(--danger-color);
     display: block;
     margin-bottom: -2px;
 }
 
-/* Bottone Revoca (Rosso) */
+/* Bottone Revoca */
 .revokeButton {
-    background: rgba(248, 81, 73, 0.05);
-    border: 1px solid #f85149;
-    color: #f85149;
+    background: rgba(var(--danger-rgb), 0.05);
+    border: 1px solid var(--danger-color);
+    color: var(--danger-color);
     font-size: 0.7rem;
     font-weight: 600;
     padding: 4px 12px;
@@ -357,12 +348,11 @@
 }
 
 .revokeButton:hover {
-    background: #f85149;
-    color: #ffffff !important;
-    box-shadow: 0 4px 12px rgba(248, 81, 73, 0.3);
+    background: var(--danger-color);
+    color: var(--white) !important;
+    box-shadow: 0 4px 12px rgba(var(--danger-rgb), 0.3);
 }
 
-/* Bottone Processing (Disabilitato) */
 .processingButton {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--border-color);
@@ -375,11 +365,11 @@
     font-weight: 500;
 }
 
-/* Bottone Riprova (Giallo/Arancione per differenziarlo da Revoca) */
+/* Bottone Riprova (Yellow/Orange) */
 .retryButton {
-    background: rgba(255, 193, 7, 0.05);
-    border: 1px solid #ffc107;
-    color: #ffc107;
+    background: rgba(var(--yellow-rgb), 0.05);
+    border: 1px solid var(--yellow-color);
+    color: var(--yellow-color);
     font-size: 0.7rem;
     font-weight: 600;
     padding: 4px 12px;
@@ -392,16 +382,15 @@
 }
 
 .retryButton:hover {
-    background: #ffc107;
-    color: #0d1117 !important;
-    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+    background: var(--yellow-color);
+    color: var(--bg-dark) !important;
+    box-shadow: 0 4px 12px rgba(var(--yellow-rgb), 0.3);
 }
 
-/* Bottone Copia Hash */
 .copyHashButton {
     background: transparent;
-    border: 1px solid transparent; /* Predispone il bordo per evitare salti */
-    color: #8b949e; /* Colore spento di default */
+    border: 1px solid transparent;
+    color: var(--neutral-color);
     font-size: 0.8rem;
     cursor: pointer;
     padding: 4px;
@@ -415,7 +404,7 @@
 }
 
 .copyHashButton:hover {
-    color: #ffffff;
+    color: var(--white);
     background: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.2);
 }
@@ -424,15 +413,14 @@
     transform: scale(0.95);
 }
 
-/* Transaction Hash */
-
+/* Transaction Links */
 .txLink {
     display: inline-flex;
     align-items: center;
-    background: rgba(88, 166, 255, 0.08);
-    border: 1px solid rgba(88, 166, 255, 0.2);
-    color: #58a6ff;
-    font-family: "SFMono-Regular", Consolas, monospace;
+    background: rgba(var(--accent-rgb), 0.08);
+    border: 1px solid rgba(var(--accent-rgb), 0.2);
+    color: var(--accent-color);
+    font-family: var(--font-mono);
     font-size: 0.7rem;
     padding: 4px 10px;
     border-radius: 20px;
@@ -441,21 +429,20 @@
 }
 
 .txLink:hover {
-    background: rgba(88, 166, 255, 0.2);
-    color: #ffffff;
-    box-shadow: 0 0 8px rgba(88, 166, 255, 0.3);
-    border-color: #58a6ff;
+    background: rgba(var(--accent-rgb), 0.2);
+    color: var(--white);
+    box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.3);
+    border-color: var(--accent-color);
     transform: translateY(-1px);
 }
 
-/* Variante Rossa per il Link di Etherscan */
 .txLinkRevoked {
     display: inline-flex;
     align-items: center;
-    background: rgba(248, 81, 73, 0.08); /* Sfondo rosso tenue */
-    border: 1px solid rgba(248, 81, 73, 0.2);
-    color: #f85149;
-    font-family: "SFMono-Regular", Consolas, monospace;
+    background: rgba(var(--danger-rgb), 0.08);
+    border: 1px solid rgba(var(--danger-rgb), 0.2);
+    color: var(--danger-color);
+    font-family: var(--font-mono);
     font-size: 0.7rem;
     padding: 4px 10px;
     border-radius: 20px;
@@ -464,18 +451,17 @@
 }
 
 .txLinkRevoked:hover {
-    background: rgba(248, 81, 73, 0.2);
-    color: #ffffff;
-    border-color: #f85149;
-    box-shadow: 0 0 8px rgba(248, 81, 73, 0.3);
+    background: rgba(var(--danger-rgb), 0.2);
+    color: var(--white);
+    border-color: var(--danger-color);
+    box-shadow: 0 0 8px rgba(var(--danger-rgb), 0.3);
 }
 
-/* Hash SHA 256 Documento */
 .documentHash {
-    background-color: #0d1117;
-    border: 1px solid rgba(48, 54, 61, 0.7);
-    color: #e6edf3;
-    font-family: "SFMono-Regular", "Liberation Mono", monospace;
+    background-color: var(--bg-dark);
+    border: 1px solid rgba(var(--border-color), 0.7); /* Se border è hex, ok, altrimenti var(--border-color) */
+    color: var(--text-header);
+    font-family: var(--font-mono);
     font-size: 0.75rem;
     padding: 4px 8px;
     border-radius: 6px;
@@ -484,10 +470,10 @@
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
-/* SS ########## Sezione Utente Senza Identità ########## */
+/* SS ########## Vantage Card ########## */
 .vantageCard {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(88, 166, 255, 0.1);
+    background: var(--separator-light);
+    border: 1px solid rgba(var(--accent-rgb), 0.1);
     border-radius: 16px;
     padding: 1.5rem 1rem;
     text-align: center;
@@ -497,13 +483,12 @@
 }
 
 .vantageCard:hover {
-    background: rgba(88, 166, 255, 0.06);
-    border-color: rgba(88, 166, 255, 0.4);
+    background: rgba(var(--accent-rgb), 0.06);
+    border-color: rgba(var(--accent-rgb), 0.4);
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* Effetto bagliore interno al passaggio del mouse */
 .vantageCard::before {
     content: "";
     position: absolute;
@@ -511,7 +496,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center, rgba(88, 166, 255, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle at center, rgba(var(--accent-rgb), 0.1) 0%, transparent 70%);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -520,12 +505,11 @@
     opacity: 1;
 }
 
-/* Icona stilizzata */
 .advantage-icon {
     width: 50px;
     height: 50px;
-    background: rgba(88, 166, 255, 0.1);
-    color: #58a6ff;
+    background: rgba(var(--accent-rgb), 0.1);
+    color: var(--accent-color);
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -536,13 +520,12 @@
 }
 
 .vantageCard:hover .advantage-icon {
-    background: #58a6ff;
+    background: var(--accent-color);
     color: #fff;
     transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(88, 166, 255, 0.5);
+    box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.5);
 }
 
-/* Testi nelle card */
 .vantageCard h6 {
     font-size: 0.9rem;
     font-weight: 700;
@@ -570,9 +553,37 @@
     animation: pulse-opacity 2s infinite ease-in-out;
 }
 
-/* Nascondere il loader con una transizione fluida */
 #mainLoader.fade-out {
     opacity: 0;
     transition: opacity 0.5s ease;
     pointer-events: none;
+}
+
+/* SS ############### TOAST NOTIFICA COPIA ############### */
+.copyToast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: var(--toast-bg-success);
+    color: var(--white);
+    text-align: center;
+    border-radius: 8px;
+    padding: 12px;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    opacity: 0;
+    transition:
+        opacity 0.3s,
+        bottom 0.3s;
+}
+
+.copyToast.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 50px;
 }

@@ -93,11 +93,13 @@
 
                                         <!-- NN Hash Documento -->
                                         <div id="fileInfo" class="p-3 rounded bg-dark border border-secondary border-opacity-25" style="display: none">
-                                            <label class="smallest text-muted text-uppercase fw-bold mb-2 d-block">Impronta Digitale (Hash)</label>
-                                            <code id="fileHash" class="text-primary small"></code>
-                                            <button type="button" id="copyBtn" class="btn btn-link text-muted p-0 ms-2">
-                                                <i class="bi bi-copy"></i>
-                                            </button>
+                                            <label class="smallest text-muted text-uppercase fw-bold mb-2 d-block">Hash SHA-256 Calcolato</label>
+                                            <div class="d-flex align-items-center justify-content-between bg-black bg-opacity-40 p-2 rounded">
+                                                <code id="fileHash" class="text-success small"></code>
+                                                <button type="button" id="copyAddressBtn" class="btn btn-link text-muted p-0 ms-2">
+                                                    <i class="bi bi-copy"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -173,6 +175,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div id="copyToast" class="copyToast">
+                    <i class="bi bi-check-circle me-2"></i>
+                    Hash Copiato!
                 </div>
             </main>
         </div>

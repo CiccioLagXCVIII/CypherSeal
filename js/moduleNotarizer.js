@@ -132,11 +132,8 @@ export const Notarizer = {
 
     resetInterface() {
         const fileInput = document.getElementById("fileInput");
-        // MODIFICATO: file-info -> fileInfo
         const fileInfo = document.getElementById("fileInfo");
-        // MODIFICATO: upload-state -> uploadState
         const uploadState = document.getElementById("uploadState");
-        // MODIFICATO: success-state -> successState
         const successState = document.getElementById("successState");
         const fileNameDisplay = document.getElementById("fileName");
         const dropZone = document.getElementById("dropZone");
@@ -156,9 +153,7 @@ export const Notarizer = {
 
         // Rimozione Classi Drop Zone
         if (dropZone) {
-            // MODIFICATO: drag-over -> dragOver
             dropZone.classList.remove("dragOver");
-            // MODIFICATO: file-loaded -> fileLoaded
             dropZone.classList.remove("fileLoaded");
         }
 
@@ -174,7 +169,7 @@ export const Notarizer = {
         // Elemento Dove Mostrare L'Hash Calcolato
         const fileHashDisplay = document.getElementById("fileHash");
         // Pulsante Per Copiare L'Hash Negli Appunti
-        const copyBtn = document.getElementById("copyBtn");
+        const copyBtn = document.getElementById("copyAddressBtn");
 
         // Logica Di Copia Negli Appunti E Notifiche
         if (copyBtn) {
@@ -197,7 +192,6 @@ export const Notarizer = {
         }
     },
 
-    // Da aggiungere dentro l'oggetto Notarizer
     renderIdentityStatus() {
         const sbtBadge = document.getElementById('certifiedIdBadge');
         const walletShortDisplay = document.getElementById('walletShort');
@@ -245,7 +239,6 @@ export const Notarizer = {
 
     // Funzione Per Gestire La Notarizzazione Del File
     handleNotarization() {
-        // MODIFICATO: notarization-form -> notarizationForm
         const notarizationForm = document.getElementById("notarizationForm");
 
         if (notarizationForm) {

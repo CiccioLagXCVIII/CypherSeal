@@ -1,33 +1,28 @@
 /* certifica.css */
 
 /* SS ############### LAYOUT E CONTENITORI PRINCIPALI ############### */
-
-/* Stile Base Card per i pannelli principali */
 #notarizationForm,
 #detailsPanel,
 #infoPanel {
-    background-color: rgba(22, 27, 34, 0.95);
+    background-color: var(--card-bg-translucent);
     border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 1.5rem;
     height: 100%;
     width: 100%;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-strong);
 }
 
-/* Helper per spaziatura interna delle colonne nella dashboard */
 #certificaDashboard .col-8,
 #certificaDashboard .col-4 {
     padding: 0.5rem;
 }
 
-/* Contenitore principale del Form di Notarizzazione */
 #notarizationForm {
     height: 100%;
     width: 100%;
 }
 
-/* Layout flessibile per il form */
 #notarizationForm form {
     display: flex;
     flex-direction: column;
@@ -36,16 +31,13 @@
 }
 
 /* SS ############### PANNELLO LOG (TERMINALE) ############### */
-
-/* Contenitore del pannello di log stile terminale */
 #infoPanel {
-    font-family: "Consolas", "Monaco", "Courier New", monospace;
+    font-family: var(--font-mono);
     overflow-y: auto;
     display: flex;
     flex-direction: column;
 }
 
-/* Stile dei paragrafi all'interno del terminale */
 #infoPanel p {
     margin-bottom: 0.5rem;
     font-size: 0.85rem;
@@ -54,7 +46,6 @@
     animation: slideInLog 0.3s ease-out forwards;
 }
 
-/* Animazione di entrata per le righe di log */
 @keyframes slideInLog {
     from {
         opacity: 0;
@@ -66,57 +57,43 @@
     }
 }
 
-/* Testo secondario (grigio) nel terminale */
 #infoPanel .text-muted {
-    color: #8b949e !important;
+    color: var(--neutral-color) !important;
 }
 
-/* Testo di successo (verde) con effetto glow nel terminale */
 #infoPanel .text-success {
-    color: #2ea043 !important;
-    text-shadow: 0 0 10px rgba(46, 160, 67, 0.2);
+    color: var(--console-green) !important;
+    text-shadow: 0 0 10px rgba(var(--console-green-rgb), 0.2);
 }
 
-/* Testo di avviso (arancione) nel terminale */
 #infoPanel .text-warning {
-    color: #d29922 !important;
+    color: var(--warning-color) !important;
 }
 
-/* Testo di errore (rosso) nel terminale */
 #infoPanel .text-danger {
-    color: #f85149 !important;
+    color: var(--danger-color) !important;
 }
 
-/* Divisori o bordi all'interno del terminale */
 #infoPanel .border-secondary {
-    border-color: #30363d !important;
+    border-color: var(--border-color) !important;
     opacity: 0.5;
 }
 
-/* Barra di scorrimento del terminale (larghezza) */
 #infoPanel::-webkit-scrollbar {
     width: 6px;
 }
-
-/* Traccia della barra di scorrimento */
 #infoPanel::-webkit-scrollbar-track {
     background: transparent;
 }
-
-/* Cursore della barra di scorrimento */
 #infoPanel::-webkit-scrollbar-thumb {
     background-color: var(--border-color);
     border-radius: 4px;
 }
-
-/* Stato Hover sul cursore della barra di scorrimento */
 #infoPanel::-webkit-scrollbar-thumb:hover {
     background-color: var(--accent-color);
 }
 
 /* SS ############### AREA UPLOAD (DRAG & DROP) ############### */
-
-/* Contenitore principale Area di Upload */
 .uploadArea {
     display: flex;
     flex-direction: column;
@@ -125,8 +102,8 @@
     flex: 1;
     width: 100%;
     min-height: 0;
-    border: 2px dashed #30363d;
-    background-color: #0d1117;
+    border: 2px dashed var(--border-color);
+    background-color: var(--bg-dark);
     border-radius: 16px;
     padding: 20px;
     transition: all 0.3s ease;
@@ -134,25 +111,22 @@
     position: relative;
 }
 
-/* Stati Hover e DragOver dell'area upload */
 .uploadArea:hover,
 .uploadArea.dragOver {
     border-color: var(--accent-color);
-    background-color: rgba(88, 166, 255, 0.08);
-    box-shadow: 0 0 15px rgba(88, 166, 255, 0.1);
+    background-color: rgba(var(--accent-rgb), 0.08);
+    box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.1);
     transform: scale(1.005);
 }
 
-/* Stile dell'area quando un file è stato caricato correttamente */
 .uploadArea.fileLoaded {
-    border-color: var(--success-color, #23d160);
+    border-color: var(--success-color);
     border-style: solid;
-    background-color: rgba(35, 209, 96, 0.05);
+    background-color: rgba(var(--success-rgb), 0.05);
     cursor: default;
     box-shadow: none;
 }
 
-/* Contenitore dello stato iniziale (In attesa di file) */
 #uploadState {
     display: flex;
     flex-direction: column;
@@ -161,7 +135,6 @@
     width: 100%;
 }
 
-/* Icona principale nello stato di upload */
 #uploadState i {
     font-size: 3.5rem;
     margin-bottom: 1rem;
@@ -169,20 +142,17 @@
     opacity: 0.9;
 }
 
-/* Titoli all'interno dell'area upload */
 .uploadArea h5 {
     margin-bottom: 0.5rem;
     font-weight: 600;
 }
 
-/* Contenitore dello stato di successo */
 #successState {
     animation: fadeIn 0.4s ease-in-out;
     width: 100%;
     text-align: center;
 }
 
-/* Animazione Fade In per lo stato di successo */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -195,69 +165,56 @@
 }
 
 /* SS ############### VISUALIZZAZIONE HASH E AZIONI ############### */
-
-/* Box contenitore del risultato Hash */
 #fileInfo {
-    background-color: #0d1117 !important;
-    border: 1px solid #30363d !important;
+    background-color: var(--bg-dark) !important;
+    border: 1px solid var(--border-color) !important;
     border-radius: 8px;
     flex-shrink: 0;
     width: 100%;
 }
 
-/* Stile del testo dell'Hash (Monospace e Verde) */
 #fileInfo code {
-    color: #3fb950;
-    font-family: "Courier New", monospace;
+    color: var(--console-green);
+    font-family: var(--font-mono);
     font-size: 0.85rem;
     letter-spacing: 0.5px;
     word-break: break-all;
 }
 
-/* Pulsante Copia Hash */
-#copyBtn {
-    /* SS Dimensioni fisse per creare un quadrato */
+#copyAddressBtn {
     width: 36px;
     height: 36px;
     padding: 0;
-
-    /* SS Centratura perfetta dell'icona */
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
-    /* Stile Visivo */
-    color: #8b949e;
+    color: var(--neutral-color);
     border-radius: 8px;
     border: 1px solid transparent;
     transition: all 0.2s ease;
     font-size: 1.1rem;
 }
 
-/* Stato Hover del Pulsante Copia */
-#copyBtn:hover {
-    color: #ffffff;
+#copyAddressBtn:hover {
+    color: var(--white);
     background-color: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.2);
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
 }
 
-/* Stato Active (Click) Pulsante Copia */
-#copyBtn:active {
-    transform: scale(0.92); /* Effetto pressione */
+#copyAddressBtn:active {
+    transform: scale(0.92);
     background-color: rgba(255, 255, 255, 0.15);
 }
 
-/* Contenitore Pulsante Azione Principale */
 .ctaContainer {
     flex-shrink: 0;
     width: 100%;
     margin-top: auto;
 }
 
-/* Stile del bottone principale (Notarizza) */
 .ctaButton {
-    background: linear-gradient(135deg, var(--accent-color) 0%, #1f6feb 100%);
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-color-dark) 100%);
     border: none;
     font-weight: 700;
     letter-spacing: 1px;
@@ -265,73 +222,63 @@
     padding: 1rem 0;
     border-radius: 8px;
     width: 100%;
-    color: white;
+    color: var(--white);
 }
 
 /* SS ############### PANNELLO DETTAGLI E RIEPILOGO ############### */
-
-/* Layout Flex verticale per il pannello dettagli */
 #detailsPanel {
     display: flex;
     flex-direction: column;
 }
 
-/* Contenitore della lista di riepilogo */
 .summaryList {
     flex-grow: 1;
 }
 
-/* Singola riga della lista di riepilogo */
 .summaryItem {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 14px 0;
-    border-bottom: 1px solid rgba(48, 54, 61, 0.6);
+    border-bottom: 1px solid var(--separator-strong);
 }
 
-/* Rimuove il bordo dall'ultimo elemento della lista */
 .summaryItem:last-of-type {
     border-bottom: none;
 }
 
-/* Etichetta (Label) nella lista di riepilogo */
 .summaryLabel {
-    color: #8b949e;
+    color: var(--neutral-color);
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-weight: 600;
 }
 
-/* Valore nella lista di riepilogo */
 .summaryValue {
-    color: #e6edf3;
+    color: var(--text-header);
     font-weight: 500;
     font-size: 0.9rem;
     text-align: right;
-    font-family: "Segoe UI", sans-serif;
+    font-family: var(--font-main);
     max-width: 150px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* Badge Identità SBT in fondo al pannello */
 #certifiedIdBadge {
-    background: rgba(56, 139, 253, 0.1) !important;
-    border: 1px solid rgba(56, 139, 253, 0.4) !important;
+    background: rgba(var(--accent-rgb), 0.1) !important;
+    border: 1px solid rgba(var(--accent-rgb), 0.4) !important;
     margin-top: auto;
 }
 
 /* SS ############### TOAST NOTIFICA COPIA ############### */
-
-/* Stile Base del Toast di notifica */
 .copyToast {
     visibility: hidden;
     min-width: 250px;
-    background-color: #238636;
-    color: #fff;
+    background-color: var(--toast-bg-success);
+    color: var(--white);
     text-align: center;
     border-radius: 8px;
     padding: 12px;
@@ -341,16 +288,14 @@
     bottom: 30px;
     transform: translateX(-50%);
     font-size: 0.9rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-soft);
     border: 1px solid rgba(255, 255, 255, 0.2);
-
     opacity: 0;
     transition:
         opacity 0.3s,
         bottom 0.3s;
 }
 
-/* Classe attiva per mostrare il Toast */
 .copyToast.show {
     visibility: visible;
     opacity: 1;

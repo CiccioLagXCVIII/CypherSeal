@@ -5,8 +5,11 @@
 ![Project Status](https://img.shields.io/badge/Status-Prototype-blue)
 ![Network](https://img.shields.io/badge/Network-Sepolia_Testnet-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
+![Tech](https://img.shields.io/badge/Tech-ES6%20Modules%20%7C%20Bootstrap%205-yellow)
 
-**VerifyData** è una Decentralized Application (DApp) che sfrutta la blockchain di Ethereum e i **Soulbound Tokens (SBT)** per garantire l'autenticità e l'integrità dei documenti digitali. A differenza dei sistemi tradizionali, offre una soluzione **Privacy-by-Design** dove i file non lasciano mai il dispositivo dell'utente.
+**VerifyData** è una Decentralized Application (DApp) di nuova generazione progettata per garantire l'autenticità e l'integrità dei documenti digitali.
+
+A differenza dei servizi tradizionali di timestamping, VerifyData introduce il paradigma della **Self-Sovereign Identity (SSI)**: l'identità del firmatario è garantita da un **Soulbound Token (SBT)** (Standard EIP-5192), creando un legame indissolubile e verificabile tra il documento e la reputazione digitale dell'autore.
 
 ---
 
@@ -14,62 +17,65 @@
 
 - [🛡️ VerifyData: Notarizzazione Digitale \& Self-Sovereign Identity](#️-verifydata-notarizzazione-digitale--self-sovereign-identity)
   - [📑 Indice](#-indice)
-  - [💡 Introduzione](#-introduzione)
-  - [🚀 Funzionalità Chiave](#-funzionalità-chiave)
-  - [🔒 Architettura e Sicurezza](#-architettura-e-sicurezza)
-    - [Privacy-by-Design](#privacy-by-design)
-    - [Self-Sovereign Identity (SSI)](#self-sovereign-identity-ssi)
+  - [💡 Value Proposition](#-value-proposition)
+  - [🔒 Architettura di Sicurezza](#-architettura-di-sicurezza)
+    - [1. Privacy-by-Design (Hashing Locale)](#1-privacy-by-design-hashing-locale)
+    - [2. Identity Gating (SBT)](#2-identity-gating-sbt)
   - [🛠 Stack Tecnologico](#-stack-tecnologico)
   - [📂 Struttura del Progetto](#-struttura-del-progetto)
   - [⚡ Installazione e Avvio](#-installazione-e-avvio)
     - [Prerequisiti](#prerequisiti)
     - [Passaggi](#passaggi)
-  - [📖 Workflow Utente](#-workflow-utente)
-  - [🚧 Mocking e Integrazione Backend](#-mocking-e-integrazione-backend)
+  - [📖 Guida all'Uso](#-guida-alluso)
+  - [⚠️ Nota sul Mocking (Simulazione)](#️-nota-sul-mocking-simulazione)
   - [👤 Autore](#-autore)
 
 ---
 
-## 💡 Introduzione
+## 💡 Value Proposition
 
-VerifyData democratizza l'accesso alla notarizzazione digitale. Il sistema calcola l'impronta digitale (Hash SHA-256) di un file localmente e la registra sulla blockchain. L'identità dell'autore è garantita da un profilo **SSI (Self-Sovereign Identity)** legato a un token non trasferibile (SBT), rendendo la certificazione professionale e tracciabile.
-
-## 🚀 Funzionalità Chiave
-
-*   **Proof of Integrity:** Garanzia matematica che il documento non è stato alterato (SHA-256).
-*   **Proof of Existence:** Timestamp immutabile garantito dal blocco Ethereum.
-*   **Identity Badge (SBT):** L'autore è verificato tramite standard EIP-5192 (Soulbound Token).
-*   **Privacy Assoluta:** Il documento originale non viene mai caricato su server o IPFS.
-*   **Verifica Permissionless:** Portale pubblico per verificare documenti di terze parti.
-*   **Gestione Stato:** Possibilità di marcare un documento come "Revocato" (senza cancellarlo dalla history).
+- **Proof of Integrity:** Garanzia matematica che il file non è stato alterato (nemmeno di un bit).
+- **Proof of Existence:** Prova temporale certa e immutabile su registro distribuito.
+- **Anti-Spam Identity:** Solo gli utenti con un profilo verificato (SBT) possono notarizzare, elevando la qualità del registro.
+- **Verifica Pubblica:** Chiunque può verificare un documento trascinandolo nel browser, senza intermediari.
+- **Revoca Logica:** Possibilità per l'autore di invalidare un documento obsoleto mantenendo la trasparenza storica.
 
 ---
 
-## 🔒 Architettura e Sicurezza
+## 🔒 Architettura di Sicurezza
 
-### Privacy-by-Design
-L'applicazione utilizza la **Web Crypto API** del browser. Il processo di hashing avviene client-side:
-1.  L'utente seleziona il file.
-2.  Il browser calcola l'hash `SHA-256`.
-3.  Solo la stringa alfanumerica (hash) viene inviata allo Smart Contract.
-4.  **GDPR Compliant:** Nessun dato sensibile lascia il dispositivo.
+### 1. Privacy-by-Design (Hashing Locale)
 
-### Self-Sovereign Identity (SSI)
-L'accesso alle funzioni di scrittura è protetto. Solo i wallet che hanno effettuato il "Minting" del Badge SBT possono certificare documenti, prevenendo lo spam e garantendo l'autorevolezza della fonte.
+Il sistema utilizza la **Web Crypto API** nativa del browser.
+
+1. L'utente seleziona il file.
+2. Il browser calcola l'hash `SHA-256` in locale.
+3. **Il documento originale non lascia mai il dispositivo.**
+4. Solo l'impronta digitale (stringa esadecimale) viene inviata alla blockchain.
+
+*Questo approccio rende la DApp intrinsecamente conforme al **GDPR**.*
+
+### 2. Identity Gating (SBT)
+
+L'accesso alla funzione di scrittura è protetto. Lo Smart Contract (simulato) verifica che l'indirizzo mittente possieda un "Identity Badge".
+- **Senza Badge:** Utente anonimo → Accesso sola lettura.
+- **Con Badge:** Identità Sovrana → Accesso scrittura/notarizzazione.
 
 ---
 
 ## 🛠 Stack Tecnologico
 
-*   **Frontend:** HTML5, CSS3, JavaScript (ES Modules).
-*   **UI Framework:** Bootstrap 5 & Bootstrap Icons.
-*   **Blockchain Integration:** Ethers.js (Simulazione Mock nel prototipo).
-*   **Cryptography:** Native SubtleCrypto API.
-*   **Network:** Ethereum Sepolia Testnet (Target).
+- **Frontend Core:** HTML5, CSS3 (Custom Properties), JavaScript (ES Modules).
+- **UI Framework:** Bootstrap 5 & Bootstrap Icons.
+- **Crittografia:** Native `crypto.subtle` API.
+- **Web3 Integration:** Logica predisposta per *Ethers.js*.
+- **Storage:** `localStorage` (per persistenza sessione nel prototipo).
 
 ---
 
 ## 📂 Struttura del Progetto
+
+Il progetto adotta un'architettura modulare basata su **ES Modules**:
 
 ```text
 VerifyData/
@@ -105,45 +111,64 @@ VerifyData/
 
 ## ⚡ Installazione e Avvio
 
-Poiché il progetto utilizza **ES Modules** (`import/export`), non è possibile aprire i file HTML direttamente dal file system (errore CORS). È necessario un server HTTP locale.
+Poiché il progetto utilizza **moduli JavaScript** (`import/export`), i browser bloccheranno l'esecuzione se i file vengono aperti direttamente dal file system (Policy CORS). **È necessario un server HTTP locale.**
 
 ### Prerequisiti
-*   Un browser moderno (Chrome, Firefox, Brave).
-*   Estensione Wallet **MetaMask** installata.
-*   VS Code (Consigliato).
+
+* Un browser moderno (Chrome, Firefox, Brave).
+- Estensione **MetaMask** installata (opzionale per la UI, consigliata per l'UX reale).
+- **VS Code** (Consigliato) o Python/Node installati.
 
 ### Passaggi
 
-1.  **Clona o Scarica** la repository.
-2.  Apri la cartella del progetto nel tuo editor.
-3.  **Avvia un Server Locale**:
-    *   *Opzione A (VS Code):* Installa l'estensione "Live Server", clicca col tasto destro su `index.html` e seleziona "Open with Live Server".
-    *   *Opzione B (Python):* Apri il terminale nella cartella e digita:
+1. **Clona la repository:**
+
+    ```bash
+    git clone https://github.com/TuoUsername/verifydata.git
+    cd verifydata
+    ```
+
+2. **Avvia il Server Locale:**
+    - **Metodo A (VS Code):** Installa l'estensione *"Live Server"*, clicca col tasto destro su `index.html` e seleziona *"Open with Live Server"*.
+    - **Metodo B (Python):**
+
         ```bash
         python -m http.server 8000
         ```
-    *   *Opzione C (Node):* Usa `http-server` o simili.
-4.  Visita `http://localhost:8000/index.html`.
+
+    - **Metodo C (Node.js):**
+
+        ```bash
+        npx http-server .
+        ```
+
+3. Visita **`http://localhost:8000`** nel browser.
 
 ---
 
-## 📖 Workflow Utente
+## 📖 Guida all'Uso
 
-1.  **Connessione:** Clicca su "Connetti Wallet" in alto a destra. Segui il tutorial per configurare MetaMask su rete Sepolia.
-2.  **Identità:** Se è il primo accesso, verrai reindirizzato al minting del tuo **Identity Badge (SBT)** nella pagina Profilo.
-3.  **Certifica:** Vai su "Certifica Documento". Trascina un file PDF/JPG. Attendi il calcolo dell'hash e conferma la transazione (simulata).
-4.  **Gestione:** Nella pagina Profilo, visualizza la tabella dei tuoi documenti. Puoi copiare l'hash o revocare un documento obsoleto.
-5.  **Verifica:** Chiunque (anche senza login) può andare su "Verifica Pubblica", caricare un file e controllare se l'hash esiste sulla blockchain e chi lo ha firmato.
+1. **Connessione:** Clicca su "Connetti Wallet". La DApp simulerà la connessione a MetaMask.
+2. **Identità (SBT):** Al primo accesso, la Dashboard ti chiederà di effettuare il "Minting" del tuo Badge SBT. Clicca per attivare il profilo (simulazione transazione).
+3. **Certifica:**
+    - Vai su "Certifica Documento".
+    - Trascina un file (PDF, Immagine, ecc.).
+    - Osserva il calcolo dell'Hash in tempo reale.
+    - Clicca "Notarizza" per scrivere sulla blockchain (simulata).
+4. **Verifica:**
+    - Vai su "Verifica Pubblica".
+    - Carica lo stesso file: il sistema ti confermerà l'autenticità.
+    - Prova a modificare il file originale (anche cambiando una lettera) e ricaricalo: la verifica fallirà (Hash Mismatch).
 
 ---
 
-## 🚧 Mocking e Integrazione Backend
+## ⚠️ Nota sul Mocking (Simulazione)
 
-Attualmente, il file `js/moduleBlockchain.js` agisce come un **Mock Service Layer**. Simula le risposte della blockchain (latenza, conferma transazioni, lettura dati) per permettere il test completo dell'interfaccia utente senza spendere Gas reale.
+Attualmente, il file **`js/moduleBlockchain.js`** agisce come un **Mock Service Layer**.
 
-**Per passare in produzione:**
-1.  Deployare lo Smart Contract Solidity su Sepolia.
-2.  In `moduleBlockchain.js`, sostituire i dati statici con chiamate reali tramite `Ethers.js` o `Web3.js` verso l'indirizzo del contratto deployato.
+- **Cosa significa?** Le chiamate non vengono realmente inviate alla Testnet Sepolia per evitare costi di Gas e complessità di configurazione durante la fase di revisione dell'interfaccia.
+- **Come funziona?** Il modulo simula latenze di rete (`setTimeout`), transazioni pendenti e restituisce dati fittizi coerenti (es. se l'hash finisce con un numero è "Valido", se finisce con una lettera è "Revocato").
+- **Produzione:** Per passare in produzione, è sufficiente sostituire il contenuto di `moduleBlockchain.js` con le chiamate reali `ethers.Contract(...)`.
 
 ---
 
@@ -151,8 +176,4 @@ Attualmente, il file `js/moduleBlockchain.js` agisce come un **Mock Service Laye
 
 **Francesco Lo Verde**
 Università degli Studi di Perugia
-*Data Security Project*
-
----
-
-**Disclaimer:** *Questo software è un prototipo a scopo dimostrativo/accademico. Le chiavi private e la sicurezza reale dipendono dalla configurazione del wallet dell'utente e dallo Smart Contract sottostante.*
+*Progetto di Data Security & Blockchain Forensics*

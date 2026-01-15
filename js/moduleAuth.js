@@ -11,38 +11,34 @@ export const Auth = {
 
     // Funzione Che Gestisce La Connessione Al Wallet MetaMask
     async checkWallet() {
-        // Recupera Elemento Del Pulsante Per La Connessione Al Wallet
-        const connectWalletBtn = document.getElementById('connectWalletBtn');
+        // Non serve Recuperare Il Bottone Qui, Lo Faccio In App.js
+        if (Blockchain.isProviderAvailable()) {
+            try {
+                // Richiede L'Accesso Agli Account Del Wallet
+                const accounts = await Blockchain.requestAccounts();
+                const userAddress = accounts[0];
 
-        if (connectWalletBtn) {
-            if (Blockchain.isProviderAvailable()) {
-                try {
-                    // Richiede L'Accesso Agli Account Del Wallet
-                    const accounts = await Blockchain.requestAccounts();
-                    const userAddress = accounts[0];
+                // Memorizza L'Indirizzo Localmente Per Gestire La Sessione
+                localStorage.setItem('walletAddress', userAddress);
+                console.log("VerifyData: Connessione Effettuata ->", userAddress);
 
-                    // Memorizza L'Indirizzo Localmente Per Gestire La Sessione
-                    localStorage.setItem('walletAddress', userAddress);
-                    console.log("VerifyData: Connessione Effettuata ->", userAddress);
-
-                    // Reindirizza L'Utente Alla Dashboard Dopo Il Login Perchè Mi Serve Solo L'Indirizzo
-                    window.location.href = 'profilo.html';
-                } catch (error) {
-                    if (error.code === 4001) {
-                        // L'Utente Ha Rifiutato La Connessione
-                        alert("Connessione Al Wallet Rifiutata Dall'Utente");
-                    } else {
-                        console.error("VerifyData: Errore Durante La Connessione Al Wallet", error);
-                    }
+                // Reindirizza L'Utente Alla Dashboard Dopo Il Login Perchè Mi Serve Solo L'Indirizzo
+                window.location.href = 'profilo.html';
+            } catch (error) {
+                if (error.code === 4001) {
+                    // L'Utente Ha Rifiutato La Connessione
+                    alert("Connessione Al Wallet Rifiutata Dall'Utente");
+                } else {
+                    console.error("VerifyData: Errore Durante La Connessione Al Wallet", error);
                 }
-            } else {
-                // Notifica L'Utente Se Il Provider Web3 Non Ã Installato
-                alert("Per Favore Installa MetaMask!");
             }
+        } else {
+            // Notifica L'Utente Se Il Provider Web3 Non Ã Installato
+            alert("Per Favore Installa MetaMask!");
         }
     },
 
-    // Funzione Per Gestire Il Ciclo Di Vita Del Minting Dell'IdentitÃ  Digitale SBT
+    // Funzione Per Gestire Il Ciclo Di Vita Del Minting Dell'Identità  Digitale SBT
     mintIdentitySBT() {
         const mintSBTForm = document.getElementById('mintSBTForm');
 
