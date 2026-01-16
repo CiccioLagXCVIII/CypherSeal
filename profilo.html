@@ -12,13 +12,15 @@
     <body>
         <header class="app-header d-flex justify-content-between align-items-center px-4" id="navbar">
             <h5 class="mb-0 text-white">
-                <i class="bi bi-layers-half me-2 text-primary"></i>
-                VerifyData
+                <a href="index.html" class="d-flex align-items-center text-decoration-none text-white brandLink">
+                    <img src="Images/logoCypherSeal.svg" alt="CypherSeal Logo" class="logoHeader me-2" />
+                    <span class="brandText">CypherSeal</span>
+                </a>
             </h5>
             <!-- Pulsante Accesso a destra -->
             <div id="headerActions" class="d-flex align-items-center gap-2">
                 <!-- Nella Pagina Profilo Non Mostriamo Il Pulsante Di Connessione Perché L'Utente È Già Connesso -->
-                <a href="connessione.html" class="btn btn-sm rounded-pill btnVerifyData" id="connectWalletBtn">
+                <a href="connessione.html" class="btn btn-sm rounded-pill btnCypherSeal" id="connectWalletBtn">
                     <i class="bi bi-wallet-fill"></i>
                     Connetti Wallet
                 </a>
@@ -134,7 +136,7 @@
                         </div>
 
                         <form id="mintSBTForm">
-                            <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill btnVerifyData">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill btnCypherSeal">
                                 <i class="bi bi-stars me-2"></i>
                                 Minta Il Tuo Badge SBT
                             </button>
@@ -179,7 +181,7 @@
                                     <label class="data-label-sm">Indirizzo Wallet</label>
                                     <div class="d-flex align-items-center gap-2">
                                         <span id="walletAddressDisplay" class="font-monospace wallet-address-text flex-grow-1"></span>
-                                        <button id="copyAddressBtn" class="btn btn-outline-primary btn-sm rounded-circle btnVerifyData">
+                                        <button id="copyAddressBtn" class="btn btn-outline-primary btn-sm rounded-circle btnCypherSeal">
                                             <i class="bi bi-copy"></i>
                                         </button>
                                     </div>

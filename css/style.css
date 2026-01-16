@@ -1,4 +1,5 @@
 /* style.css */
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap");
 
 /* SS ############### Variabili Globali ############### */
 :root {
@@ -127,6 +128,12 @@ body {
     z-index: 1040;
 }
 
+.app-header h5 {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
 /* SS ############### Navigazione ############### */
 .sidebar .nav-link,
 .sidebar .github-link {
@@ -174,9 +181,9 @@ body {
     border-radius: 1rem;
 }
 
-/* SS ############### Pulsante btnVerifyData ############### */
-button.btnVerifyData,
-a.btnVerifyData {
+/* SS ############### Pulsante btnCypherSeal ############### */
+button.btnCypherSeal,
+a.btnCypherSeal {
     background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-color-dark) 100%) !important;
     color: var(--white) !important;
     font-weight: bold !important;
@@ -193,19 +200,19 @@ a.btnVerifyData {
     transition: all 0.3s ease !important;
 }
 
-button.btnVerifyData:hover,
-a.btnVerifyData:hover {
+button.btnCypherSeal:hover,
+a.btnCypherSeal:hover {
     transform: translateY(-2px) !important;
     box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.4);
     opacity: 0.9;
 }
 
-button.btnVerifyData:active,
-a.btnVerifyData:active {
+button.btnCypherSeal:active,
+a.btnCypherSeal:active {
     transform: translateY(0) !important;
 }
 
-button.btnVerifyData:disabled {
+button.btnCypherSeal:disabled {
     background: var(--border-color) !important;
     box-shadow: none;
     cursor: not-allowed;
@@ -266,4 +273,68 @@ button.btnVerifyData:disabled {
     background-color: var(--accent-color) !important;
     border-color: var(--accent-color) !important;
     color: var(--bg-dark) !important;
+}
+
+/* SS ############### Icona E Nome DApp ############### */
+
+.logoHeader {
+    height: 3.25rem;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    margin-right: 0.75rem;
+    transition:
+        transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        filter 0.3s ease;
+}
+
+.brandText {
+    font-family: "Orbitron", monospace;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 2rem;
+    background: linear-gradient(180deg, var(--white) 20%, var(--accent-color) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    filter: drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.3));
+    transition: filter 0.3s ease;
+
+    position: relative;
+    display: inline-block;
+}
+
+/* Sottolineatura Animata */
+.brandText::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-color);
+    transition: width 0.1s ease;
+}
+
+.brandText:hover::after {
+    width: 100%;
+}
+
+.brandLink {
+    text-decoration: none;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.brandLink:hover .logoHeader {
+    transform: scale(1.1) rotate(-5deg);
+    filter: drop-shadow(0 0 12px rgba(var(--accent-rgb), 0.6));
+}
+
+.brandLink:hover .brandText {
+    filter: drop-shadow(0 0 15px rgba(var(--accent-rgb), 0.5));
+}
+
+.brandLink:hover {
+    opacity: 0.95;
 }

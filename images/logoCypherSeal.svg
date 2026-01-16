@@ -1,0 +1,114 @@
+<svg class="cypherSealLogo" xmlns="http://www.w3.org/2000/svg" style="display:block"
+    viewBox="0 0 550 550">
+    <defs>
+        <style>
+            /* Lucchetto: Blu Accent (il cuore del brand) */
+            path:nth-child(1), path:nth-child(2) {
+            fill: #58a6ff !important;
+            }
+
+            /* Impronta: Gradiente dal blu scuro al grigio siderale */
+            path:nth-child(3), path:nth-child(4), path:nth-child(5) { fill: #1f6feb !important; }
+            path:nth-child(6), path:nth-child(7), path:nth-child(8) { fill: #388bfd !important; }
+            path:nth-child(n+9) { fill: #8b949e !important; }
+
+            /* Effetto profondità sui pixel */
+            path:nth-last-child(odd) { opacity: 0.75; }
+        </style>
+    </defs>
+    <path
+        d="M0 0h1v1h5V0h3v1h7V0h2v1h6v1h2V1h4v1h5v1h2v1h6v1h4v1h3v1h3v1h3v1h2v1h2v1h2v1h2v1h2v1h2v1h1v1h2v1h1v1h2v1h2v1h1v1h2v1h1v1h2v1h1v1h1v1h1v1h2v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v2h1v1h1v1h1v1h1v1h1v1h1v2h2v2h1v1h1v2h1v1h1v1h1v3h1v1h1v2h1v2h1v2h1v2h1v3h1v2h1v3h1v3h1v3h1v3h1v4h1v4h1v5h1v13h1v49h1v1h3v1h4v1h3v1h2v1h2v1h2v1h1v1h2v1h2v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v2h1v1h1v2h1v2h1v1h1v2h1v2h1v4h1v3h1v6h1v8h1v16h-1v33h1v5h-1v14h-1v3h-3v-2h-1v-2h-1v-3h-1v-1h-1v-3h-1v-2h-1v-3h-1v-1h-1v-2h-1v-2h-1v-2h-1v-2h-1v-2h-1v-2h-1v-1h-1v-1h-1v-2h-1v-2h-1v-2h-1v-1h-1v-1h-1v-2h-1v-1h-1v-2h-1v-1h-1v-1h-1v-2h-1v-1h-1v-2h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-2h-1v-1h-1v-1h-2v-2h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-2v-1h-1v-1h-1v-1h-1v-1h-2v-1h-1v-1h-1v-1h-1v-1h-2v-1h-1v-1h-1v-1h-2v-1h-1v-1h-1v-1h-2v-1h-1v-1h-2v-1h-1v-1h-1v-1h-2v-1h-2v-1h-1v-1h-2v-1h-2v-1h-3v-1h-1v-1h-2v-1h-3v-1h-2v-1h-2v-1h-2v-1h-4v-1h-2v-1h-2v-1h-3v-1h-3v-1h-3v-1h-2v-1h-8v-1h-7v-1h-2v-1h-3v1h-3v-1h-6v-1H-7v1h-6v1h-2v-1h-2v1h-5v1h-6v1h-7v1h-2v1h-3v1h-3v1h-2v1h-3v1h-2v1h-3v1h-2v1h-2v1h-2v1h-3v1h-2v1h-2v1h-2v1h-2v1h-1v1h-2v1h-2v1h-1v1h-2v1h-2v1h-2v1h-2v1h-1v1h-1v1h-1v1h-2v1h-1v1h-1v1h-2v1h-1v1h-1v1h-2v1h-1v1h-1v1h-2v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v2h-1v1h-1v1h-1v2h-1v2h-1v1h-1v1h-1v1h-1v2h-1v1h-1v2h-1v2h-1v1h-1v2h-1v2h-1v2h-1v1h-1v2h-1v2h-1v1h-1v2h-1v2h-1v1h-1v3h-1v2h-1v2h-1v3h-1v2h-1v2h-1v3h-3v-1h-1v-1h-1v-26h1v-33h-1v-3h1v-1h-1v-6h1v-10h1v-5h1v-2h1v-4h1v-2h1v-1h1v-3h1v-2h1v-2h1v-1h1v-2h1v-2h2v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h3v-1h1v-1h1v-1h2v-1h3v-1h2v-1h3v-1h3v-1h3v-1h1v-3h1v-44h1V98h1v-8h1v-4h1v-4h1v-3h1v-3h1v-3h1v-3h1v-2h1v-3h1v-2h1v-2h1v-1h1v-2h1v-2h1v-2h1v-2h1v-1h1v-1h1v-2h1v-1h1v-1h1v-3h1v-1h1v-2h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h2v-1h1v-1h1v-1h1v-1h1v-1h1v-1h2v-1h1v-1h1v-1h2v-1h1v-1h2v-1h1v-1h2v-1h2v-1h1v-1h2v-1h2v-1h2v-1h2v-1h2V9h2V8h3V7h4V6h3V5h3V4h4V3h4V2h13V1h5Zm-3 33v1h-6v1h-5v1h-4v1h-3v1h-2v1h-3v1h-2v1h-2v1h-2v1h-1v1h-2v1h-2v1h-1v1h-1v1h-2v1h-1v1h-1v1h-2v1h-1v1h-2v2h-1v1h-1v1h-2v1h-1v1h-1v1h-1v2h-1v1h-1v1h-1v1h-1v1h-1v2h-1v1h-1v2h-1v1h-1v2h-1v2h-1v2h-1v2h-1v2h-1v2h-1v4h-1v3h-1v5h-1v6h-1v6h-1v48H93v-46h-1v-10h-1v-4h-1v-4h-1v-5h-1v-3h-1v-1h-1v-2h-1v-2h-1v-2h-1v-2h-1v-3h-1v-1h-1v-1h-1v-2h-1v-2h-2v-2h-1v-1h-1v-1h-1v-1h-1v-2h-2v-1h-1v-2h-1v-1h-2v-1h-1v-1h-1v-1h-1v-1h-1v-1h-2v-1h-1v-1h-1v-1h-2v-1h-1v-1h-2v-1h-1v-1h-2v-1h-2v-1h-2v-1h-2v-1h-2v-1h-3v-1h-3v-1h-3v-1h-4v-1h-6v-1Z"
+        style="fill:#1194f0" transform="translate(269 8)" />
+    <path
+        d="M0 0h27v1h7v1h5v1h3v1h4v1h4v1h3v1h3v1h3v1h2v1h2v1h2v1h2v1h2v1h2v1h1v1h2v1h2v1h1v1h2v1h1v1h1v1h1v1h1v1h2v1h1v1h1v1h1v1h1v1h2v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v2h1v1h1v2h1v2h2v1h1v1h1v2h1v1h1v1h1v2h1v1h1v1h1v2h1v1h1v2h1v3h1v2h1v1h1v2h1v2h1v2h1v3h1v3h1v3h1v3h1v4h1v5h1v12h1v21h1v13h1v4h1v3h1v2h1v2h1v2h1v2h1v2h1v1h1v1h1v1h1v1h1v1h1v1h1v2h2v1h1v1h1v1h2v1h1v1h1v1h3v1h1v1h2v1h2v1h1v1h1v1h1v3h1v7h-1v3h-1v1h-1v1h-1v1h-1v1h-10v-1h-3v-1h-2v-1h-2v-1h-1v-1h-2v-1h-1v-1h-2v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-2v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-2h-1v-1h-1v-1h-1v-2h-1v-1h-1v-2h-1v-2h-1v-2h-1v-2h-1v-2h-1v-2h-1v-3h-1v-4h-1v-4h-1v-6h-1v-8h-1V99h-1v-5h-1v-4h-1v-4h-1v-1h-1v-3h-1v-3h-1v-2h-1v-2h-1v-1h-1v-2h-1v-2h-1v-1h-1v-2h-1v-2h-1v-1h-1v-1h-1v-2h-1v-1h-1v-2h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-2h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-2v-1h-1v-1h-1v-1h-2v-1h-1v-1h-1v-1h-1v-1h-2v-1h-2v-1h-2v-1h-1v-1h-2v-1h-2v-1h-3v-1h-2v-1h-3v-1h-3v-1h-4v-1h-3v-1h-4v-1h-7v-1H3v1h-7v1h-4v1h-4v1h-3v1h-2v1h-2v1h-3v1h-4v1h-1v1h-2v1h-2v1h-2v1h-1v1h-2v1h-1v1h-2v1h-1v1h-1v1h-2v1h-2v2h-2v1h-1v2h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v2h-1v1h-1v1h-1v2h-1v1h-1v1h-1v1h-1v2h-1v2h-1v1h-1v2h-1v2h-1v2h-1v2h-1v2h-1v3h-1v2h-1v3h-1v3h-1v4h-1v8h-1v6h-1v3h-1v1h-1v3h-1v3h-1v3h-1v2h-1v2h-1v1h-1v1h-1v1h-1v2h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v2h-2v1h-1v1h-1v1h-2v1h-2v1h-2v1h-2v1h-2v1h-3v1h-2v1h-3v1h-6v1h-4v-1h-3v-1h-2v-1h-1v-1h-1v-1h-1v-2h-1v-9h1v-2h1v-1h1v-2h2v-1h4v-1h4v-1h4v-1h2v-1h3v-1h1v-1h2v-1h1v-1h2v-1h1v-2h1v-1h1v-1h1v-1h1v-1h1v-2h1v-2h1v-3h1v-2h1v-4h1v-8h1v-7h1v-4h1v-3h1v-2h1v-4h1v-2h1v-2h1v-2h1v-2h1v-2h1v-2h1v-2h1v-1h1v-2h1v-1h1v-2h1v-1h1v-1h1v-1h1v-1h1v-3h1v-1h1v-1h1v-1h1v-2h1v-1h1v-1h1v-1h1v-2h2v-2h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h2v-2h2v-1h1v-1h1v-1h1v-1h1v-1h1v-1h2v-1h1v-1h1v-1h2v-1h1v-1h2v-1h2v-1h2v-1h2v-1h2v-1h2V9h3V8h2V7h3V6h4V5h3V4h3V3h7V2h4V1h5Z"
+        style="fill:#21b77e" transform="translate(264 231)" />
+    <path
+        d="M0 0h29v1h4v1h7v1h5v1h5v1h3v1h5v1h3v1h4v1h1v1h4v1h1v1h3v1h2v1h3v1h2v1h2v1h1v1h2v1h2v1h2v1h1v1h2v1h2v1h1v2h3v1h1v1h1v1h1v1h1v1h2v1h1v1h2v1h1v1h1v1h2v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v2h1v1h1v1h1v1h1v1h1v2h1v1h1v2h1v1h1v2h1v1h1v2h1v1h1v2h1v1h1v2h1v1h1v2h1v2h1v2h1v2h1v1h1v2h1v2h1v2h1v2h1v3h1v2h1v3h1v1h1v4h1v3h1v5h1v3h1v5h1v4h1v12h1v20h1v20h1v5h1v2h-1v3h-1v2h-1v1h-1v1h-1v1h-5v1h-3v-1h-4v-1h-2v-2h-1v-1h-1v-2h-1v-6h-1v-5h-1v-36h-1v-5h-1v-7h-1v-4h-1v-5h-1v-4h-1v-3h-1v-2h-1v-3h-1v-2h-1v-3h-1v-2h-1v-2h-1v-2h-1v-2h-1v-1h-1v-2h-1v-2h-1v-2h-1v-2h-1v-1h-1v-2h-1v-2h-1v-1h-1v-1h-1v-2h-1v-1h-1v-1h-1v-2h-1v-1h-1v-1h-1v-1h-2v-3h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-2v-1h-1v-1h-1v-1h-1v-1h-2v-1h-1v-1h-1v-1h-2v-1h-1v-1h-1v-1h-2v-1h-1v-1h-2v-1h-1v-1h-2v-1h-2v-1h-2v-1h-2v-1h-2v-1h-1v-1h-3v-1h-2v-1h-2v-1h-2v-1h-2v-1h-4v-1h-2v-1h-4v-1h-3v-1h-4v-1h-3v-1h-8v-1h-4v-1H-3v1h-5v1h-6v1h-5v1h-4v1h-2v1h-4v1h-3v1h-2v1h-2v1h-3v1h-3v1h-2v1h-2v1h-1v1h-3v1h-2v1h-1v1h-2v1h-2v1h-1v1h-2v1h-1v1h-2v1h-1v1h-1v1h-1v1h-2v1h-1v1h-1v1h-2v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-2v1h-1v1h-1v1h-1v3h-1v-1h-1v1h-1v1h-1v2h-1v2h-1v1h-1v1h-1v1h-1v1h-1v2h-1v1h-1v3h-2v2h-1v2h-1v2h-1v2h-1v2h-1v2h-1v2h-1v2h-1v3h-1v2h-1v3h-1v3h-1v3h-1v3h-1v5h-1v5h-1v8h-1v3h-1v3h-1v1h-1v2h-1v1h-2v1h-10v-1h-1v-1h-1v-1h-1v-1h-1v-3h-1v-13h1v-6h1v-5h1v-3h1v-5h1v-2h1v-3h1v-2h1v-3h1v-3h1v-2h1v-2h1v-2h1v-2h1v-2h1v-2h1v-2h1v-2h1v-1h1v-2h1v-2h1v-1h1v-2h1v-1h1v-2h1v-1h1v-2h1v-1h1v-2h1v-1h1v-1h1v-1h1v-2h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-2h2v-1h1v-1h1v-1h1v-1h1v-1h1v-1h2v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h3v-2h2v-1h1v-1h2v-1h1v-1h1v-1h2v-1h2v-1h2v-1h2v-1h2v-1h1v-1h3v-1h1v-1h3v-1h1v-1h3v-1h3v-1h2V9h3V8h3V7h3V6h4V5h4V4h6V3h4V2h9V1h6Z"
+        style="fill:#20b58b" transform="translate(266 194)" />
+    <path
+        d="M0 0h7v1h1V0h2v1h6v1h5v1h5v1h2v1h2v1h2v1h2v1h5v1h2v1h1v1h2v1h2v1h2v1h1v1h2v1h1v1h2v1h1v1h1v1h2v2h2v1h1v1h1v2h1v1h1v1h1v2h1v1h1v1h1v1h1v3h1v1h1v2h1v2h1v1h1v3h1v2h1v2h1v2h1v3h1v4h1v5h1v25h1v12h1v4h1v3h1v1h1v4h1v2h-1v1h1v4h1v2h1v2h1v2h1v1h1v2h1v4h1v2h1v1h1v1h1v1h1v1h1v2h1v1h1v1h1v2h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h2v1h1v1h1v1h2v1h1v1h1v1h2v1h1v1h1v1h2v1h1v1h2v1h2v1h1v1h2v1h1v1h1v1h1v1h1v3h1v5h-1v3h-1v2h-1v1h-2v1h-3v1h-7v-1h-2v-1h-2v-1h-1v-1h-2v-1h-1v-1h-2v-1h-1v-1h-2v-1h-1v-1h-2v-1h-1v-1h-2v-1h-1v-1h-1v-1h-2v-1h-1v-1h-1v-1h-1v-1h-1v1h-1v-2h-1v-1h-1v-1h-1v-1h-1v-1h-2v-1h-1v-1h-1v-1h-1v-1h-1v-2h-1v-1h-1v-1h-1v-1h-1v-2h-1v-1h-1v-2h-1v-1h-1v-2h-1v-1h-1v-2h-1v-1h-1v-2h-1v-2h-1v-2h-1v-2h-1v-1h-1v-3h-1v-2h-1v-2h-1v-3h-1v-3h-1v-4h-1v-3h-1v-4h-1v-4h-1v-5h-1V74h-1v-7h-1v-4h-1v-3h-1v-3h-1v-2h-1v-1h-1v-2h-1v-2h-1v-1h-1v-1h-1v-2h-1v-1h-1v-1h-1v-2h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-2v-1h-1v-1h-2v-1h-1v-1h-2v-1h-2v-1h-2v-1h-3v-1h-2v-1h-7v-1H6v-1H2v1h-7v1h-4v1h-5v1h-2v1h-3v1h-2v1h-2v1h-1v1h-2v1h-2v1h-1v1h-1v1h-1v1h-2v1h-1v1h-1v1h-1v2h-1v1h-1v1h-1v1h-1v1h-1v2h-1v2h-1v1h-1v2h-1v2h-1v2h-1v3h-1v3h-1v4h-1v8h-1v5h-1v7h-1v3h-1v2h-1v2h-1v3h-1v2h-1v1h-1v3h-1v1h-1v2h-1v2h-1v2h-1v1h-1v2h-1v1h-1v2h-1v1h-1v1h-1v2h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-2v1h-1v1h-1v1h-2v1h-2v1h-1v1h-1v1h-2v1h-1v1h-2v1h-2v1h-2v1h-2v1h-2v1h-2v1h-2v1h-3v1h-3v1h-3v1h-4v1h-5v1h-4v1h-4v-1h-4v-1h-1v-1h-2v-2h-1v-2h-1v-3h-1v-4h1v-3h1v-2h1v-1h1v-2h4v-1h2v-1h9v-1h2v-1h4v-1h2v-1h2v-1h2v-1h3v-1h1v-1h2v-1h1v-1h3v-2h1v-1h3v-1h1v-1h2v-1h1v-1h2v-2h2v-1h1v-1h1v-1h1v-2h2v-2h1v-1h1v-2h1v-1h1v-1h1v-2h1v-2h1v-2h1v-2h1v-2h1v-2h1v-3h1v-5h1v-3h1v-8h1v-7h1v-4h1v-4h1v-2h1v-2h1v-3h1v-2h1v-1h1v-2h1v-2h1v-2h1v-1h1v-1h1v-2h1v-1h1v-1h1v-1h1v-2h1v-1h1v-1h2v-2h2v-2h1v-1h2v-2h1v-1h3v-2h1v-1h3v-1h2v-2h2V9h2V8h3V7h4V6h2V5h2V4h3V3h4V2h5V1h8Z"
+        style="fill:#23b774" transform="translate(273 268)" />
+    <path
+        d="M0 0h19v1h4v1h2v1h3v1h1v1h2v1h1v1h2v1h1v1h1v1h1v1h1v1h1v1h1v2h1v1h1v1h1v1h1v2h1v2h1v2h1v3h1v2h1v6h1v14h1v16h1v6h1v5h1v3h1v5h1v3h1v3h1v3h1v3h1v2h1v2h1v3h1v2h1v1h1v3h1v2h1v2h1v1h1v2h1v1h1v2h1v1h1v1h1v2h1v2h1v1h1v1h1v1h1v2h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h2v1h1v1h1v1h1v1h1v1h1v1h2v1h1v1h1v1h1v1h2v1h2v1h2v1h1v1h1v1h1v1h2v1h2v1h1v1h1v1h1v2h1v4h1v2h-1v5h-1v1h-1v1h-1v1h-1v1h-2v1h-8v-1h-2v-1h-2v-1h-1v-1h-2v-1h-1v-1h-1v-1h-2v-1h-1v-1h-1v-1h-2v-1h-1v-1h-2v-1h-1v-1h-2v-1h-1v-1h-1v-1h-1v-1h-2v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-2h-2v-1h-1v-2h-1v-1h-1v-1h-1v-2h-1v-1h-1v-1h-1v-1h-1v-2h-1v-1h-1v-2h-1v-1h-1v-2h-1v-2h-1v-1h-1v-2h-1v-2h-1v-1h-1v-2h-1v-2h-1v-2h-1v-2h-1v-2h-1v-3h-1v-2h-1v-3h-1v-3h-1v-3h-1v-2h-1v-4h-1v-3h-1v-4h-1v-6h-1v-6h-1V60h-1V50h-1V38h-1v-4h-1v-2h-1v-1h-1v-1h-1v-1h-1v-1h-1v-2h-1v-1h-1v-1h-2v-1h-2v-1h-3v-1H4v1H3v1H1v1h-2v1h-1v2h-2v1h-1v2h-1v1h-1v2h-1v2h-1v4h-1v6h-1v8h-1v4h-1v3h-1v3h-1v3h-1v2h-1v2h-1v3h-1v2h-1v2h-1v2h-1v2h-1v1h-1v3h-1v1h-1v2h-1v1h-1v1h-1v2h-1v1h-1v2h-1v2h-1v1h-1v1h-1v1h-1v2h-1v1h-1v1h-1v1h-1v2h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-2v1h-1v1h-1v1h-1v1h-2v1h-1v1h-2v1h-1v1h-2v1h-1v1h-2v1h-2v1h-2v1h-1v1h-2v1h-1v1h-3v1h-2v1h-2v1h-2v1h-3v1h-2v1h-2v1h-3v1h-3v1h-1v1h-1v-1h-1v1h-3v1h-3v1h-5v1h-6v-1h-3v-1h-2v-2h-1v-1h-1v-3h-1v-6h1v-2h1v-2h1v-1h1v-1h1v-1h3v-1h4v-1h3v-1h4v-1h3v-1h3v-1h3v-1h3v-1h2v-1h2v-1h2v-1h2v-1h2v-1h1v-1h2v-1h1v-1h1v-1h2v-1h3v-1h1v-1h1v-1h1v-1h2v-1h1v-1h1v-1h2v-2h2v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-2h1v-1h1v-2h1v-1h1v-1h1v-1h1v-2h1v-1h1v-2h1v-1h1v-2h1v-2h1v-1h1v-2h1v-3h1v-1h1v-3h1v-2h1v-2h1v-2h1v-4h1v-3h1v-3h1v-9h1v-7h1v-4h1v-3h1v-1h1v-2h1v-2h1v-1h1v-2h1v-1h1v-2h2v-2h1v-1h2V9h1V8h1V7h2V6h1V5h1V4h3V3h1V2h3V1h4Z"
+        style="fill:#24b66d" transform="translate(268 306)" />
+    <path
+        d="M0 0h7v1h2v1h1v1h1v1h1v2h1v21h-1v4h-1v3h-1v4H9v3H8v2H7v3H6v2H5v3H4v2H3v2H2v1H1v3H0v1h-1v2h-1v2h-1v2h-1v1h-1v1h-1v2h-1v1h-1v1h-1v2h-1v1h-1v1h-1v2h-1v1h-1v1h-1v1h-1v2h-1v1h-1v1h-1v2h-1v1h-1v1h-1v2h-2v2h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-2v2h-2v1h-1v1h-1v1h-1v1h-1v1h-2v1h-2v2h-1v1h-1v1h-2v1h-1v1h-1v1h-2v1h-1v1h-2v1h-1v1h-1v1h-2v1h-2v1h-1v1h-2v1h-2v1h-2v1h-1v1h-3v1h-2v1h-2v1h-2v1h-2v1h-3v1h-3v1h-2v1h-2v1h-4v1h-8v-1h-2v-1h-2v-2h-1v-2h-1v-4h-1v-2h1v-3h1v-2h1v-1h2v-2h2v-1h2v-1h4v-1h3v-1h3v-1h2v-1h2v-1h2v-1h3v-1h2v-1h1v-1h2v-1h1v-1h2v-1h1v-1h2v-2h3v-1h2v-1h1v-2h2v-1h2v-1h1v-1h1v-1h2v-1h1v-1h1v-1h1v-1h2v-1h1v-1h1v-1h1v-1h2v-1h1v-1h1v-1h1v-2h2v-1h1v-1h1v-1h1v-1h1v-1h1v-2h1v-1h1v-1h1v-1h1v-1h1v-2h1v-1h1v-1h1v-1h1v-1h1v-2h1v-1h1v-1h1v-2h1v-2h1v-1h1v-1h1v-2h1v-1h1v-2h1v-2h1v-1h1v-2h1v-2h1v-2h1v-2h1v-2h1v-3h1v-2h1v-5h1v-7h1v-8h1V6h1V4h1V3h1V2h2V1h1Z"
+        style="fill:#26b66a" transform="translate(274 347)" />
+    <path
+        d="M0 0h5v1h3v1h1v1h1v1h1v1h1v2h1v2h1v1h1v1h1v1h1v2h1v1h1v1h1v1h1v2h1v1h1v1h1v1h1v2h1v1h1v1h1v2h1v1h1v1h1v1h1v1h1v2h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h2v1h1v1h1v1h1v2h1v1h1v2h1v8h-1v2h-1v1h-1v1h-1v1h-2v1h-9v-1h-2v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-2v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-2h-1v-1h-1v-1h-1v-1h-1v-1h-2v-2h-1v-2h-1v-1h-1v-1h-1v-1h-1v-1H9v-2H8v-1H7v-1H6v-1H5v-2H4v-1H3v-2H2v-1H1v-1H0v-1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-2v1h-1v1h-1v1h-1v1h-1v1h-2v1h-1v1h-1v1h-1v1h-2v1h-1v1h-1v1h-2v1h-1v1h-2v1h-1v1h-2v1h-2v1h-2v1h-1v1h-2v1h-1v1h-2v1h-2v1h-1v1h-2v1h-2v1h-2v1h-2v1h-5v1h-1v-1h-3v-1h-2v-1h-1v-1h-1v-1h-1v-2h-1v-8h1v-2h1v-1h1v-1h1v-2h2v-1h2v-1h2v-1h2v-1h2v-1h1v-1h3v-1h2v-1h2v-2h2v-1h1v-1h3v-1h1v-2h2v-1h1v-1h2v-1h2v-2h2v-1h1v-1h3v-2h2v-2h2v-1h1v-1h1v-1h3v-1h1V9h2V8h1V7h2V6h1V5h1V4h1V3h2V2h1V1h2Z"
+        style="fill:#24b465" transform="translate(262 452)" />
+    <path
+        d="M0 0h8v1h3v2h1v1h1v2h1v2h1v2h1v2h1v2h1v2h1v2h1v2h1v1h1v2h1v2h1v1h1v2h1v1h1v2h1v1h1v2h1v1h1v2h1v1h1v2h1v1h1v2h1v1h1v1h1v1h1v1h1v2h1v1h1v1h1v1h1v1h1v2h1v1h1v1h2v2h2v2h2v1h1v1h1v1h1v1h1v1h1v1h2v1h1v1h1v1h2v1h1v1h1v1h2v1h1v1h2v1h2v1h1v2h1v1h1v2h1v1h1v2h-1v6h-1v3h-2v1h-2v1h-2v1h-6v-1h-3v-1h-2v-1h-1v-1h-2v-1h-1v-1h-2v-1h-1v-1h-1v-1h-1v-1h-2v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-2v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-2h-1v-1h-1v-1h-1v-2h-1v-1h-1v-1h-1v-2h-1v-1h-1v-1h-1v-2h-1v-1h-1v-2h-1v-2h-1v-1H9v-2H8v-1H7v-2H6v-2H5v-1H4v-2H3v-1H2v-2H1v-2H0v-1h-1v-2h-1v-2h-1v-2h-1v-2h-1v-2h-1v-4h-1v-1h1V6h1V4h1V2h2V1h2Z"
+        style="fill:#25b365" transform="translate(283 414)" />
+    <path
+        d="M0 0h11v1h1v1h1v1h1v3h1v7h-1v2h-1v2h-1v1h-1v1h-1v1H8v1H7v1H6v1H4v1H3v1H1v1h-2v1h-7v-1h-2v-1h-1v-1h-1v-1h-1v-2h-1v-9h1v-2h1V9h1V8h2V7h1V6h1V5h1V4h1V3h2V2h1V1h2Z"
+        style="fill:#29b368" transform="translate(252 503)" />
+    <path
+        d="M0 0h1v1H0Zm-1 1h1v1h-1Zm-1 1h1v1h-1Zm-1 1h1v1h-1Zm-1 1h1v1h-1Zm-1 1h1v1h-1Zm-1 1h1v1h-1Zm-1 1h1v1h-1Zm-1 1h1v1h-1Zm-1 1h1v1h-1Zm-1 1h1v1h-1Z"
+        style="fill:#1e8fd4" transform="translate(196 38)" />
+    <path
+        d="M0 0h1v1H0Zm-1 1h1v1h-1Zm-1 1h1v1h-1Zm-1 1h1v1h-1Zm-1 1h1v1h-1Zm-1 1h1v1h-1Zm-1 1h1v1h-1Z"
+        style="fill:#2abe97" transform="translate(202 259)" />
+    <path d="M0 0h1v1H0Zm-1 1h1v1h-1Zm-1 1h1v1h-1Zm-1 1h1v1h-1Z" style="fill:#25d935"
+        transform="translate(146 434)" />
+    <path d="M0 0h1v1H0Zm-1 1h1v1h-1Zm-1 1h1v1h-1Z" style="fill:#1fa777"
+        transform="translate(271 349)" />
+    <path d="M0 0h1v1H0Zm-1 1h1v1h-1Zm-1 1h1v1h-1Z" style="fill:#0eb8aa"
+        transform="translate(221 292)" />
+    <path d="M0 0h1v1H0Zm-1 1h1v1h-1Z" style="fill:teal" transform="translate(241 511)" />
+    <path d="M0 0h1v1H0Zm-1 1h1v1h-1Z" style="fill:#0f0" transform="translate(242 415)" />
+    <path d="M0 0h1v1H0Zm-1 1h1v1h-1Z" style="fill:#0f0" transform="translate(171 383)" />
+    <path d="M0 0h1v1H0Zm-1 1h1v1h-1Z" style="fill:#00bfbf" transform="translate(157 347)" />
+    <path d="M0 0h1v1H0Zm-1 1h1v1h-1Z" style="fill:#40bf80" transform="translate(226 287)" />
+    <path d="M0 0h1v1H0Zm-1 1h1v1h-1Z" style="fill:#35b480" transform="translate(229 284)" />
+    <path d="M0 0h1v1H0Zm-1 1h1v1h-1Z" style="fill:#00bfbf" transform="translate(233 281)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(239 513)" />
+    <path d="M0 0h1v1H0Z" style="fill:teal" transform="translate(201 493)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(207 490)" />
+    <path d="M0 0h1v1H0Z" style="fill:#40bf80" transform="translate(219 483)" />
+    <path d="M0 0h1v1H0Z" style="fill:gray" transform="translate(389 482)" />
+    <path d="M0 0h1v1H0Z" style="fill:#3bb162" transform="translate(226 478)" />
+    <path d="M0 0h1v1H0Z" style="fill:#24b66d" transform="translate(233 473)" />
+    <path d="M0 0h1v1H0Z" style="fill:teal" transform="translate(165 470)" />
+    <path d="M0 0h1v1H0Z" style="fill:#5a5" transform="translate(239 469)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(166 469)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(241 467)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(168 467)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(170 466)" />
+    <path d="M0 0h1v1H0Z" style="fill:teal" transform="translate(249 461)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(202 450)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(208 446)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(210 445)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(224 434)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(229 429)" />
+    <path d="M0 0h1v1H0Z" style="fill:#5a5" transform="translate(279 416)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(189 416)" />
+    <path d="M0 0h1v1H0Z" style="fill:#5a5" transform="translate(201 407)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(133 398)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(164 388)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(175 381)" />
+    <path d="M0 0h1v1H0Z" style="fill:#5a5" transform="translate(180 377)" />
+    <path d="M0 0h1v1H0Z" style="fill:gray" transform="translate(185 372)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(129 361)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(139 358)" />
+    <path d="M0 0h1v1H0Z" style="fill:gray" transform="translate(196 355)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(155 349)" />
+    <path d="M0 0h1v1H0Z" style="fill:gray" transform="translate(158 346)" />
+    <path d="M0 0h1v1H0Z" style="fill:#80ff80" transform="translate(187 324)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(246 319)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(248 317)" />
+    <path d="M0 0h1v1H0Z" style="fill:teal" transform="translate(249 316)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(360 304)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0ff" transform="translate(170 304)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(359 302)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(357 299)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0f0" transform="translate(356 297)" />
+    <path d="M0 0h1v1H0Z" style="fill:#2aaa80" transform="translate(223 290)" />
+    <path d="M0 0h1v1H0Z" style="fill:#5aa" transform="translate(238 278)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0ff" transform="translate(186 277)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0ff" transform="translate(194 267)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0ff" transform="translate(204 257)" />
+    <path d="M0 0h1v1H0Z" style="fill:#0ff" transform="translate(172 236)" />
+    <path d="M0 0h1v1H0Z" style="fill:#5aa" transform="translate(190 221)" />
+    <path d="M0 0h1v1H0Z" style="fill:#2aaad4" transform="translate(127 184)" />
+</svg>

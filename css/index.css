@@ -1,4 +1,5 @@
 /* index.css */
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap");
 
 /* SS ############### Badge ############### */
 .badge-project {
@@ -20,6 +21,11 @@
     background: linear-gradient(to bottom, var(--white), var(--accent-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+#appTitle {
+    font-family: "Orbitron", monospace;
+    letter-spacing: 1.5px;
 }
 
 /* SS ############### Workflow ############### */
@@ -58,7 +64,30 @@
     border-radius: 0.75rem;
 }
 
-.avalanche-output-container {
+#avalancheInput {
+    background-color: var(--sidebar-bg) !important; /* Più scuro del bg-dark per contrasto */
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-header) !important;
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+/* Colore del placeholder per tutti i browser */
+#avalancheInput::placeholder {
+    color: var(--text-muted);
+    opacity: 0.6; /* Lo rende leggermente soffuso */
+}
+
+/* Effetto Focus coerente con il brand */
+#avalancheInput:focus {
+    background-color: var(--bg-dark) !important;
+    border-color: var(--accent-color) !important;
+    box-shadow: 0 0 0 0.25rem rgba(var(--accent-rgb), 0.15);
+    outline: none;
+}
+
+.avalancheOutputContainer {
     background: var(--sidebar-bg);
     border: 1px solid var(--border-color);
     border-radius: 0.4rem;
@@ -72,9 +101,9 @@
 #avalancheOutput {
     color: var(--console-green);
     font-family: var(--font-mono);
-    font-size: 0.8rem;
+    font-size: 1rem;
     word-break: break-all;
-    text-align: center;
+    text-align: left;
 }
 
 /* SS ############### CTA e Footer ############### */

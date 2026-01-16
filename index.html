@@ -14,12 +14,15 @@
     <body>
         <header class="app-header d-flex justify-content-between align-items-center px-4">
             <h5 class="mb-0 text-white">
-                <i class="bi bi-layers-half me-2 text-primary"></i>
-                VerifyData
+                <a href="index.html" class="d-flex align-items-center text-decoration-none text-white brandLink">
+                    <img src="Images/logoCypherSeal.svg" alt="CypherSeal Logo" class="logoHeader me-2" />
+                    <span class="brandText">CypherSeal</span>
+                </a>
             </h5>
+
             <!-- Pulsante Accesso a destra -->
             <div id="headerActions" class="d-flex align-items-center gap-2">
-                <a href="connessione.html" class="btn btn-sm rounded-pill btnVerifyData" id="connectWalletBtn">
+                <a href="connessione.html" class="btn btn-sm rounded-pill btnCypherSeal" id="connectWalletBtn">
                     <i class="bi bi-wallet-fill"></i>
                     Connetti Wallet
                 </a>
@@ -78,7 +81,7 @@
                     <div class="row mb-4">
                         <div class="col-2"></div>
                         <div class="col-8 text-center">
-                            <h1 class="display-title fw-bold text-white mb-0">VerifyData</h1>
+                            <h1 id="appTitle" class="display-title fw-bold text-white mb-0">CypherSeal</h1>
                             <p class="text-sub-title smallest text-uppercase fw-semibold mb-0" style="letter-spacing: 2px">
                                 Notarizzazione Digitale e SSI su Ethereum
                             </p>
@@ -162,14 +165,14 @@
                             id="avalancheInput"
                             class="form-control form-control-sm bg-dark text-white border-secondary mb-2"
                             placeholder="Scrivi una parola per vedere come cambia l'hash..." />
-                        <div class="avalanche-output-container">
+                        <div class="avalancheOutputContainer justify-content-start">
                             <code id="avalancheOutput" class="text-success small">...</code>
                         </div>
                     </div>
 
                     <!-- CTA -->
                     <div class="text-center mt-4 mb-4">
-                        <button type="button" id="btnStartCertify" class="btn btn-primary py-3 btnVerifyData cta-button rounded-pill">
+                        <button type="button" id="btnStartCertify" class="btn btn-primary py-3 btnCypherSeal cta-button rounded-pill">
                             <i class="bi bi-shield-check me-2"></i>
                             Inizia A Certificare
                         </button>

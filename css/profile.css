@@ -158,6 +158,11 @@
     filter: drop-shadow(0 0 10px rgba(var(--accent-rgb), 0.3));
 }
 
+.hex-border:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s ease;
+    box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.5);
+}
 .hex-fill {
     width: 94%;
     height: 94%;

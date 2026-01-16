@@ -13,12 +13,14 @@
     <body>
         <header class="app-header d-flex justify-content-between align-items-center px-4">
             <h5 class="mb-0 text-white">
-                <i class="bi bi-layers-half me-2 text-primary"></i>
-                VerifyData
+                <a href="index.html" class="d-flex align-items-center text-decoration-none text-white brandLink">
+                    <img src="Images/logoCypherSeal.svg" alt="CypherSeal Logo" class="logoHeader me-2" />
+                    <span class="brandText">CypherSeal</span>
+                </a>
             </h5>
             <!-- Pulsante Accesso a destra -->
             <div id="headerActions" class="d-flex align-items-center gap-2">
-                <a href="connessione.html" class="btn btn-sm rounded-pill btnVerifyData" id="connectWalletBtn">
+                <a href="connessione.html" class="btn btn-sm rounded-pill btnCypherSeal" id="connectWalletBtn">
                     <i class="bi bi-wallet-fill"></i>
                     Connetti Wallet
                 </a>
@@ -83,7 +85,7 @@
                                             <div id="successState" class="d-none">
                                                 <i class="bi bi-file-earmark-check text-success display-4 mb-2 d-block"></i>
                                                 <h5 class="text-white">File Analizzato</h5>
-                                                <button type="button" id="resetBtn" class="btn btn-outline-secondary btn-sm rounded-pill px-4 btnVerifyData">
+                                                <button type="button" id="resetBtn" class="btn btn-outline-secondary btn-sm rounded-pill px-4 btnCypherSeal">
                                                     <i class="bi bi-arrow-repeat me-2"></i>
                                                     Cambia File
                                                 </button>
