@@ -10,5 +10,21 @@
   "devDependencies": {
     "prettier": "^3.7.4",
     "prettier-plugin-solidity": "^2.2.1"
-  }
+  },
+  "main": "index.js",
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.4.0",
+    "semver": "^7.7.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CiccioLagXCVIII/VerifyData.git"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/CiccioLagXCVIII/VerifyData/issues"
+  },
+  "homepage": "https://github.com/CiccioLagXCVIII/VerifyData#readme"
 }

@@ -3,3 +3,4 @@ node_modules/
 .vscode/
 markdown/
 .prettierrc
+contracts/notarizerContracts.sol

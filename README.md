@@ -1,81 +1,83 @@
-# 🛡️ VerifyData: Notarizzazione Digitale & Self-Sovereign Identity
+# 🔏 CypherSeal: Notarizzazione Crittografica & Sovereign Identity
 
-> **Proof of Existence, Integrity & Authorship su Ethereum.**
+> **The Gold Standard for Immutable Proof of Existence, Integrity & Authorship on Ethereum.**
 
-![Project Status](https://img.shields.io/badge/Status-Prototype-blue)
-![Network](https://img.shields.io/badge/Network-Sepolia_Testnet-orange)
-![License](https://img.shields.io/badge/License-MIT-green)
-![Tech](https://img.shields.io/badge/Tech-ES6%20Modules%20%7C%20Bootstrap%205-yellow)
+**CypherSeal** è una suite decentralizzata avanzata progettata per la protezione e la validazione dell'asset digitale. Fondendo crittografia asimmetrica e tecnologia blockchain, CypherSeal trasforma il concetto di notarizzazione in un processo privo di intermediari, sicuro e legalmente rilevante.
 
-**VerifyData** è una Decentralized Application (DApp) di nuova generazione progettata per garantire l'autenticità e l'integrità dei documenti digitali.
-
-A differenza dei servizi tradizionali di timestamping, VerifyData introduce il paradigma della **Self-Sovereign Identity (SSI)**: l'identità del firmatario è garantita da un **Soulbound Token (SBT)** (Standard EIP-5192), creando un legame indissolubile e verificabile tra il documento e la reputazione digitale dell'autore.
+A differenza dei sistemi di timestamping legacy, CypherSeal implementa il paradigma della **Self-Sovereign Identity (SSI)**: ogni operazione è legata al **CypherSoul (CYID)**, un Soulbound Token (SBT) conforme allo standard **EIP-5192**, che garantisce l'identità dell'autore senza compromettere la privacy.
 
 ---
 
 ## 📑 Indice
 
-- [🛡️ VerifyData: Notarizzazione Digitale \& Self-Sovereign Identity](#️-verifydata-notarizzazione-digitale--self-sovereign-identity)
+- [🔏 CypherSeal: Notarizzazione Crittografica \& Sovereign Identity](#-cypherseal-notarizzazione-crittografica--sovereign-identity)
   - [📑 Indice](#-indice)
   - [💡 Value Proposition](#-value-proposition)
+  - [🛡️ Ecosistema CypherSoul (CYID)](#️-ecosistema-cyphersoul-cyid)
   - [🔒 Architettura di Sicurezza](#-architettura-di-sicurezza)
-    - [1. Privacy-by-Design (Hashing Locale)](#1-privacy-by-design-hashing-locale)
-    - [2. Identity Gating (SBT)](#2-identity-gating-sbt)
+    - [1. Privacy-by-Design (Local Hashing)](#1-privacy-by-design-local-hashing)
+    - [2. Identity Gating](#2-identity-gating)
   - [🛠 Stack Tecnologico](#-stack-tecnologico)
   - [📂 Struttura del Progetto](#-struttura-del-progetto)
   - [⚡ Installazione e Avvio](#-installazione-e-avvio)
     - [Prerequisiti](#prerequisiti)
-    - [Passaggi](#passaggi)
+    - [Quick Start](#quick-start)
   - [📖 Guida all'Uso](#-guida-alluso)
-  - [⚠️ Nota sul Mocking (Simulazione)](#️-nota-sul-mocking-simulazione)
+  - [⚠️ Nota sul Mocking (Sviluppo)](#️-nota-sul-mocking-sviluppo)
   - [👤 Autore](#-autore)
 
 ---
 
 ## 💡 Value Proposition
 
-- **Proof of Integrity:** Garanzia matematica che il file non è stato alterato (nemmeno di un bit).
-- **Proof of Existence:** Prova temporale certa e immutabile su registro distribuito.
-- **Anti-Spam Identity:** Solo gli utenti con un profilo verificato (SBT) possono notarizzare, elevando la qualità del registro.
-- **Verifica Pubblica:** Chiunque può verificare un documento trascinandolo nel browser, senza intermediari.
-- **Revoca Logica:** Possibilità per l'autore di invalidare un documento obsoleto mantenendo la trasparenza storica.
+- **Proof of Integrity:** Validazione matematica dell'integrità del file tramite SHA-256. Un singolo bit alterato invalida il sigillo.
+- **Proof of Existence:** Marcatura temporale immutabile e resistente alla censura su rete Ethereum.
+- **Sovereign Authorship:** L'autore non è un semplice indirizzo anonimo, ma un'entità verificata dal proprio token **CypherSoul**.
+- **Zero-Knowledge Privacy:** Il documento originale non viene mai caricato online; solo il suo hash (l'impronta digitale) tocca la blockchain.
+- **Revoca Logica:** Sistema di gestione del ciclo di vita dei documenti, che permette di invalidare certificati obsoleti mantenendo l'audit trail.
+
+---
+
+## 🛡️ Ecosistema CypherSoul (CYID)
+
+Il cuore pulsante della reputazione su CypherSeal è il token **CypherSoul (CYID)**.
+
+- **Standard:** EIP-5192 (Minimal Soulbound).
+- **Funzione:** Funge da "Passaporto Digitale" non trasferibile.
+- **Sicurezza:** Impedisce lo spam nel registro pubblico e assicura che solo attori verificati possano emettere certificazioni di integrità, creando un network di fiducia (Web of Trust).
 
 ---
 
 ## 🔒 Architettura di Sicurezza
 
-### 1. Privacy-by-Design (Hashing Locale)
+### 1. Privacy-by-Design (Local Hashing)
 
-Il sistema utilizza la **Web Crypto API** nativa del browser.
+CypherSeal utilizza le **Web Crypto API** per processare i file lato client.
 
-1. L'utente seleziona il file.
-2. Il browser calcola l'hash `SHA-256` in locale.
-3. **Il documento originale non lascia mai il dispositivo.**
-4. Solo l'impronta digitale (stringa esadecimale) viene inviata alla blockchain.
+1. Il file viene trascinato nell'interfaccia.
+2. Viene generato l'hash `SHA-256` all'interno della sandbox del browser.
+3. **Il documento rimane sul tuo computer.** Nessun dato sensibile viene inviato al server o alla blockchain.
 
-*Questo approccio rende la DApp intrinsecamente conforme al **GDPR**.*
+### 2. Identity Gating
 
-### 2. Identity Gating (SBT)
+L'accesso alla funzione di notarizzazione è protetto da uno Smart Contract che interroga il possesso del token **CYID**.
 
-L'accesso alla funzione di scrittura è protetto. Lo Smart Contract (simulato) verifica che l'indirizzo mittente possieda un "Identity Badge".
-- **Senza Badge:** Utente anonimo → Accesso sola lettura.
-- **Con Badge:** Identità Sovrana → Accesso scrittura/notarizzazione.
+- **Livello Guest:** Sola verifica dei documenti esistenti.
+- **Livello Seal-Maker:** Accesso completo alla notarizzazione (richiede CYID).
 
 ---
 
 ## 🛠 Stack Tecnologico
 
-- **Frontend Core:** HTML5, CSS3 (Custom Properties), JavaScript (ES Modules).
-- **UI Framework:** Bootstrap 5 & Bootstrap Icons.
-- **Crittografia:** Native `crypto.subtle` API.
-- **Web3 Integration:** Logica predisposta per *Ethers.js*.
-- **Storage:** `localStorage` (per persistenza sessione nel prototipo).
+- **Frontend:** HTML5, CSS3 (Advanced Custom Properties), JavaScript (ES Modules).
+- **UI Framework:** Bootstrap 5 & Bootstrap Icons (Cypher-Custom Theme).
+- **Cryptography:** Native Browser `crypto.subtle`.
+- **Blockchain Interface:** Logica predisposta per **Ethers.js v6**.
+- **Identity Standard:** EIP-5192 (Soulbound Tokens).
 
 ---
 
 ## 📂 Struttura del Progetto
-
-Il progetto adotta un'architettura modulare basata su **ES Modules**:
 
 ```text
 VerifyData/
@@ -85,6 +87,10 @@ VerifyData/
 ├── certifica.html              # Hashing E Notarizzazione
 ├── verifica.html               # Portale Pubblico Di Verifica
 ├── alertAccessoNegato.html     # Modal Protezione Route
+│
+├── css/
+│   ├── identityContract.sol    # Smart Contract Token SBT
+│   └── index.css               # Smart Contract Notarization (Work In Progress)
 │
 ├── css/
 │   ├── style.css               # Layout E Stile Globale
@@ -111,69 +117,48 @@ VerifyData/
 
 ## ⚡ Installazione e Avvio
 
-Poiché il progetto utilizza **moduli JavaScript** (`import/export`), i browser bloccheranno l'esecuzione se i file vengono aperti direttamente dal file system (Policy CORS). **È necessario un server HTTP locale.**
-
 ### Prerequisiti
 
-* Un browser moderno (Chrome, Firefox, Brave).
-- Estensione **MetaMask** installata (opzionale per la UI, consigliata per l'UX reale).
-- **VS Code** (Consigliato) o Python/Node installati.
+- Un browser moderno con supporto **ES6 Modules**.
+- Un server locale (per gestire le policy CORS dei moduli JS).
 
-### Passaggi
+### Quick Start
 
 1. **Clona la repository:**
 
-    ```bash
-    git clone https://github.com/TuoUsername/verifydata.git
-    cd verifydata
-    ```
+   ```bash
+   git clone https://github.com/TuoUsername/CypherSeal.git
+   cd CypherSeal
+   ```
 
-2. **Avvia il Server Locale:**
-    - **Metodo A (VS Code):** Installa l'estensione *"Live Server"*, clicca col tasto destro su `index.html` e seleziona *"Open with Live Server"*.
-    - **Metodo B (Python):**
-
-        ```bash
-        python -m http.server 8000
-        ```
-
-    - **Metodo C (Node.js):**
-
-        ```bash
-        npx http-server .
-        ```
-
-3. Visita **`http://localhost:8000`** nel browser.
+2. **Lancio locale:**
+   - Se usi **VS Code**, clicca col tasto destro su `index.html` -> *Open with Live Server*.
+   - Oppure usa Python: `python -m http.server 8000`.
+3. Naviga su `http://localhost:8000`.
 
 ---
 
 ## 📖 Guida all'Uso
 
-1. **Connessione:** Clicca su "Connetti Wallet". La DApp simulerà la connessione a MetaMask.
-2. **Identità (SBT):** Al primo accesso, la Dashboard ti chiederà di effettuare il "Minting" del tuo Badge SBT. Clicca per attivare il profilo (simulazione transazione).
-3. **Certifica:**
-    - Vai su "Certifica Documento".
-    - Trascina un file (PDF, Immagine, ecc.).
-    - Osserva il calcolo dell'Hash in tempo reale.
-    - Clicca "Notarizza" per scrivere sulla blockchain (simulata).
-4. **Verifica:**
-    - Vai su "Verifica Pubblica".
-    - Carica lo stesso file: il sistema ti confermerà l'autenticità.
-    - Prova a modificare il file originale (anche cambiando una lettera) e ricaricalo: la verifica fallirà (Hash Mismatch).
+1. **Connessione:** Collega il tuo Wallet (MetaMask).
+2. **Minting CypherSoul:** Se è il tuo primo accesso, genera il tuo token **CYID** nella dashboard per attivare i permessi di scrittura.
+3. **Sigillatura (Seal):** Carica un documento in "Certifica", attendi il calcolo dell'impronta e conferma la transazione.
+4. **Verifica:** Trascina il file originale nella pagina di verifica. CypherSeal interrogherà la blockchain per confermare timestamp, autore (CYID) e integrità.
 
 ---
 
-## ⚠️ Nota sul Mocking (Simulazione)
+## ⚠️ Nota sul Mocking (Sviluppo)
 
-Attualmente, il file **`js/moduleBlockchain.js`** agisce come un **Mock Service Layer**.
+Per facilitare il testing dell'interfaccia e la valutazione accademica senza costi di Gas, il modulo **`js/moduleBlockchain.js`** opera attualmente in modalità **Simulation Mode**.
 
-- **Cosa significa?** Le chiamate non vengono realmente inviate alla Testnet Sepolia per evitare costi di Gas e complessità di configurazione durante la fase di revisione dell'interfaccia.
-- **Come funziona?** Il modulo simula latenze di rete (`setTimeout`), transazioni pendenti e restituisce dati fittizi coerenti (es. se l'hash finisce con un numero è "Valido", se finisce con una lettera è "Revocato").
-- **Produzione:** Per passare in produzione, è sufficiente sostituire il contenuto di `moduleBlockchain.js` con le chiamate reali `ethers.Contract(...)`.
+- Le transazioni sono simulate con latenze realistiche.
+- I dati vengono persistiti nel `localStorage` per mantenere la coerenza della sessione.
+- **Pronto per il Mainnet:** Il codice è strutturato per iniettare l'istanza `ethers.Contract` con modifiche minime alla configurazione.
 
 ---
 
 ## 👤 Autore
 
 **Francesco Lo Verde**
-Università degli Studi di Perugia
-*Progetto di Data Security & Blockchain Forensics*
+*Università degli Studi di Perugia*
+*Progetto di Data Security & Blockchain*
