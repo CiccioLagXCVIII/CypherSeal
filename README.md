@@ -1,6 +1,6 @@
 # 🔏 CypherSeal: Notarizzazione Crittografica & Sovereign Identity
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Version](https://img.shields.io/badge/version-2.0.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Status](https://img.shields.io/badge/status-Development-orange)
 ![Blockchain](https://img.shields.io/badge/blockchain-Ethereum%20Sepolia-c0c0c0)
