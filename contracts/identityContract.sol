@@ -140,11 +140,18 @@ contract CypherSoul is ERC721, ERC721URIStorage, Ownable {
     }
 
     // AA Override supportsInterface
-    // Questa Funzione Indica Quali Interfacce ("Lingue") Supporta Il Contratto
-    // Si Devono Includere Sia Le Interfacce Di ERC721 Che Quella Di ERC721URIStorage
+    // Sebbene L'Evento "Locked" E La Funzione "locked" Implementano La Logica Dello Standard EIP-5192, I Marketplace E Gli Indexer (Come Etherscan)
+    // Interrogano La Funzione "supportsInterface" Per Riconoscere Ufficialmente Se Il Token È Un SBT EIP-5192. L'interface ID Dello Standard EIP-5192 È "0xb45a3c0e".
+    // Solitamente, L'override Di ERC721 Ed ERC721URIStorage Gestisce Automaticamente Le Interfacce Supportate Tramite "super" (Se Uno Dei Genitori Le Supporta,
+    // Restituisce "true"). Tuttavia, Poiché Nessuno Dei Due Contratti Genitori Include Nativamente Il Supporto A EIP-5192, Si Imposta Manualmente.
+    // Grazie All' OR (||), Si Ottiene Una Doppia Verifica: Se Il Servizio Chiede Se È Un NFT Standard (ERC721), La Chiamata "super" Restituisce "true", Se Invece
+    // Il Servizio Chiede Se È Un EIP-5192 (Soulbound), La Seconda Condizione Restituisce "true"
     function supportsInterface(bytes4 interfaceId) public view override(ERC721, ERC721URIStorage) returns (bool) {
-        // Solidity Gestisce Automaticamente Le Interfacce Supportate (Se Uno Dei Contratti Genitori Le Supporta, Viene Restituito True)
-        return super.supportsInterface(interfaceId);
+        // Gli Eventi "Locked" E La Funzione "locked" Implementano La Logica EIP-5192, Ma I Marketplace E Gli Indexer (Come Etherscan) Interrogano La Funzione "supportsInterface" Per Capire Se Il Token È UN SBT EIP-5192
+        // L'Interface ID Dello Standard EIP-5192 È "0xb45a3c0e"
+        // Siccome Nella Funzione Si Fa L'Override Di "ERC721" E "ERC721URIStorage" Solidity Gestisce Automaticamente Le Interfacce Supportate
+        // (Se Uno Dei Contratti Genitori Le Supporta, Viene Restituito True)
+        return interfaceId == 0xb45a3c0e || super.supportsInterface(interfaceId);
     }
 }
 
