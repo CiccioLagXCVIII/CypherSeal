@@ -3,17 +3,18 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>VerifyData - Certifica Documento</title>
+        <title>CypherSeal - Certifica Documento</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
         <link rel="stylesheet" href="css/style.css" />
         <link rel="stylesheet" href="css/certifica.css" />
     </head>
     <body>
-        <header class="app-header d-flex justify-content-between align-items-center px-4">
+        <header class="app-header d-flex justify-content-between align-items-center px-3 px-md-4">
             <div class="d-flex align-items-center">
+                <!-- Pulsante Menu Hamburger -->
                 <button
-                    class="btn btn-link text-white p-0 me-3 d-lg-none"
+                    class="btn btn-link text-white p-0 me-2 me-md-3 d-lg-none"
                     type="button"
                     data-bs-toggle="offcanvas"
                     data-bs-target="#sidebarMenu"
@@ -23,17 +24,19 @@
 
                 <h5 class="mb-0 text-white">
                     <a href="index.html" class="d-flex align-items-center text-decoration-none text-white brandLink">
-                        <img src="Images/logoCypherSeal.svg" alt="CypherSeal Logo" class="logoHeader me-2" />
-                        <span class="brandText">CypherSeal</span>
+                        <img src="Images/logoCypherSeal.svg" alt="CypherSeal Logo" class="logoHeader me-1 me-md-2" />
+                        <!-- Su Mobile Si Nasconde Il Testo -->
+                        <span class="brandText d-none d-sm-inline">CypherSeal</span>
                     </a>
                 </h5>
             </div>
 
             <!-- Pulsante Accesso (A Destra) -->
             <div id="headerActions" class="d-flex align-items-center gap-2">
-                <a href="connessione.html" class="btn btn-sm rounded-pill btnCypherSeal" id="connectWalletBtn">
+                <a href="connessione.html" class="btn btn-sm rounded-pill btnCypherSeal px-3" id="connectWalletBtn">
                     <i class="bi bi-wallet-fill"></i>
-                    Connetti Wallet
+                    <!-- Su Mobile Si Nasconde Il Testo -->
+                    <span class="ms-1 d-none d-md-inline">Connetti Wallet</span>
                 </a>
             </div>
         </header>
@@ -80,7 +83,7 @@
                 </div>
             </aside>
 
-            <main class="content-area" id="mainContent" style="visibility: hidden">
+            <main class="content-area d-flex flex-column h-100" id="mainContent" style="visibility: hidden">
                 <!-- Header della Pagina -->
                 <div class="d-flex justify-content-between align-items-end mb-4">
                     <div>
@@ -89,116 +92,112 @@
                     </div>
                 </div>
 
-                <div class="custom-card">
-                    <div class="d-flex flex-column h-100 p-0" id="certificaDashboard">
-                        <!-- AA PRIMA RIGA -->
-                        <div id="documentDashboard" class="row d-flex align-items-center justify-content-between mb-2" style="height: 75%">
-                            <div class="col-8 h-100 d-flex flex-column">
-                                <div id="notarizationForm">
-                                    <form>
-                                        <!-- SS Area Drag And Drop -->
-                                        <div id="dropZone" class="uploadArea">
-                                            <!-- NN STATO 1: In Attesa Del File -->
-                                            <div id="uploadState">
-                                                <i class="bi bi-file-earmark-arrow-up text-primary display-5 mb-2 d-block"></i>
-                                                <h5 class="text-white">Trascina il file qui</h5>
-                                                <p class="text-muted small">Il File Non Lascerà Mai Il Tuo Browser.</p>
-                                                <label for="fileInput" class="btn btn-outline-primary btn-sm rounded-pill px-4">Seleziona File</label>
-                                            </div>
-
-                                            <!-- NN STATO 2: File Caricato -->
-                                            <div id="successState" class="d-none m-3">
-                                                <i class="bi bi-check-circle-fill text-success display-4 d-block lh-1"></i>
-                                                <h5 class="text-white m-2">File Pronto</h5>
-                                                <p class="text-muted small m-2">Seleziona/Trascina File Per Cambiare</p>
-                                                <button type="button" id="resetBtn" class="btn btn-outline-success btn-sm rounded-pill px-4 text-muted">
-                                                    <i class="bi bi-arrow-repeat me-2"></i>
-                                                    Rimuovi/Cambia File
-                                                </button>
-                                            </div>
-
-                                            <input type="file" id="fileInput" hidden />
+                <div class="d-flex flex-column h-100 p-0" id="certificaDashboard">
+                    <!-- AA PRIMA RIGA: Aggiunto g-3 per gestire lo spazio verticale/orizzontale -->
+                    <div id="documentDashboard" class="row upperRow g-3 mb-3">
+                        <!-- Colonna Sinistra: Rimossi mb-3 mb-lg-0 superflui -->
+                        <div class="col-12 col-lg-8 h-100">
+                            <div class="h-100" id="notarizationForm">
+                                <form class="h-100 m-2">
+                                    <!-- SS Area Drag And Drop -->
+                                    <div id="dropZone" class="uploadArea">
+                                        <!-- NN STATO 1: In Attesa Del File -->
+                                        <div id="uploadState">
+                                            <i class="bi bi-file-earmark-arrow-up text-primary display-5 mb-2 d-block"></i>
+                                            <h5 class="text-white">Trascina il file qui</h5>
+                                            <p class="text-muted small">Il File Non Lascerà Mai Il Tuo Browser.</p>
+                                            <label for="fileInput" class="btn btn-outline-primary btn-sm rounded-pill px-4">Seleziona File</label>
                                         </div>
 
-                                        <!-- SS Risultato Hashing -->
-                                        <div id="fileInfo" class="p-3 rounded bg-dark border border-secondary border-opacity-25" style="display: none">
-                                            <label class="smallest text-muted text-uppercase fw-bold mb-2 d-block">Hash SHA-256 Calcolato</label>
-                                            <div class="d-flex align-items-center justify-content-between bg-black bg-opacity-40 p-2 rounded">
-                                                <code id="fileHash" class="text-success small"></code>
-                                                <button type="button" id="copyAddressBtn" class="btn btn-link text-muted p-0 ms-2">
-                                                    <i class="bi bi-copy"></i>
-                                                </button>
-                                            </div>
+                                        <!-- NN STATO 2: File Caricato -->
+                                        <div id="successState" class="d-none m-3">
+                                            <i class="bi bi-check-circle-fill text-success display-4 d-block lh-1"></i>
+                                            <h5 class="text-white m-2">File Pronto</h5>
+                                            <p class="text-muted small m-2">Seleziona/Trascina File Per Cambiare</p>
+                                            <button type="button" id="resetBtn" class="btn btn-outline-success btn-sm rounded-pill px-4 text-muted">
+                                                <i class="bi bi-arrow-repeat me-2"></i>
+                                                Rimuovi/Cambia File
+                                            </button>
                                         </div>
 
-                                        <!-- SS Pulsante Azione -->
-                                        <div class="ctaContainer text-center">
-                                            <button type="submit" class="btn ctaButton btn-lg px-5 text-white w-100 btnCypherSeal">Notarizza Documento</button>
+                                        <input type="file" id="fileInput" hidden />
+                                    </div>
 
-                                            <div class="d-flex justify-content-center align-items-center mt-3 text-muted smallest">
-                                                <i class="bi bi-info-circle me-2"></i>
-                                                <span>L'Operazione Richiede Una Conferma Su MetaMask</span>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-
-                            <div class="col-4 h-100 d-flex flex-column">
-                                <!-- SS Box Dettagli -->
-                                <div id="detailsPanel">
-                                    <h6 class="text-primary text-uppercase fw-bold smallest mb-4">Riepilogo Notarizzazione</h6>
-
-                                    <div class="summaryList">
-                                        <!-- Nome File -->
-                                        <div class="summaryItem">
-                                            <span class="summaryLabel">Documento:</span>
-
-                                            <span id="fileName" class="summaryValue" title="Nessun file">---</span>
-                                        </div>
-                                        <!-- Tipo File (Nuovo) -->
-                                        <div class="summaryItem">
-                                            <span class="summaryLabel">Tipo File:</span>
-
-                                            <span id="fileType" class="summaryValue">---</span>
-                                        </div>
-                                        <!-- Dimensione -->
-                                        <div class="summaryItem">
-                                            <span class="summaryLabel">Dimensione:</span>
-
-                                            <span id="fileSize" class="summaryValue">---</span>
-                                        </div>
-                                        <!-- Account (Nuovo - Utile per confermare chi sta firmando) -->
-                                        <div class="summaryItem">
-                                            <span class="summaryLabel">Account:</span>
-
-                                            <span id="walletShort" class="summaryValue font-monospace text-warning">---</span>
-                                        </div>
-                                        <!-- Costo Gas Stimato -->
-                                        <div class="summaryItem">
-                                            <span class="summaryLabel">Gas Stimato:</span>
-
-                                            <span class="summaryValue text-success">~ 0.0004 ETH</span>
+                                    <!-- SS Risultato Hashing -->
+                                    <div id="fileInfo" class="p-3 rounded bg-dark border border-secondary border-opacity-25" style="display: none">
+                                        <label class="smallest text-muted text-uppercase fw-bold mb-2 d-block">Hash SHA-256 Calcolato</label>
+                                        <div class="d-flex align-items-center justify-content-between bg-black bg-opacity-40 p-2 rounded">
+                                            <code id="fileHash" class="text-success small"></code>
+                                            <button type="button" id="copyAddressBtn" class="btn btn-link text-muted p-0 ms-2">
+                                                <i class="bi bi-copy"></i>
+                                            </button>
                                         </div>
                                     </div>
 
-                                    <!-- NN Box Badge SBT -->
-                                    <div id="certifiedIdBadge" class="mt-auto p-3 rounded bg-primary bg-opacity-10 border border-primary border-opacity-20">
-                                        <p class="smallest text-primary mb-0 d-flex align-items-center">
-                                            <i class="bi bi-patch-check-fill fs-5 me-2"></i>
-                                            <span>Notarizzazione Con Indentità SBT</span>
-                                        </p>
+                                    <!-- SS Pulsante Azione -->
+                                    <div class="ctaContainer text-center">
+                                        <button type="submit" class="btn ctaButton btn-lg px-5 text-white w-100 btnCypherSeal">Notarizza Documento</button>
+
+                                        <div class="d-flex justify-content-center align-items-center mt-3 text-muted smallest">
+                                            <i class="bi bi-info-circle me-2"></i>
+                                            <span>L'Operazione Richiede Una Conferma Su MetaMask</span>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
 
-                        <!-- AA SECONDA RIGA (Box Viola) -->
-                        <div id="info" class="row mb-2" style="height: 25%">
-                            <div class="col-12 h-100">
-                                <div id="infoPanel">
-                                    <!-- Contenuto infoPanel -->
+                        <!-- Colonna Destra -->
+                        <div class="col-12 col-lg-4 h-100">
+                            <!-- SS Box Dettagli: Rimossi margini interni superflui -->
+                            <div class="h-100" id="detailsPanel">
+                                <h6 class="text-primary text-uppercase fw-bold smallest mb-4">Riepilogo Notarizzazione</h6>
+
+                                <div class="summaryList">
+                                    <!-- Nome File -->
+                                    <div class="summaryItem">
+                                        <span class="summaryLabel">Documento:</span>
+                                        <span id="fileName" class="summaryValue" title="Nessun file">---</span>
+                                    </div>
+                                    <!-- Tipo File -->
+                                    <div class="summaryItem">
+                                        <span class="summaryLabel">Tipo File:</span>
+                                        <span id="fileType" class="summaryValue">---</span>
+                                    </div>
+                                    <!-- Dimensione -->
+                                    <div class="summaryItem">
+                                        <span class="summaryLabel">Dimensione:</span>
+                                        <span id="fileSize" class="summaryValue">---</span>
+                                    </div>
+                                    <!-- Account -->
+                                    <div class="summaryItem">
+                                        <span class="summaryLabel">Account:</span>
+                                        <span id="walletShort" class="summaryValue font-monospace text-warning">---</span>
+                                    </div>
+                                    <!-- Costo Gas Stimato -->
+                                    <div class="summaryItem">
+                                        <span class="summaryLabel">Gas Stimato:</span>
+                                        <span class="summaryValue text-success">~ 0.0004 ETH</span>
+                                    </div>
                                 </div>
+
+                                <!-- NN Box Badge SBT -->
+                                <div id="certifiedIdBadge" class="mt-auto p-3 rounded bg-primary bg-opacity-10 border border-primary border-opacity-20">
+                                    <p class="smallest text-primary mb-0 d-flex align-items-center">
+                                        <i class="bi bi-patch-check-fill fs-5 me-2"></i>
+                                        <span>Notarizzazione Con Indentità SBT</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AA SECONDA RIGA: Aggiunto g-3 per coerenza -->
+                    <div id="info" class="row bottomRow g-3">
+                        <div class="col-12 h-100">
+                            <div class="h-100 mt-3" id="infoPanel">
+                                <!-- Contenuto infoPanel -->
+                                <p class="text-muted">> In attesa di input...</p>
                             </div>
                         </div>
                     </div>

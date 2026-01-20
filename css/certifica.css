@@ -297,3 +297,38 @@
     opacity: 1;
     bottom: 50px;
 }
+
+/* Stile Desktop (Default)  */
+@media (min-width: 992px) {
+    .upperRow {
+        height: 75%;
+    }
+    .bottomRow {
+        height: 25%;
+    }
+}
+
+/* Stile Mobile (Sotto i 992px) - Stack verticale */
+@media (max-width: 991.98px) {
+    #certificaDashboard {
+        height: auto !important;
+        display: block !important;
+    }
+
+    .upperRow,
+    .bottomRow {
+        height: auto !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    #notarizationForm,
+    #detailsPanel {
+        min-height: 350px;
+        height: auto !important;
+    }
+
+    #infoPanel {
+        min-height: 150px;
+        height: auto !important;
+    }
+}

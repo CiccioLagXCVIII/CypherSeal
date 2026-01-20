@@ -66,7 +66,9 @@ export const Blockchain = {
         const delay = Math.floor(Math.random() * 1000) + 500;
         await new Promise(r => setTimeout(r, delay));
 
-        const hasIdentity = !userAddress.endsWith('0');
+        //const hasIdentity = !userAddress.endsWith('0');
+
+        const hasIdentity = true;
 
         return hasIdentity;
     },

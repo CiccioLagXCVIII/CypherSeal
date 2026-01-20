@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             HomeManager.init();
             break;
         case 'connessione.html':
-            // Assegna la funzione al click del bottone se presente
+            // Assegna La Funzione Di Connessione Al Bottone
             const btn = document.getElementById('connectWalletBtn');
             if (btn) {
                 btn.addEventListener('click', () => Auth.checkWallet());

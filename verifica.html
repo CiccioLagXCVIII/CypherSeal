@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>VerifyData - Verifica Documento</title>
+        <title>CypherSeal - Verifica Documento</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
         <link rel="stylesheet" href="css/style.css" />
@@ -11,10 +11,11 @@
         <link rel="stylesheet" href="css/verifica.css" />
     </head>
     <body>
-        <header class="app-header d-flex justify-content-between align-items-center px-4">
+        <header class="app-header d-flex justify-content-between align-items-center px-3 px-md-4">
             <div class="d-flex align-items-center">
+                <!-- Pulsante Menu Hamburger -->
                 <button
-                    class="btn btn-link text-white p-0 me-3 d-lg-none"
+                    class="btn btn-link text-white p-0 me-2 me-md-3 d-lg-none"
                     type="button"
                     data-bs-toggle="offcanvas"
                     data-bs-target="#sidebarMenu"
@@ -24,17 +25,19 @@
 
                 <h5 class="mb-0 text-white">
                     <a href="index.html" class="d-flex align-items-center text-decoration-none text-white brandLink">
-                        <img src="Images/logoCypherSeal.svg" alt="CypherSeal Logo" class="logoHeader me-2" />
-                        <span class="brandText">CypherSeal</span>
+                        <img src="Images/logoCypherSeal.svg" alt="CypherSeal Logo" class="logoHeader me-1 me-md-2" />
+                        <!-- Su Mobile Si Nasconde Il Testo -->
+                        <span class="brandText d-none d-sm-inline">CypherSeal</span>
                     </a>
                 </h5>
             </div>
 
             <!-- Pulsante Accesso (A Destra) -->
             <div id="headerActions" class="d-flex align-items-center gap-2">
-                <a href="connessione.html" class="btn btn-sm rounded-pill btnCypherSeal" id="connectWalletBtn">
+                <a href="connessione.html" class="btn btn-sm rounded-pill btnCypherSeal px-3" id="connectWalletBtn">
                     <i class="bi bi-wallet-fill"></i>
-                    Connetti Wallet
+                    <!-- Su Mobile Si Nasconde Il Testo -->
+                    <span class="ms-1 d-none d-md-inline">Connetti Wallet</span>
                 </a>
             </div>
         </header>
@@ -89,119 +92,120 @@
                     </div>
                 </div>
 
-                <div class="custom-card">
-                    <div class="d-flex flex-column h-100 p-0" id="verificaDashboard">
-                        <!-- AA Upload e Risultati -->
-                        <div class="row d-flex align-items-center justify-content-between mb-2" style="height: 75%">
-                            <!-- SS Box Upload -->
-                            <div class="col-8 h-100 d-flex flex-column">
-                                <div id="verificationForm" class="h-100">
-                                    <div class="d-flex flex-column h-100 gap-3">
-                                        <!-- NN Area Drag And Drop -->
-                                        <div id="dropZone" class="uploadArea flex-grow-1">
-                                            <div id="uploadState">
-                                                <i class="bi bi-search text-primary display-5 mb-2 d-block"></i>
-                                                <h5 class="text-white">Carica il file da verificare</h5>
-                                                <p class="text-muted small">L'hash verrà calcolato localmente e confrontato on-chain.</p>
-                                                <label for="fileInput" class="btn btn-outline-primary btn-sm rounded-pill px-4">Seleziona File</label>
-                                            </div>
-
-                                            <div id="successState" class="d-none">
-                                                <i class="bi bi-file-earmark-check text-success display-4 mb-2 d-block"></i>
-                                                <h5 class="text-white">File Analizzato</h5>
-                                                <button type="button" id="resetBtn" class="btn btn-outline-secondary btn-sm rounded-pill px-4 btnCypherSeal">
-                                                    <i class="bi bi-arrow-repeat me-2"></i>
-                                                    Cambia File
-                                                </button>
-                                            </div>
-                                            <input type="file" id="fileInput" hidden />
-                                        </div>
-
-                                        <!-- NN Hash Documento -->
-                                        <div id="fileInfo" class="p-3 rounded bg-dark border border-secondary border-opacity-25" style="display: none">
-                                            <label class="smallest text-muted text-uppercase fw-bold mb-2 d-block">Hash SHA-256 Calcolato</label>
-                                            <div class="d-flex align-items-center justify-content-between bg-black bg-opacity-40 p-2 rounded">
-                                                <code id="fileHash" class="text-success small"></code>
-                                                <button type="button" id="copyAddressBtn" class="btn btn-link text-muted p-0 ms-2">
-                                                    <i class="bi bi-copy"></i>
-                                                </button>
-                                            </div>
-                                        </div>
+                <!-- Aggiunta classe g-3 per spaziature uniformi -->
+                <div class="d-flex flex-column h-100 p-0" id="verificaDashboard">
+                    <!-- AA Upload e Risultati -->
+                    <!-- Rimosso d-flex align-items... superfluo sulla row. Aggiunto g-3 e mb-3 -->
+                    <div class="row upperRow g-3 mb-3">
+                        <!-- SS Box Upload -->
+                        <div class="col-12 col-lg-8 h-100">
+                            <div id="verificationForm" class="h-100 d-flex flex-column">
+                                <!-- NN Area Drag And Drop -->
+                                <div id="dropZone" class="uploadArea flex-grow-1">
+                                    <div id="uploadState">
+                                        <i class="bi bi-search text-primary display-5 mb-2 d-block"></i>
+                                        <h5 class="text-white">Carica il file da verificare</h5>
+                                        <p class="text-muted small">L'hash verrà calcolato localmente e confrontato on-chain.</p>
+                                        <label for="fileInput" class="btn btn-outline-primary btn-sm rounded-pill px-4">Seleziona File</label>
                                     </div>
+
+                                    <div id="successState" class="d-none">
+                                        <i class="bi bi-file-earmark-check text-success display-4 mb-2 d-block"></i>
+                                        <h5 class="text-white">File Analizzato</h5>
+                                        <button type="button" id="resetBtn" class="btn btn-outline-secondary btn-sm rounded-pill px-4 btnCypherSeal">
+                                            <i class="bi bi-arrow-repeat me-2"></i>
+                                            Cambia File
+                                        </button>
+                                    </div>
+                                    <input type="file" id="fileInput" hidden />
                                 </div>
-                            </div>
 
-                            <div class="col-4 h-100 d-flex flex-column">
-                                <div id="resultPanel" class="statusPanelNeutral">
-                                    <h6 class="text-primary text-uppercase fw-bold smallest mb-4">Esito Verifica</h6>
-                                    <!-- SS Placeholder Iniziale -->
-                                    <div id="resultPlaceholder" class="text-center my-auto">
-                                        <i class="bi bi-shield-slash text-muted display-1"></i>
-                                        <p class="text-muted small mt-3">Carica un file per interrogare la blockchain</p>
-                                    </div>
-
-                                    <!-- SS Box Esito -->
-                                    <div id="resultData" class="d-none h-100 d-flex flex-column">
-                                        <div class="verificationBadge mb-4" id="statusBadge"></div>
-
-                                        <div class="summaryList mb-4">
-                                            <!-- AA Data Certificazione -->
-                                            <div class="summaryItem">
-                                                <span class="summaryLabel">Data Certificazione:</span>
-                                                <span id="resDate" class="summaryValue">---</span>
-                                            </div>
-
-                                            <!-- AA Indirizzo Wallet -->
-                                            <div class="summaryItem">
-                                                <span class="summaryLabel">Wallet Autore:</span>
-                                                <div class="d-flex align-items-center gap-1">
-                                                    <span id="resAuthor" class="summaryValue font-monospace">---</span>
-                                                    <a href="#" id="resAuthorLink" target="_blank" class="text-primary smallest">
-                                                        <i class="bi bi-box-arrow-up-right"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <!-- AA ID Identità SBT -->
-                                            <div class="summaryItem" id="resSbtRow">
-                                                <span class="summaryLabel">Token Identità:</span>
-                                                <span id="resSbtId" class="summaryValue text-primary fw-bold">---</span>
-                                            </div>
-
-                                            <!-- AA Block ID -->
-                                            <div class="summaryItem">
-                                                <span class="summaryLabel">Block ID:</span>
-                                                <span id="resBlock" class="summaryValue">---</span>
-                                            </div>
-                                        </div>
-
-                                        <!-- NN Identità Autore -->
-                                        <div id="authorIdentityBox" class="mt-auto p-3 rounded d-none">
-                                            <div class="d-flex align-items-center">
-                                                <div class="identityIconWrapper me-3">
-                                                    <i class="bi bi-patch-check-fill text-primary fs-3"></i>
-                                                </div>
-                                                <div>
-                                                    <p class="mb-0 text-white small fw-bold">Identità Verificata</p>
-                                                    <p class="mb-0 extraSmall text-muted">L'autore possiede un Badge SBT</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <!-- NN Hash Documento -->
+                                <div id="fileInfo" class="p-3 rounded bg-dark border border-secondary border-opacity-25 mt-3" style="display: none">
+                                    <label class="smallest text-muted text-uppercase fw-bold mb-2 d-block">Hash SHA-256 Calcolato</label>
+                                    <div class="d-flex align-items-center justify-content-between bg-black bg-opacity-40 p-2 rounded">
+                                        <code id="fileHash" class="text-success small"></code>
+                                        <button type="button" id="copyAddressBtn" class="btn btn-link text-muted p-0 ms-2">
+                                            <i class="bi bi-copy"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- SS Log Terminale -->
-                        <div id="info" class="row mb-2" style="height: 25%">
-                            <div class="col-12 h-100">
-                                <div id="infoPanel">
-                                    <p class="text-muted">> In attesa di input...</p>
+                        <!-- SS Box Risultati -->
+                        <div class="col-12 col-lg-4 h-100">
+                            <div id="resultPanel" class="statusPanelNeutral h-100">
+                                <h6 class="text-primary text-uppercase fw-bold smallest">Esito Verifica</h6>
+                                <!-- SS Placeholder Iniziale -->
+                                <div id="resultPlaceholder" class="text-center my-auto">
+                                    <i class="bi bi-shield-slash text-muted display-1"></i>
+                                    <p class="text-muted small mt-3">Carica un file per interrogare la blockchain</p>
+                                </div>
+
+                                <!-- SS Box Esito -->
+                                <div id="resultData" class="d-none h-100 d-flex flex-column">
+                                    <div class="verificationBadge mb-4" id="statusBadge"></div>
+
+                                    <div class="summaryList mb-4">
+                                        <!-- AA Data Certificazione -->
+                                        <div class="summaryItem">
+                                            <span class="summaryLabel">Data Certificazione:</span>
+                                            <span id="resDate" class="summaryValue">---</span>
+                                        </div>
+
+                                        <!-- AA Indirizzo Wallet -->
+                                        <div class="summaryItem">
+                                            <span class="summaryLabel">Wallet Autore:</span>
+                                            <div class="d-flex align-items-center gap-1">
+                                                <span id="resAuthor" class="summaryValue font-monospace">---</span>
+                                                <a href="#" id="resAuthorLink" target="_blank" class="text-primary smallest">
+                                                    <i class="bi bi-box-arrow-up-right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <!-- AA ID Identità SBT -->
+                                        <div class="summaryItem" id="resSbtRow">
+                                            <span class="summaryLabel">Token Identità:</span>
+                                            <span id="resSbtId" class="summaryValue text-primary fw-bold">---</span>
+                                        </div>
+
+                                        <!-- AA Block ID -->
+                                        <div class="summaryItem">
+                                            <span class="summaryLabel">Block ID:</span>
+                                            <span id="resBlock" class="summaryValue">---</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- NN Identità Autore -->
+                                    <div id="authorIdentityBox" class="mt-auto p-3 rounded d-none">
+                                        <div class="d-flex align-items-center">
+                                            <div class="identityIconWrapper me-3">
+                                                <i class="bi bi-patch-check-fill text-primary fs-3"></i>
+                                            </div>
+                                            <div>
+                                                <p class="mb-0 text-white small fw-bold">Identità Verificata</p>
+                                                <p class="mb-0 extraSmall text-muted">L'autore possiede un Badge SBT</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- SS Log Terminale -->
+                    <div id="info" class="row bottomRow g-3">
+                        <div class="col-12 h-100">
+                            <div class="h-100 mt-3" id="infoPanel">
+                                <!-- Contenuto infoPanel -->
+                                <p class="text-muted">> In attesa di input...</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
                 <div id="copyToast" class="copyToast">
                     <i class="bi bi-check-circle me-2"></i>
                     Hash Copiato!

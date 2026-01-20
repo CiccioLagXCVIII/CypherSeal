@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>VerifyData - Connessione Wallet</title>
+        <title>CypherSeal - Connessione Wallet</title>
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
         <!-- Bootstrap Icons -->
@@ -12,10 +12,11 @@
         <link rel="stylesheet" href="css/connessione.css" />
     </head>
     <body>
-        <header class="app-header d-flex justify-content-between align-items-center px-4">
+        <header class="app-header d-flex justify-content-between align-items-center px-3 px-md-4">
             <div class="d-flex align-items-center">
+                <!-- Pulsante Menu Hamburger -->
                 <button
-                    class="btn btn-link text-white p-0 me-3 d-lg-none"
+                    class="btn btn-link text-white p-0 me-2 me-md-3 d-lg-none"
                     type="button"
                     data-bs-toggle="offcanvas"
                     data-bs-target="#sidebarMenu"
@@ -25,8 +26,9 @@
 
                 <h5 class="mb-0 text-white">
                     <a href="index.html" class="d-flex align-items-center text-decoration-none text-white brandLink">
-                        <img src="Images/logoCypherSeal.svg" alt="CypherSeal Logo" class="logoHeader me-2" />
-                        <span class="brandText">CypherSeal</span>
+                        <img src="Images/logoCypherSeal.svg" alt="CypherSeal Logo" class="logoHeader me-1 me-md-2" />
+                        <!-- Su Mobile Si Nasconde Il Testo -->
+                        <span class="brandText d-none d-sm-inline">CypherSeal</span>
                     </a>
                 </h5>
             </div>
@@ -78,175 +80,172 @@
 
             <!-- Contenuto Centrale -->
             <main class="content-area">
-                <!-- Sostituisci il contenuto dentro <main class="content-area"> -->
-                <div class="custom-card">
-                    <div class="h-100 d-flex flex-column px-4" id="connectionDashboard">
-                        <!-- AA PRIMA RIGA: Login CTA -->
-                        <div class="row h-25 mx-0 gx-4 mt-3">
-                            <div class="col-12 h-100">
-                                <div class="d-flex align-items-center h-100 px-4 py-3 loginCard">
-                                    <div class="col-8 d-flex flex-column justify-content-center">
-                                        <div class="d-flex align-items-center mb-2">
-                                            <div class="icon-wrapper loginIcon rounded p-2 me-3">
-                                                <i class="bi bi-shield-lock-fill fs-4"></i>
-                                            </div>
-                                            <div>
-                                                <h5 class="text-white fw-bold mb-0">Accesso Web3</h5>
-                                                <p class="loginSubtitle extra-small mb-0 text-uppercase fw-bold">Gateway Protetto</p>
-                                            </div>
+                <div class="h-100 d-flex flex-column px-4" id="connectionDashboard">
+                    <!-- AA PRIMA RIGA: Login CTA -->
+                    <div class="row h-25 mx-0 gx-4 mt-3">
+                        <div class="col-12 h-100">
+                            <div class="d-flex flex-column flex-lg-row align-items-center h-100 px-4 py-3 loginCard">
+                                <div class="col-12 col-lg-8 d-flex flex-column justify-content-center gap-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="icon-wrapper loginIcon rounded p-2 me-3">
+                                            <i class="bi bi-shield-lock-fill fs-4"></i>
                                         </div>
-                                        <p class="text-muted small mb-0 pe-5">
-                                            Connetti il wallet per interagire con lo Smart Contract. VerifyData non memorizza le tue chiavi private.
-                                        </p>
+                                        <div>
+                                            <h5 class="text-white fw-bold mb-0">Accesso Web3</h5>
+                                            <p class="loginSubtitle extra-small mb-0 text-uppercase fw-bold">Gateway Protetto</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-muted small mb-0 pe-5">
+                                        Connetti il wallet per interagire con lo Smart Contract. VerifyData non memorizza le tue chiavi private.
+                                    </p>
+                                </div>
+
+                                <div class="col-12 col-lg-4 d-flex align-items-center justify-content-center justify-content-lg-end mt-3 mt-lg-0">
+                                    <button class="btn btn-primary rounded-pill btnCypherSeal" id="connectWalletBtn">
+                                        <i class="bi bi-wallet2 me-2"></i>
+                                        Connetti Wallet
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AA SECONDA RIGA: Tutorial E Definizioni -->
+                    <div id="infoDashboard" class="row h-75 pt-3 gx-4 mx-0 mb-3">
+                        <!-- SS TUTORIAL METAMASK (ORANGE) -->
+                        <div class="col-12 col-lg-6 h-100 gap-3">
+                            <div class="d-flex flex-column h-100 p-4 tutorialMetamask orangeCard">
+                                <div class="d-flex align-items-center mb-4">
+                                    <div class="icon-wrapper orangeIcon rounded p-2 me-3">
+                                        <i class="bi bi-gear-wide-connected fs-4"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="text-white fw-bold mb-0">Configurazione Wallet</h5>
+                                        <p class="orangeSubtitle extra-small mb-0 text-uppercase fw-bold">Guida Al Setup Web3</p>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column gap-4 overflow-auto pe-2 scrollbarMetamask">
+                                    <!-- Step 1: Installazione -->
+                                    <div class="d-flex align-items-start">
+                                        <div class="step-icon-container me-3">
+                                            <i class="bi bi-1-circle-fill text-orange fs-5"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="text-white mb-1 fw-bold smallest">Ottenere L'Estensione</h6>
+                                            <small class="text-muted d-block">
+                                                Scarica l'estensione di MetaMask da
+                                                <a href="https://metamask.io" target="_blank" class="customLink orange">metamask.io</a>
+                                                . È il portale sicuro per interagire con la blockchain.
+                                            </small>
+                                        </div>
                                     </div>
 
-                                    <div class="col-4 d-flex align-items-center justify-content-end">
-                                        <button class="btn btn-primary rounded-pill btnCypherSeal" id="connectWalletBtn">
-                                            <i class="bi bi-wallet2 me-2"></i>
-                                            Connetti Wallet
-                                        </button>
+                                    <!-- Step 2: Sicurezza -->
+                                    <div class="d-flex align-items-start">
+                                        <div class="step-icon-container me-3">
+                                            <i class="bi bi-2-circle-fill text-orange fs-5"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="text-white mb-1 fw-bold smallest">Backup Della Seed Phrase</h6>
+                                            <small class="text-muted d-block">
+                                                Crea un nuovo account e memorizza le
+                                                <strong>12 parole di sicurezza</strong>
+                                                . Custodiscile offline: chiunque le possieda ha il controllo totale sul wallet.
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Step 3: Rete di Test -->
+                                    <div class="d-flex align-items-start">
+                                        <div class="step-icon-container me-3">
+                                            <i class="bi bi-3-circle-fill text-orange fs-5"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="text-white mb-1 fw-bold smallest">Abilita Test Network</h6>
+                                            <small class="text-muted d-block">
+                                                Vai su
+                                                <em>Impostazioni > Avanzate</em>
+                                                e attiva
+                                                <strong>"Mostra reti di test"</strong>
+                                                . Seleziona
+                                                <strong>Sepolia</strong>
+                                                dal menu a tendina delle reti in alto a sinistra.
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Step 4: Fondi -->
+                                    <div class="d-flex align-items-start">
+                                        <div class="step-icon-container me-3">
+                                            <i class="bi bi-4-circle-fill text-orange fs-5"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="text-white mb-1 fw-bold smallest">Gas Fees & Faucet</h6>
+                                            <small class="text-muted d-block">
+                                                Le transazioni richiedono "Gas". Ottieni ETH gratuiti dal
+                                                <a
+                                                    href="https://cloud.google.com/application/web3/faucet/ethereum/sepolia"
+                                                    target="_blank"
+                                                    class="customLink orange">
+                                                    Faucet di Google Cloud
+                                                </a>
+                                                per coprire i costi di notarizzazione su Sepolia.
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Step 5: Connessione -->
+                                    <div class="d-flex align-items-start">
+                                        <div class="step-icon-container me-3">
+                                            <i class="bi bi-5-circle-fill text-orange fs-5"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="text-white mb-1 fw-bold smallest">Firma Crittografica</h6>
+                                            <small class="text-muted d-block">
+                                                Clicca "Connetti Wallet". MetaMask ti chiederà di approvare la connessione: VerifyData non avrà mai accesso alla
+                                                chiave privata.
+                                            </small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- AA SECONDA RIGA: Tutorial E Definizioni -->
-                        <div id="infoDashboard" class="row h-75 pt-3 gx-4 mx-0 mb-3">
-                            <!-- SS TUTORIAL METAMASK (ORANGE) -->
-                            <div class="col-6 h-100">
-                                <div class="d-flex flex-column h-100 p-4 tutorialMetamask orangeCard">
-                                    <div class="d-flex align-items-center mb-4">
-                                        <div class="icon-wrapper orangeIcon rounded p-2 me-3">
-                                            <i class="bi bi-gear-wide-connected fs-4"></i>
-                                        </div>
-                                        <div>
-                                            <h5 class="text-white fw-bold mb-0">Configurazione Wallet</h5>
-                                            <p class="orangeSubtitle extra-small mb-0 text-uppercase fw-bold">Guida Al Setup Web3</p>
-                                        </div>
+                        <!-- AA DEFINIZIONI -->
+                        <div class="col-12 col-lg-6 h-100 d-flex flex-column">
+                            <!-- SS Registro Immutabile -->
+                            <div class="immutabilityBox flex-fill w-100 p-4 d-flex flex-column justify-content-center mt-3 mt-lg-0 redCard">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="icon-wrapper redIcon rounded p-2 me-3">
+                                        <i class="bi bi-database-lock fs-4"></i>
                                     </div>
-
-                                    <div class="d-flex flex-column gap-4 overflow-auto pe-2 scrollbarMetamask">
-                                        <!-- Step 1: Installazione -->
-                                        <div class="d-flex align-items-start">
-                                            <div class="step-icon-container me-3">
-                                                <i class="bi bi-1-circle-fill text-orange fs-5"></i>
-                                            </div>
-                                            <div>
-                                                <h6 class="text-white mb-1 fw-bold smallest">Ottenere L'Estensione</h6>
-                                                <small class="text-muted d-block">
-                                                    Scarica l'estensione di MetaMask da
-                                                    <a href="https://metamask.io" target="_blank" class="customLink orange">metamask.io</a>
-                                                    . È il portale sicuro per interagire con la blockchain.
-                                                </small>
-                                            </div>
-                                        </div>
-
-                                        <!-- Step 2: Sicurezza -->
-                                        <div class="d-flex align-items-start">
-                                            <div class="step-icon-container me-3">
-                                                <i class="bi bi-2-circle-fill text-orange fs-5"></i>
-                                            </div>
-                                            <div>
-                                                <h6 class="text-white mb-1 fw-bold smallest">Backup Della Seed Phrase</h6>
-                                                <small class="text-muted d-block">
-                                                    Crea un nuovo account e memorizza le
-                                                    <strong>12 parole di sicurezza</strong>
-                                                    . Custodiscile offline: chiunque le possieda ha il controllo totale sul wallet.
-                                                </small>
-                                            </div>
-                                        </div>
-
-                                        <!-- Step 3: Rete di Test -->
-                                        <div class="d-flex align-items-start">
-                                            <div class="step-icon-container me-3">
-                                                <i class="bi bi-3-circle-fill text-orange fs-5"></i>
-                                            </div>
-                                            <div>
-                                                <h6 class="text-white mb-1 fw-bold smallest">Abilita Test Network</h6>
-                                                <small class="text-muted d-block">
-                                                    Vai su
-                                                    <em>Impostazioni > Avanzate</em>
-                                                    e attiva
-                                                    <strong>"Mostra reti di test"</strong>
-                                                    . Seleziona
-                                                    <strong>Sepolia</strong>
-                                                    dal menu a tendina delle reti in alto a sinistra.
-                                                </small>
-                                            </div>
-                                        </div>
-
-                                        <!-- Step 4: Fondi -->
-                                        <div class="d-flex align-items-start">
-                                            <div class="step-icon-container me-3">
-                                                <i class="bi bi-4-circle-fill text-orange fs-5"></i>
-                                            </div>
-                                            <div>
-                                                <h6 class="text-white mb-1 fw-bold smallest">Gas Fees & Faucet</h6>
-                                                <small class="text-muted d-block">
-                                                    Le transazioni richiedono "Gas". Ottieni ETH gratuiti dal
-                                                    <a
-                                                        href="https://cloud.google.com/application/web3/faucet/ethereum/sepolia"
-                                                        target="_blank"
-                                                        class="customLink orange">
-                                                        Faucet di Google Cloud
-                                                    </a>
-                                                    per coprire i costi di notarizzazione su Sepolia.
-                                                </small>
-                                            </div>
-                                        </div>
-
-                                        <!-- Step 5: Connessione -->
-                                        <div class="d-flex align-items-start">
-                                            <div class="step-icon-container me-3">
-                                                <i class="bi bi-5-circle-fill text-orange fs-5"></i>
-                                            </div>
-                                            <div>
-                                                <h6 class="text-white mb-1 fw-bold smallest">Firma Crittografica</h6>
-                                                <small class="text-muted d-block">
-                                                    Clicca "Connetti Wallet". MetaMask ti chiederà di approvare la connessione: VerifyData non avrà mai accesso
-                                                    alla chiave privata.
-                                                </small>
-                                            </div>
-                                        </div>
+                                    <div>
+                                        <h5 class="text-white fw-bold mb-0">Registro Permanente</h5>
+                                        <p class="redSubtitle extra-small mb-0 text-uppercase fw-bold">Integrità On-Chain</p>
                                     </div>
                                 </div>
+                                <p class="text-muted small mb-0">
+                                    La blockchain funge da notaio digitale immutabile. Una volta scritto, l'hash non può essere modificato, garantendo prova
+                                    d'esistenza eterna.
+                                </p>
                             </div>
 
-                            <!-- AA DEFINIZIONI -->
-                            <div class="col-6 h-100 d-flex flex-column gap-3">
-                                <!-- SS Registro Immutabile -->
-                                <div class="immutabilityBox flex-fill w-100 p-4 d-flex flex-column justify-content-center redCard">
-                                    <div class="d-flex align-items-center mb-3">
-                                        <div class="icon-wrapper redIcon rounded p-2 me-3">
-                                            <i class="bi bi-database-lock fs-4"></i>
-                                        </div>
-                                        <div>
-                                            <h5 class="text-white fw-bold mb-0">Registro Permanente</h5>
-                                            <p class="redSubtitle extra-small mb-0 text-uppercase fw-bold">Integrità On-Chain</p>
-                                        </div>
+                            <!-- SS Privacy Assoluta -->
+                            <div class="privacyBox flex-fill w-100 p-4 d-flex flex-column justify-content-center mt-3 yellowCard">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="icon-wrapper yellowIcon rounded p-2 me-3">
+                                        <i class="bi bi-shield-check fs-4"></i>
                                     </div>
-                                    <p class="text-muted small mb-0">
-                                        La blockchain funge da notaio digitale immutabile. Una volta scritto, l'hash non può essere modificato, garantendo prova
-                                        d'esistenza eterna.
-                                    </p>
-                                </div>
-
-                                <!-- SS Privacy Assoluta -->
-                                <div class="privacyBox flex-fill w-100 p-4 d-flex flex-column justify-content-center yellowCard">
-                                    <div class="d-flex align-items-center mb-3">
-                                        <div class="icon-wrapper yellowIcon rounded p-2 me-3">
-                                            <i class="bi bi-shield-check fs-4"></i>
-                                        </div>
-                                        <div>
-                                            <h5 class="text-white fw-bold mb-0">Privacy Assoluta</h5>
-                                            <p class="yellowSubtitle extra-small mb-0 text-uppercase fw-bold">Architettura Non-Custodial</p>
-                                        </div>
+                                    <div>
+                                        <h5 class="text-white fw-bold mb-0">Privacy Assoluta</h5>
+                                        <p class="yellowSubtitle extra-small mb-0 text-uppercase fw-bold">Architettura Non-Custodial</p>
                                     </div>
-                                    <p class="text-muted small mb-0">
-                                        Le chiavi private rimangono nel dispositivo. La DApp richiede solo la firma crittografica senza mai accedere ai file
-                                        originali.
-                                    </p>
                                 </div>
+                                <p class="text-muted small mb-0">
+                                    Le chiavi private rimangono nel dispositivo. La DApp richiede solo la firma crittografica senza mai accedere ai file
+                                    originali.
+                                </p>
                             </div>
                         </div>
                     </div>

@@ -25,6 +25,11 @@
     justify-content: center;
 }
 
+#connectionDashboard {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 /* SS ########## STRUTTURA CARD UNIFORMATA ########## */
 .loginCard,
 .tutorialMetamask,
@@ -55,7 +60,14 @@
 }
 
 #connectWalletBtn {
-    padding: 15px 100px;
+    width: 100% !important;
+    padding: 12px 0 !important; /* Override Di style.css */
+    font-size: 0.9rem;
+    white-space: normal !important;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .loginCard:hover {
@@ -147,14 +159,45 @@
     transform: translateX(5px);
 }
 
-/* SS ########## ANIMAZIONI & DETTAGLI ########## */
-.loginCard::after {
-    content: "";
-    position: absolute;
-    top: -50%;
-    right: -10%;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(var(--accent-rgb), 0.05) 0%, transparent 70%);
-    pointer-events: none;
+/* SS ########## Media Queries Mobile ########## */
+/* Stile Mobile (Sotto i 992px) - Stack verticale */
+@media (max-width: 991.98px) {
+    #identityRequest {
+        height: auto !important;
+        min-height: auto !important;
+        margin-top: 2rem;
+        padding-bottom: 3rem;
+    }
+
+    /* Questo serve per centrare il contenuto interno ora che abbiamo tolto il flex dal genitore */
+    #identityRequest > .text-center {
+        margin-top: 0;
+    }
+
+    #connectionDashboard {
+        height: auto !important;
+        display: block !important;
+    }
+
+    /* Resetta le altezze delle righe (h-25, h-75 diventano auto) */
+    .row.h-25,
+    .row.h-75 {
+        height: auto !important;
+    }
+
+    .loginCard,
+    .tutorialMetamask,
+    .orangeCard,
+    .redCard,
+    .yellowCard,
+    .col-6.h-100 {
+        height: auto !important;
+        min-height: auto !important;
+    }
+
+    .orangeCard:hover,
+    .redCard:hover,
+    .yellowCard:hover {
+        transform: translateX(-5px);
+    }
 }

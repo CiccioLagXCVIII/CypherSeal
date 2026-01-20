@@ -73,3 +73,43 @@
 .extraSmall {
     font-size: 0.7rem;
 }
+
+/* Media Queries */
+/* Stile Desktop (Default) - Mantiene il layout "App" a tutto schermo */
+@media (min-width: 992px) {
+    .upperRow {
+        height: 75%; /* Sostituisce lo stile inline che hai tolto */
+    }
+    .bottomRow {
+        height: 25%; /* Sostituisce lo stile inline che hai tolto */
+    }
+}
+
+/* Stile Mobile (Sotto i 992px) - Stack verticale */
+@media (max-width: 991.98px) {
+    /* Rende il contenitore principale scrollabile e alto quanto serve */
+    #verificaDashboard {
+        height: auto !important;
+        display: block !important; /* Rimuove il comportamento flex rigido */
+    }
+
+    /* Resetta le altezze delle righe */
+    .upperRow,
+    .bottomRow {
+        height: auto !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    /* Assicura che le card abbiano un'altezza minima decente su mobile */
+    #verificationForm,
+    #resultPanel {
+        min-height: 350px; /* Altezza minima per estetica */
+        height: auto !important;
+    }
+
+    /* Il pannello Log (terminale) può essere più piccolo su mobile */
+    #infoPanel {
+        min-height: 150px;
+        height: auto !important;
+    }
+}

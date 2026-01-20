@@ -94,7 +94,13 @@ export const Profile = {
         }
 
         if (avatarImg && fallbackIcon) {
-            const avatarUrl = this.generateUserAvatar(identityInfo.userAddress);
+            // Uso DiceBear API Con Stile 'bottts'
+            // Il 'Seed' Assicura Che Lo Stesso Indirizzo Generi Sempre La Stessa Immagine
+            // Aggiunto &backgroundColor=transparent per evitare quadrati colorati che coprano il cerchio CSS
+            const avatarUrl = `https://api.dicebear.com/7.x/bottts/svg?seed=${identityInfo.userAddress}&backgroundColor=transparent`;
+
+            // Alternativa (Mostriciattolo) Usando Robohash:
+            // return `https://robohash.org/${address}.png?set=set1`;
 
             avatarImg.src = avatarUrl;
             avatarImg.style.display = 'block';
@@ -310,16 +316,6 @@ export const Profile = {
                 }
             };
         }
-    },
-
-    // Generatore Icona Utente Randomica
-    generateUserAvatar(address) {
-        // Uso DiceBear API Con Stile 'bottts'
-        // Il 'Seed' Assicura Che Lo Stesso Indirizzo Generi Sempre La Stessa Immagine
-        return `https://api.dicebear.com/7.x/bottts/svg?seed=${address}`;
-
-        // Alternativa (Mostriciattolo) Usando Robohash:
-        // return `https://robohash.org/${address}.png?set=set1`;
     },
 
     async fetchDocumentData(wallet) {

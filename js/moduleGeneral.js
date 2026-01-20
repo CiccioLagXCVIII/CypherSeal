@@ -122,8 +122,18 @@ export const General = {
 
             // Verifica L'esistenza Del Pulsante (Evita Errori Su connessione.html)
             if (authBtn) {
+
                 const addr = walletConnected;
-                const shortenedAddress = addr.substring(0, 6) + "..." + addr.substring(addr.length - 4);
+                const isMobile = window.innerWidth < 991.98;
+                let shortenedAddress = "";
+
+                if (isMobile) {
+                    // Mostra 6 CaratteriIndirizzo
+                    shortenedAddress = addr.substring(0, 4) + "..." + addr.substring(addr.length - 2);
+                } else {
+                    // Mostra 12 CaratteriIndirizzo
+                    shortenedAddress = addr.substring(0, 6) + "..." + addr.substring(addr.length - 4);
+                }
 
                 authBtn.innerHTML = `<i class="bi bi-person-check-fill me-2"></i> ${shortenedAddress}`;
                 authBtn.href = "profilo.html";

@@ -7,11 +7,12 @@
     border-radius: 2rem;
     font-size: 0.7rem;
     font-weight: 600;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     background: rgba(var(--accent-rgb), 0.1);
     border: 1px solid var(--accent-color);
     color: var(--accent-color);
+    white-space: nowrap;
 }
 
 /* SS ############### Titoli ############### */
@@ -19,8 +20,10 @@
     font-size: clamp(1.5rem, 5vh, 2.5rem);
     letter-spacing: -0.05rem;
     background: linear-gradient(to bottom, var(--white), var(--accent-color));
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    white-space: nowrap;
 }
 
 #appTitle {
@@ -132,4 +135,20 @@
 .unipg-logo {
     height: 3rem;
     opacity: 0.8;
+}
+
+@media (max-width: 380px) {
+    .display-title {
+        font-size: 1.5rem;
+    }
+    #appTitle {
+        letter-spacing: 1px; /* Riduciamo lo spacing se lo schermo è minuscolo */
+    }
+
+    .badge-project {
+        padding: 0.4rem 0.8rem;
+    }
+    .badge-project i {
+        margin-right: 4px !important;
+    }
 }
