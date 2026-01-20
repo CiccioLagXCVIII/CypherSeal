@@ -13,14 +13,25 @@
     </head>
     <body>
         <header class="app-header d-flex justify-content-between align-items-center px-4">
-            <h5 class="mb-0 text-white">
-                <a href="index.html" class="d-flex align-items-center text-decoration-none text-white brandLink">
-                    <img src="Images/logoCypherSeal.svg" alt="CypherSeal Logo" class="logoHeader me-2" />
-                    <span class="brandText">CypherSeal</span>
-                </a>
-            </h5>
+            <div class="d-flex align-items-center">
+                <button
+                    class="btn btn-link text-white p-0 me-3 d-lg-none"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#sidebarMenu"
+                    aria-controls="sidebarMenu">
+                    <i class="bi bi-list fs-3"></i>
+                </button>
 
-            <!-- Pulsante Accesso a destra -->
+                <h5 class="mb-0 text-white">
+                    <a href="index.html" class="d-flex align-items-center text-decoration-none text-white brandLink">
+                        <img src="Images/logoCypherSeal.svg" alt="CypherSeal Logo" class="logoHeader me-2" />
+                        <span class="brandText">CypherSeal</span>
+                    </a>
+                </h5>
+            </div>
+
+            <!-- Pulsante Accesso (A Destra) -->
             <div id="headerActions" class="d-flex align-items-center gap-2">
                 <a href="connessione.html" class="btn btn-sm rounded-pill btnCypherSeal" id="connectWalletBtn">
                     <i class="bi bi-wallet-fill"></i>
@@ -31,160 +42,174 @@
 
         <div class="main-container">
             <!-- Sidebar -->
-            <aside class="sidebar">
-                <nav class="nav-links">
-                    <a href="index.html" class="nav-link active">
-                        <i class="bi bi-house-door"></i>
-                        <span>Presentazione</span>
-                    </a>
-                    <a href="profilo.html" class="nav-link">
-                        <i class="bi bi-person-vcard"></i>
-                        <span>Profilo SSI</span>
-                    </a>
-                    <a href="certifica.html" class="nav-link">
-                        <i class="bi bi-shield-check"></i>
-                        <span>Certifica Documento</span>
-                    </a>
-                    <a href="verifica.html" class="nav-link">
-                        <i class="bi bi-search"></i>
-                        <span>Verifica Pubblica</span>
-                    </a>
-                </nav>
+            <aside class="sidebar offcanvas-lg offcanvas-start" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+                <div class="offcanvas-header d-lg-none border-bottom border-secondary">
+                    <h5 class="offcanvas-title text-white" id="sidebarMenuLabel">Menu</h5>
+                    <button
+                        type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="offcanvas"
+                        data-bs-target="#sidebarMenu"
+                        aria-label="Close"></button>
+                </div>
 
-                <div class="sidebar-footer">
-                    <a href="https://github.com/CiccioLagXCVIII" target="_blank" class="github-link">
-                        <i class="bi bi-github me-2"></i>
-                        <span>GitHub Project</span>
-                    </a>
+                <div class="offcanvas-body d-flex flex-column h-100 p-0">
+                    <nav class="nav-links mt-3 mt-lg-0">
+                        <a href="index.html" class="nav-link active">
+                            <i class="bi bi-house-door"></i>
+                            <span>Presentazione</span>
+                        </a>
+                        <a href="profilo.html" class="nav-link">
+                            <i class="bi bi-person-vcard"></i>
+                            <span>Profilo SSI</span>
+                        </a>
+                        <a href="certifica.html" class="nav-link">
+                            <i class="bi bi-shield-check"></i>
+                            <span>Certifica Documento</span>
+                        </a>
+                        <a href="verifica.html" class="nav-link">
+                            <i class="bi bi-search"></i>
+                            <span>Verifica Pubblica</span>
+                        </a>
+                    </nav>
+
+                    <div class="sidebar-footer mt-auto">
+                        <a href="https://github.com/CiccioLagXCVIII" target="_blank" class="github-link">
+                            <i class="bi bi-github me-2"></i>
+                            <span>GitHub Project</span>
+                        </a>
+                    </div>
                 </div>
             </aside>
 
             <main class="content-area">
-                <div class="custom-card flex-grow-1 d-flex flex-column">
-                    <!-- Header (Tre Colonne) -->
-                    <div class="row align-items-center mb-4">
-                        <div class="col-4">
-                            <!-- Spazio Vuoto A Sinistra -->
+                <div class="custom-card">
+                    <div class="flex-grow-1 d-flex flex-column h-auto">
+                        <!-- Header (Tre Colonne) -->
+                        <div class="row align-items-center mb-4">
+                            <div class="col-4">
+                                <!-- Spazio Vuoto A Sinistra -->
+                            </div>
+                            <div class="col-4 text-center">
+                                <span class="badge-project justify-content-center">
+                                    <i class="bi bi-shield-lock me-2"></i>
+                                    Data Security Project
+                                </span>
+                            </div>
+                            <div class="col-4 d-flex justify-content-end">
+                                <!-- Spazio Vuoto A Destra -->
+                            </div>
                         </div>
-                        <div class="col-4 text-center">
-                            <span class="badge-project justify-content-center">
-                                <i class="bi bi-shield-lock me-2"></i>
-                                Data Security Project
-                            </span>
-                        </div>
-                        <div class="col-4 d-flex justify-content-end">
-                            <!-- Spazio Vuoto A Destra -->
-                        </div>
-                    </div>
 
-                    <!-- Titolo -->
-                    <div class="row mb-4">
-                        <div class="col-2"></div>
-                        <div class="col-8 text-center">
-                            <h1 id="appTitle" class="display-title fw-bold text-white mb-0">CypherSeal</h1>
-                            <p class="text-sub-title smallest text-uppercase fw-semibold mb-0" style="letter-spacing: 2px">
-                                Notarizzazione Digitale e SSI su Ethereum
-                            </p>
+                        <!-- Titolo -->
+                        <div class="row mb-4">
+                            <div class="col-2"></div>
+                            <div class="col-8 text-center">
+                                <h1 id="appTitle" class="display-title fw-bold text-white mb-0">CypherSeal</h1>
+                                <p class="text-sub-title smallest text-uppercase fw-semibold mb-0" style="letter-spacing: 2px">
+                                    Notarizzazione Digitale e SSI su Ethereum
+                                </p>
+                            </div>
+                            <div class="col-2"></div>
                         </div>
-                        <div class="col-2"></div>
-                    </div>
 
-                    <!-- Workflow (Distribuzione Spazi) -->
-                    <div class="workflow-container p-4 mb-4">
-                        <div class="row align-items-center g-0">
-                            <div class="col text-center">
-                                <i class="bi bi-file-earmark-binary fs-4 text-primary mb-2 d-block"></i>
-                                <div class="smallest fw-bold">Dato Originale</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="bi bi-chevron-right mx-3 text-secondary"></i>
-                            </div>
-                            <div class="col text-center">
-                                <i class="bi bi-hash fs-4 text-primary mb-2 d-block"></i>
-                                <div class="smallest fw-bold">Hash Locale</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="bi bi-chevron-right mx-3 text-secondary"></i>
-                            </div>
-                            <div class="col text-center">
-                                <i class="bi bi-key fs-4 text-primary mb-2 d-block"></i>
-                                <div class="smallest fw-bold">Firma Privata</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="bi bi-chevron-right mx-3 text-secondary"></i>
-                            </div>
-                            <div class="col text-center">
-                                <i class="bi bi-link-45deg fs-4 text-success mb-2 d-block"></i>
-                                <div class="smallest fw-bold text-success">Blockchain</div>
+                        <!-- Workflow (Distribuzione Spazi) -->
+                        <div class="workflow-container p-4 mb-4">
+                            <div class="row align-items-center g-0">
+                                <div class="col text-center">
+                                    <i class="bi bi-file-earmark-binary fs-4 text-primary mb-2 d-block"></i>
+                                    <div class="smallest fw-bold">Dato Originale</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="bi bi-chevron-right mx-3 text-secondary"></i>
+                                </div>
+                                <div class="col text-center">
+                                    <i class="bi bi-hash fs-4 text-primary mb-2 d-block"></i>
+                                    <div class="smallest fw-bold">Hash Locale</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="bi bi-chevron-right mx-3 text-secondary"></i>
+                                </div>
+                                <div class="col text-center">
+                                    <i class="bi bi-key fs-4 text-primary mb-2 d-block"></i>
+                                    <div class="smallest fw-bold">Firma Privata</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="bi bi-chevron-right mx-3 text-secondary"></i>
+                                </div>
+                                <div class="col text-center">
+                                    <i class="bi bi-link-45deg fs-4 text-success mb-2 d-block"></i>
+                                    <div class="smallest fw-bold text-success">Blockchain</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Concetti Chiave -->
-                    <div class="mb-4">
-                        <h6 class="text-white border-start border-primary border-3 ps-3 mb-3 small fw-bold">CONCETTI CHIAVE</h6>
-                        <div class="row g-2">
-                            <div class="col-md-3 col-6">
-                                <button class="info-btn w-100 py-2" dataDef="integrity">Integrità</button>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <button class="info-btn w-100 py-2" dataDef="sbt">Soulbound Token</button>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <button class="info-btn w-100 py-2" dataDef="ssi">SSI Identity</button>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <button class="info-btn w-100 py-2" dataDef="immutability">Immutabilità</button>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <button class="info-btn w-100 py-2" dataDef="gas">Gas Fee</button>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <button class="info-btn w-100 py-2" dataDef="contract">Smart Contract</button>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <button class="info-btn w-100 py-2" dataDef="revocation">Revoca</button>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <button class="info-btn w-100 py-2" dataDef="privacy">Privacy</button>
+                        <!-- Concetti Chiave -->
+                        <div class="mb-4">
+                            <h6 class="text-white border-start border-primary border-3 ps-3 mb-3 small fw-bold">CONCETTI CHIAVE</h6>
+                            <div class="row g-2">
+                                <div class="col-md-3 col-6">
+                                    <button class="info-btn w-100 py-2" dataDef="integrity">Integrità</button>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <button class="info-btn w-100 py-2" dataDef="sbt">Soulbound Token</button>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <button class="info-btn w-100 py-2" dataDef="ssi">SSI Identity</button>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <button class="info-btn w-100 py-2" dataDef="immutability">Immutabilità</button>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <button class="info-btn w-100 py-2" dataDef="gas">Gas Fee</button>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <button class="info-btn w-100 py-2" dataDef="contract">Smart Contract</button>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <button class="info-btn w-100 py-2" dataDef="revocation">Revoca</button>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <button class="info-btn w-100 py-2" dataDef="privacy">Privacy</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Avalanche Box (Ingrandito) -->
-                    <div class="avalanche-box p-3 border border-primary rounded-3 mb-4 bg-primary bg-opacity-10">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <h6 class="text-primary mb-0 smallest fw-bold">
-                                <i class="bi bi-lightning-charge me-2"></i>
-                                EFFETTO AVALANCHE (SHA-256)
-                            </h6>
-                            <span class="smallest text-muted">Real-time Hashing</span>
+                        <!-- Avalanche Box (Ingrandito) -->
+                        <div class="avalanche-box p-3 border border-primary rounded-3 mb-4 bg-primary bg-opacity-10">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h6 class="text-primary mb-0 smallest fw-bold">
+                                    <i class="bi bi-lightning-charge me-2"></i>
+                                    EFFETTO AVALANCHE (SHA-256)
+                                </h6>
+                                <span class="smallest text-muted">Real-time Hashing</span>
+                            </div>
+                            <input
+                                type="text"
+                                id="avalancheInput"
+                                class="form-control form-control-sm bg-dark text-white border-secondary mb-2"
+                                placeholder="Scrivi una parola per vedere come cambia l'hash..." />
+                            <div class="avalancheOutputContainer justify-content-start">
+                                <code id="avalancheOutput" class="text-success small">...</code>
+                            </div>
                         </div>
-                        <input
-                            type="text"
-                            id="avalancheInput"
-                            class="form-control form-control-sm bg-dark text-white border-secondary mb-2"
-                            placeholder="Scrivi una parola per vedere come cambia l'hash..." />
-                        <div class="avalancheOutputContainer justify-content-start">
-                            <code id="avalancheOutput" class="text-success small">...</code>
-                        </div>
-                    </div>
 
-                    <!-- CTA -->
-                    <div class="text-center mt-4 mb-4">
-                        <button type="button" id="btnStartCertify" class="btn btn-primary py-3 btnCypherSeal cta-button rounded-pill">
-                            <i class="bi bi-shield-check me-2"></i>
-                            Inizia A Certificare
-                        </button>
-                    </div>
-
-                    <!-- Footer -->
-                    <div class="mt-auto pt-3 border-top border-secondary d-flex justify-content-between align-items-center">
-                        <div>
-                            <p class="mb-0 text-white fw-bold smallest">Francesco Lo Verde</p>
-                            <p class="text-secondary mb-0 extra-small">Università degli Studi di Perugia</p>
+                        <!-- CTA -->
+                        <div class="text-center mt-4 mb-4">
+                            <button type="button" id="btnStartCertify" class="btn btn-primary py-3 btnCypherSeal cta-button rounded-pill">
+                                <i class="bi bi-shield-check me-2"></i>
+                                Inizia A Certificare
+                            </button>
                         </div>
-                        <img src="Images/logoUnipg.svg" alt="Unipg Logo" class="unipg-logo" />
+
+                        <!-- Footer -->
+                        <div class="mt-auto pt-3 border-top border-secondary d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="mb-0 text-white fw-bold smallest">Francesco Lo Verde</p>
+                                <p class="text-secondary mb-0 extra-small">Università degli Studi di Perugia</p>
+                            </div>
+                            <img src="Images/logoUnipg.svg" alt="Unipg Logo" class="unipg-logo" />
+                        </div>
                     </div>
                 </div>
             </main>

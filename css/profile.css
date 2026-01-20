@@ -592,3 +592,47 @@
     opacity: 1;
     bottom: 50px;
 }
+
+/* SS ########## Media Queries Responsive ########## */
+@media (max-width: 991.98px) {
+    /* Sblocca Scroll Su Contenitore Principale (important per sovrascrivere style.css) */
+    .content-area {
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+        display: block !important;
+    }
+
+    #profileDashboard.custom-card {
+        height: auto !important;
+        overflow: visible !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+
+    #profileDashboard > .d-flex.h-100 {
+        height: auto !important;
+    }
+
+    #profileDashboard .flex-grow-1.p-2 {
+        padding: 0 !important;
+        margin-top: 1rem;
+    }
+
+    #tableData {
+        height: 400px;
+        width: 100%;
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        box-shadow: var(--shadow-soft);
+        overflow-y: auto;
+    }
+
+    .dashboard-card {
+        height: auto !important;
+        min-height: 180px;
+        width: 100%; /* Forza larghezza piena */
+    }
+}

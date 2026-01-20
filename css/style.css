@@ -98,12 +98,38 @@ body {
 }
 
 .sidebar {
-    width: 16rem;
     background-color: var(--sidebar-bg);
     border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+/* Regole per Desktop (sopra 992px) */
+@media (min-width: 992px) {
+    .sidebar {
+        width: 16rem;
+        height: auto;
+        position: static;
+        transform: none !important;
+        visibility: visible !important;
+    }
+
+    .offcanvas-header {
+        display: none;
+    }
+}
+
+/* Regole per Offcanvas (sotto 992px) */
+@media (max-width: 991.98px) {
+    .sidebar {
+        background-color: var(--sidebar-bg);
+        width: 300px;
+    }
+
+    .offcanvas-backdrop.show {
+        backdrop-filter: blur(3px);
+    }
 }
 
 .content-area {
@@ -112,9 +138,30 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
-    overflow: hidden;
+    overflow-y: auto;
     position: relative;
     z-index: 1;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-color) transparent;
+}
+
+.content-area::-webkit-scrollbar {
+    width: 8px;
+}
+
+.content-area::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.content-area::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 10px;
+    border: 2px solid var(--bg-dark);
+}
+
+.content-area::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent-color);
 }
 
 .app-header {
@@ -167,10 +214,15 @@ body {
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    max-height: 100%;
-    overflow-y: auto;
+    height: auto !important;
+    min-height: 100% !important;
+    max-height: none !important;
     box-shadow: var(--shadow-strong);
+
+    overflow: visible !important;
+
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
 }
 
 .custom-card::-webkit-scrollbar {
@@ -337,4 +389,29 @@ button.btnCypherSeal:disabled {
 
 .brandLink:hover {
     opacity: 0.95;
+}
+
+/* SS ############### Scrollbar Personalizzata ############### */
+
+/* STILE SCROLLBAR (Chrome, Edge, Safari) */
+/* Nota: non serve la classe .scrollbarCard, puntiamo direttamente a .custom-card */
+.custom-card::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-card::-webkit-scrollbar-track {
+    background: transparent;
+    margin-top: 10px; /* Margine per non attaccare la barretta ai bordi */
+    margin-bottom: 10px;
+}
+
+.custom-card::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.15); /* Colore barretta */
+    border-radius: 20px;
+    border: 1px solid transparent; /* Trucco per bordi arrotondati puliti */
+    background-clip: content-box; /* Evita che il colore sbordi */
+}
+
+.custom-card::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.3); /* Colore più chiaro al passaggio del mouse */
 }

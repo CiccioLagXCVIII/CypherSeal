@@ -13,42 +13,66 @@
     </head>
     <body>
         <header class="app-header d-flex justify-content-between align-items-center px-4">
-            <h5 class="mb-0 text-white">
-                <a href="index.html" class="d-flex align-items-center text-decoration-none text-white brandLink">
-                    <img src="Images/logoCypherSeal.svg" alt="CypherSeal Logo" class="logoHeader me-2" />
-                    <span class="brandText">CypherSeal</span>
-                </a>
-            </h5>
-            <!-- Pulsante Accesso A Destra Non Serve -->
+            <div class="d-flex align-items-center">
+                <button
+                    class="btn btn-link text-white p-0 me-3 d-lg-none"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#sidebarMenu"
+                    aria-controls="sidebarMenu">
+                    <i class="bi bi-list fs-3"></i>
+                </button>
+
+                <h5 class="mb-0 text-white">
+                    <a href="index.html" class="d-flex align-items-center text-decoration-none text-white brandLink">
+                        <img src="Images/logoCypherSeal.svg" alt="CypherSeal Logo" class="logoHeader me-2" />
+                        <span class="brandText">CypherSeal</span>
+                    </a>
+                </h5>
+            </div>
+
+            <!-- Pulsante Accesso Non Serve -->
         </header>
 
         <div class="main-container">
             <!-- Sidebar -->
-            <aside class="sidebar">
-                <nav class="nav-links">
-                    <a href="index.html" class="nav-link">
-                        <i class="bi bi-house-door"></i>
-                        <span>Presentazione</span>
-                    </a>
-                    <a href="profilo.html" class="nav-link">
-                        <i class="bi bi-person-vcard"></i>
-                        <span>Profilo SSI</span>
-                    </a>
-                    <a href="certifica.html" class="nav-link">
-                        <i class="bi bi-shield-check"></i>
-                        <span>Certifica Documento</span>
-                    </a>
-                    <a href="verifica.html" class="nav-link">
-                        <i class="bi bi-search"></i>
-                        <span>Verifica Pubblica</span>
-                    </a>
-                </nav>
+            <aside class="sidebar offcanvas-lg offcanvas-start" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+                <div class="offcanvas-header d-lg-none border-bottom border-secondary">
+                    <h5 class="offcanvas-title text-white" id="sidebarMenuLabel">Menu</h5>
+                    <button
+                        type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="offcanvas"
+                        data-bs-target="#sidebarMenu"
+                        aria-label="Close"></button>
+                </div>
 
-                <div class="sidebar-footer">
-                    <a href="https://github.com/CiccioLagXCVIII" target="_blank" class="github-link">
-                        <i class="bi bi-github me-2"></i>
-                        <span>GitHub Project</span>
-                    </a>
+                <div class="offcanvas-body d-flex flex-column h-100 p-0">
+                    <nav class="nav-links mt-3 mt-lg-0">
+                        <a href="index.html" class="nav-link active">
+                            <i class="bi bi-house-door"></i>
+                            <span>Presentazione</span>
+                        </a>
+                        <a href="profilo.html" class="nav-link">
+                            <i class="bi bi-person-vcard"></i>
+                            <span>Profilo SSI</span>
+                        </a>
+                        <a href="certifica.html" class="nav-link">
+                            <i class="bi bi-shield-check"></i>
+                            <span>Certifica Documento</span>
+                        </a>
+                        <a href="verifica.html" class="nav-link">
+                            <i class="bi bi-search"></i>
+                            <span>Verifica Pubblica</span>
+                        </a>
+                    </nav>
+
+                    <div class="sidebar-footer mt-auto">
+                        <a href="https://github.com/CiccioLagXCVIII" target="_blank" class="github-link">
+                            <i class="bi bi-github me-2"></i>
+                            <span>GitHub Project</span>
+                        </a>
+                    </div>
                 </div>
             </aside>
 
@@ -101,7 +125,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="d-flex flex-column gap-4 overflow-auto pe-2 custom-scrollbar">
+                                    <div class="d-flex flex-column gap-4 overflow-auto pe-2 scrollbarMetamask">
                                         <!-- Step 1: Installazione -->
                                         <div class="d-flex align-items-start">
                                             <div class="step-icon-container me-3">
@@ -229,6 +253,8 @@
                 </div>
             </main>
         </div>
+        <!-- Bootstrap Bundle JS (Include Popper) -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script type="module" src="js/app.js"></script>
     </body>
 </html>
