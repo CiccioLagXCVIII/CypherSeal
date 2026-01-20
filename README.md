@@ -15,7 +15,7 @@ Il progetto supera i limiti dei notai digitali tradizionali integrando il paradi
 
 ## 📑 Indice
 
-- [� CypherSeal: Trustless Digital Notarization \& SSI Protocol](#-cypherseal-trustless-digital-notarization--ssi-protocol)
+- [🔏 CypherSeal: Trustless Digital Notarization \& SSI Protocol](#-cypherseal-trustless-digital-notarization--ssi-protocol)
   - [📑 Indice](#-indice)
   - [💡 Visione e Architettura](#-visione-e-architettura)
     - [Gestione del Ciclo di Vita (Revoca)](#gestione-del-ciclo-di-vita-revoca)
@@ -85,17 +85,24 @@ Il progetto è costruito seguendo i moderni standard di sviluppo Web3:
 ## 📂 Struttura della Repository
 
 ```text
-VerifyData/
+CypherSeal/
 ├── index.html                  # Landing Page
 ├── connessione.html            # Onboarding Web3
 ├── profilo.html                # Dashboard E Storico Certificazioni
 ├── certifica.html              # Hashing E Notarizzazione
 ├── verifica.html               # Portale Pubblico Di Verifica
 ├── alertAccessoNegato.html     # Modal Protezione Route
+├── package.json                # Dipendenze Del Progetto
+├── package-lock.json           # Lockfile Delle Dipendenze
+├── README.md                   # Documentazione Principale
 │
-├── contract/
-│   ├── identityContract.sol    # Smart Contract Token SBT
-│   └── notarizerContract.sol   # Smart Contract Notarization (Work In Progress)
+├── artifacts/                  # File Generati Dal Compilatore/Deployer
+│
+├── contracts/
+│   ├── identityContract.sol    # Smart Contract Token SBT (CypherSoul)
+│   ├── notarizerContract.sol   # Smart Contract Notarization (CypherSealNotarizer)
+│   ├── CypherSealNotarizerMetadata.json # Metadati Contratto Notarizer
+│   └── CypherSoulMetadata.json # Metadati Contratto SBT
 │
 ├── css/
 │   ├── style.css               # Layout E Stile Globale
@@ -107,6 +114,7 @@ VerifyData/
 │
 ├── js/
 │   ├── app.js                  # Orchestrator principale
+│   ├── configContracts.js      # Configurazioni Indirizzi ABI Smart Contract
 │   ├── moduleAuth.js           # Gestione Wallet E Login
 │   ├── moduleBlockchain.js     # Connection Layer Con Blockchain
 │   ├── moduleGeneral.js        # Logica Di Utility
@@ -115,7 +123,12 @@ VerifyData/
 │   ├── moduleProfile.js        # Logica Aggiornamento Dashboard
 │   └── moduleVerifier.js       # Logica Verifica
 │
-└── Images/                     # Immagini
+├── Images/                     # Immagini
+│
+└── markdown/                   # Note E Appunti
+    ├── Appunti.md
+    ├── ToDo.md
+    └── appuntiSolidity.md
 ```
 
 ---

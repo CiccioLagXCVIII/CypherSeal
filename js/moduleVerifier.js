@@ -57,7 +57,7 @@ export const Verifier = {
         const infoPanel = document.getElementById("infoPanel");
         const authorBox = document.getElementById("authorIdentityBox");
 
-        console.log("VerifyData: Controllo possesso SBT (EIP-5192) per l'indirizzo: " + address);
+        console.log("CypherSeal: Controllo possesso SBT (EIP-5192) per l'indirizzo: " + address);
 
         const hasSBT = true;
 

@@ -18,11 +18,11 @@ const definitions = {
     },
     gas: {
         title: "Gas Fees",
-        content: "Le \"Gas Fees\" sono le commissioni necessarie per eseguire operazioni sulla rete Ethereum.\n\nRappresentano il \"carburante\" pagato ai validatori della rete per compensare la potenza di calcolo necessaria a elaborare la transazione e registrare l'hash del tuo documento in modo sicuro nel registro distribuito. Su VerifyData (Testnet), questo costo è simulato e gratuito tramite i Faucet."
+        content: "Le \"Gas Fees\" sono le commissioni necessarie per eseguire operazioni sulla rete Ethereum.\n\nRappresentano il \"carburante\" pagato ai validatori della rete per compensare la potenza di calcolo necessaria a elaborare la transazione e registrare l'hash del tuo documento in modo sicuro nel registro distribuito. Su CypherSeal (Testnet), questo costo è simulato e gratuito tramite i Faucet."
     },
     contract: {
         title: "Smart Contract",
-        content: "Uno Smart Contract è un protocollo informatico che esegue automaticamente le azioni quando si verificano determinate condizioni, agendo come un \"Notaio Robotico\".\n\nNel contesto di VerifyData, lo Smart Contract riceve l'hash del file, verifica che il mittente possieda un'identità SBT valida e registra in modo autonomo e imparziale l'impronta digitale e il timestamp sulla blockchain, senza bisogno di fiducia in terze parti umane."
+        content: "Uno Smart Contract è un protocollo informatico che esegue automaticamente le azioni quando si verificano determinate condizioni, agendo come un \"Notaio Robotico\".\n\nNel contesto di CypherSeal, lo Smart Contract riceve l'hash del file, verifica che il mittente possieda un'identità SBT valida e registra in modo autonomo e imparziale l'impronta digitale e il timestamp sulla blockchain, senza bisogno di fiducia in terze parti umane."
     },
     revocation: {
         title: "Revoca del Documento",
@@ -30,7 +30,7 @@ const definitions = {
     },
     privacy: {
         title: "Privacy & Zero-Knowledge",
-        content: "VerifyData adotta un approccio \"Privacy-by-Design\". Il calcolo dell'impronta digitale (Hash) avviene localmente nel tuo browser.\n\nIl documento originale non viene mai caricato in rete né salvato su server esterni. Sulla blockchain viene registrata solo la stringa alfanumerica dell'hash: da essa è matematicamente impossibile risalire al contenuto del file (testi, immagini o dati sensibili), garantendo così la totale conformità al GDPR."
+        content: "CypherSeal adotta un approccio \"Privacy-by-Design\". Il calcolo dell'impronta digitale (Hash) avviene localmente nel tuo browser.\n\nIl documento originale non viene mai caricato in rete né salvato su server esterni. Sulla blockchain viene registrata solo la stringa alfanumerica dell'hash: da essa è matematicamente impossibile risalire al contenuto del file (testi, immagini o dati sensibili), garantendo così la totale conformità al GDPR."
     }
 };
 

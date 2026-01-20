@@ -20,7 +20,7 @@ export const Auth = {
 
                 // Memorizza L'Indirizzo Localmente Per Gestire La Sessione
                 localStorage.setItem('walletAddress', userAddress);
-                console.log("VerifyData: Connessione Effettuata ->", userAddress);
+                console.log("CypherSeal: Connessione Effettuata ->", userAddress);
 
                 // Reindirizza L'Utente Alla Dashboard Dopo Il Login Perchè Mi Serve Solo L'Indirizzo
                 window.location.href = 'profilo.html';
@@ -29,7 +29,7 @@ export const Auth = {
                     // L'Utente Ha Rifiutato La Connessione
                     alert("Connessione Al Wallet Rifiutata Dall'Utente");
                 } else {
-                    console.error("VerifyData: Errore Durante La Connessione Al Wallet", error);
+                    console.error("CypherSeal: Errore Durante La Connessione Al Wallet", error);
                 }
             }
         } else {
@@ -48,7 +48,7 @@ export const Auth = {
                 e.preventDefault();
 
                 const userAddress = localStorage.getItem('walletAddress');
-                console.log("VerifyData: Preparazione Transazione Per Address ->", userAddress);
+                console.log("CypherSeal: Preparazione Transazione Per Address ->", userAddress);
 
                 // SS Interazione Con La Blockchain
                 await Blockchain.mintSBT(userAddress);

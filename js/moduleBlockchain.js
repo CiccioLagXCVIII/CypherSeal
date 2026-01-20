@@ -1,11 +1,24 @@
 // moduleBlockchain.js
 
+// Importazione Costanti E ABI Dei Contratti Necessari Per Interagire Con La Blockchain
+import { contractsConfig } from './configContracts.js';
+
+const {
+    cypherSoulAddress,
+    cypherSoulABI,
+    notarizerAddress,
+    notarizerABI
+} = contractsConfig;
+
 export const Blockchain = {
 
     // SS Sezione Wallet E Provider
 
     // Controllo Disponibilità Provider
     isProviderAvailable() {
+        console.log("Address CypherSoul:", cypherSoulAddress);
+        console.log("Address Notarizer:", notarizerAddress);
+
         return typeof window.ethereum !== 'undefined';
     },
 
@@ -75,7 +88,7 @@ export const Blockchain = {
 
     // Recupera Info SBT In Base All'Indirizzo Utente
     async getSBTInfo(userAddress) {
-        console.log("VerifyData: Recupero Info SBT...");
+        console.log("CypherSeal: Recupero Info SBT...");
 
         await new Promise(r => setTimeout(r, 800));
 
@@ -198,7 +211,7 @@ export const Blockchain = {
         await new Promise(r => setTimeout(r, 1500));
 
         // SS Interazione Blockchain
-        console.log("VerifyData: Richiesta Elenco Documenti Notarizzati In Base A Indirizzo ->", wallet);
+        console.log("CypherSeal: Richiesta Elenco Documenti Notarizzati In Base A Indirizzo ->", wallet);
 
         // AA Generazione dinamica basata sul wallet
         // Se il wallet cambia, i documenti (mock) cambiano, dando l'illusione di un DB reale.

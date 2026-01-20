@@ -1,5 +1,5 @@
 {
-  "name": "verifydata-dapp",
+  "name": "CypherSeal Notarizer DApp",
   "version": "1.0.0",
   "description": "DApp Per La Notarizzazione Digitale E Gestione Dell'Identità SSI Su Ethereum",
   "author": "Francesco Lo Verde",
@@ -18,13 +18,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CiccioLagXCVIII/VerifyData.git"
+    "url": "git+https://github.com/CiccioLagXCVIII/CypherSeal.git"
   },
   "keywords": [],
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/CiccioLagXCVIII/VerifyData/issues"
+    "url": "https://github.com/CiccioLagXCVIII/CypherSeal/issues"
   },
-  "homepage": "https://github.com/CiccioLagXCVIII/VerifyData#readme"
+  "homepage": "https://github.com/CiccioLagXCVIII/CypherSeal#readme"
 }

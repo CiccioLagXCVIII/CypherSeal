@@ -46,7 +46,7 @@ export const Profile = {
                 connectionStatus.textContent = "Connected";
             }
 
-            console.log("VerifyData: Wallet Identificato:", name);
+            console.log("CypherSeal: Wallet Identificato:", name);
 
             // Network
             const chainId = await Blockchain.getChainId();
@@ -72,7 +72,7 @@ export const Profile = {
                 etherscanLinkDisplay.setAttribute('href', `https://sepolia.etherscan.io/address/${walletConnected}`);
             }
 
-            console.log("VerifyData: Network Rilevato:", networkName);
+            console.log("CypherSeal: Network Rilevato:", networkName);
         } else {
             if (walletBrandDisplay) walletBrandDisplay.textContent = "No Wallet";
             if (connectionStatus) connectionStatus.textContent = "Disconnected";
@@ -341,7 +341,7 @@ export const Profile = {
             if (requestSection) requestSection.classList.add('d-none');
             if (profileSection) profileSection.classList.add('d-none');
 
-            console.log("VerifyData: Avvio caricamento asincrono...");
+            console.log("CypherSeal: Avvio caricamento asincrono...");
 
             try {
                 // Interazone Con La Blockchain Per Caricare I Dati Dell'Utente (Si Ferma Qui Finché Non Riceve Tutto)
@@ -363,17 +363,17 @@ export const Profile = {
                 if (loadingSpinner) loadingSpinner.classList.add('d-none');
 
                 if (hasIdentity) {
-                    console.log("VerifyData: Mostro Dashboard Profilo");
+                    console.log("CypherSeal: Mostro Dashboard Profilo");
                     if (profileSection) profileSection.classList.remove('d-none');
                     if (requestSection) requestSection.classList.add('d-none');
                 } else {
-                    console.log("VerifyData: Mostro Richiesta Minting Identità SBT");
+                    console.log("CypherSeal: Mostro Richiesta Minting Identità SBT");
                     if (requestSection) requestSection.classList.remove('d-none');
                     if (profileSection) profileSection.classList.add('d-none');
                 }
 
             } catch (error) {
-                console.error("VerifyData: Errore Durante Il Caricamento Dati", error);
+                console.error("CypherSeal: Errore Durante Il Caricamento Dati", error);
                 if (loadingSpinner) loadingSpinner.classList.add('d-none');
             }
         }
