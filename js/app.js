@@ -1,10 +1,14 @@
 // app.js
 import { Auth } from './moduleAuth.js';
+import { Blockchain } from './moduleBlockchain.js';
 import { General } from './moduleGeneral.js';
 import { HomeManager } from './moduleIndex.js';
 import { Notarizer } from './moduleNotarizer.js';
 import { Profile } from './moduleProfile.js';
 import { Verifier } from './moduleVerifier.js';
+
+
+window.Blockchain = Blockchain; // Per Debugging Nel Browser Console
 
 document.addEventListener('DOMContentLoaded', async () => {
 
@@ -12,6 +16,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     General.activeNavLink();
     await General.protectPrivatePages();
     General.updateLoginBtn();
+
+    // Controllo Silenzioso Dello Stato Di Connessione Al Caricamento Della Pagina
+    console.log("CypherSeal: Controllo Se L'Utente Ha Già Autorizzato Il Sito...");
+    const accounts = await Blockchain.getAuthorizedAccounts();
+    // console.log("CypherSeal: Risultato getAuthorizedAccounts ->", accounts);
 
     // Logiche Specifiche In Base Alla Pagina
     const page = General.findPage();

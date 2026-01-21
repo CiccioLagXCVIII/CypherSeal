@@ -14,16 +14,22 @@ export const Auth = {
         // Non serve Recuperare Il Bottone Qui, Lo Faccio In App.js
         if (Blockchain.isProviderAvailable()) {
             try {
-                // Richiede L'Accesso Agli Account Del Wallet
+                // Richiede All'Utente Di Connettere Il Sito Al Wallet
                 const accounts = await Blockchain.requestAccounts();
-                const userAddress = accounts[0];
 
-                // Memorizza L'Indirizzo Localmente Per Gestire La Sessione
-                localStorage.setItem('walletAddress', userAddress);
-                console.log("CypherSeal: Connessione Effettuata ->", userAddress);
+                // Controllo Di Sicurezza Per Verificare Che Ci Sia Almeno Un Account
+                if (accounts && accounts.length > 0) {
+                    const userAddress = accounts[0];
 
-                // Reindirizza L'Utente Alla Dashboard Dopo Il Login Perchè Mi Serve Solo L'Indirizzo
-                window.location.href = 'profilo.html';
+                    // Memorizza L'Indirizzo Localmente Per Gestire La Sessione
+                    localStorage.setItem('walletAddress', userAddress);
+                    console.log("CypherSeal: Connessione Effettuata ->", userAddress);
+
+                    // Reindirizza L'Utente Alla Dashboard Dopo Il Login Perchè Mi Serve Solo L'Indirizzo
+                    window.location.href = 'profilo.html';
+                } else {
+                    console.error("CypherSeal: Nessun Account Trovato Dopo La Richiesta Di Connessione");
+                }
             } catch (error) {
                 if (error.code === 4001) {
                     // L'Utente Ha Rifiutato La Connessione

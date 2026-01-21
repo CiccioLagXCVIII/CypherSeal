@@ -20,3 +20,6 @@ markdown/
 
 # Configurazione Linter / Formatter Locale
 .prettierrc
+
+# Documento Di Progetto Latex
+DocumentoDiProgetto/

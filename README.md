@@ -33,11 +33,12 @@ Il progetto supera i limiti dei notai digitali tradizionali integrando il paradi
 
 CypherSeal orchestra un flusso di lavoro che garantisce tre proprietà fondamentali per la forensica digitale:
 
-1.  **Proof of Integrity:** Utilizzando l'algoritmo **SHA-256**, viene generata un'impronta digitale univoca. La modifica di un singolo bit del file originale altera radicalmente l'hash (Effetto Avalanche), rendendo evidente qualsiasi manomissione.
-2.  **Proof of Existence:** La registrazione dell'hash in un blocco Ethereum fornisce una data certa (Timestamp) inoppugnabile e resistente alla censura.
-3.  **Proof of Authorship (Anti-Sybil):** Grazie all'implementazione di uno Smart Contract di *Gatekeeping*, solo gli utenti in possesso del badge identitario possono notarizzare documenti, prevenendo spam e garantendo la tracciabilità.
+1. **Proof of Integrity:** Utilizzando l'algoritmo **SHA-256**, viene generata un'impronta digitale univoca. La modifica di un singolo bit del file originale altera radicalmente l'hash (Effetto Avalanche), rendendo evidente qualsiasi manomissione.
+2. **Proof of Existence:** La registrazione dell'hash in un blocco Ethereum fornisce una data certa (Timestamp) inoppugnabile e resistente alla censura.
+3. **Proof of Authorship (Anti-Sybil):** Grazie all'implementazione di uno Smart Contract di *Gatekeeping*, solo gli utenti in possesso del badge identitario possono notarizzare documenti, prevenendo spam e garantendo la tracciabilità.
 
 ### Gestione del Ciclo di Vita (Revoca)
+
 A differenza dei database tradizionali, la blockchain è *append-only*. CypherSeal implementa una logica di **Revoca Semantica**: l'autore può invalidare un documento precedentemente emesso aggiornando lo stato dello Smart Contract. Il documento rimane nello storico, ma viene marcato pubblicamente come "Revocato".
 
 ---
@@ -46,14 +47,14 @@ A differenza dei database tradizionali, la blockchain è *append-only*. CypherSe
 
 Il sistema si basa su una **Dual Contract Architecture**:
 
-1.  **Identity Contract (`CypherSoul`)**:
-    *   Implementa lo standard **EIP-5192** (Minimal Soulbound Interface).
-    *   Il token (CYID) è **non trasferibile**: una volta mintato, è legato indissolubilmente al wallet dell'utente ("Soul").
-    *   Funge da passaporto reputazionale on-chain.
+1. **Identity Contract (`CypherSoul`)**:
+    - Implementa lo standard **EIP-5192** (Minimal Soulbound Interface).
+    - Il token (CYID) è **non trasferibile**: una volta mintato, è legato indissolubilmente al wallet dell'utente ("Soul").
+    - Funge da passaporto reputazionale on-chain.
 
-2.  **Notarizer Contract (`CypherSealNotarizer`)**:
-    *   Agisce come registro degli hash.
-    *   Prima di accettare una transazione di notarizzazione, interroga l'*Identity Contract* (`hasValidIdentity`) per verificare l'autorizzazione del mittente.
+2. **Notarizer Contract (`CypherSealNotarizer`)**:
+    - Agisce come registro degli hash.
+    - Prima di accettare una transazione di notarizzazione, interroga l'*Identity Contract* (`hasValidIdentity`) per verificare l'autorizzazione del mittente.
 
 ---
 
@@ -61,9 +62,9 @@ Il sistema si basa su una **Dual Contract Architecture**:
 
 CypherSeal adotta un approccio **Zero-Knowledge** rigoroso per garantire la conformità al GDPR e la tutela dei dati sensibili.
 
-*   **Client-Side Hashing:** Il calcolo dell'hash SHA-256 avviene localmente nel browser dell'utente tramite le **Web Crypto API**.
-*   **Data Isolation:** Il documento originale (PDF, Immagine, DOCX) **non lascia mai il dispositivo dell'utente**. Non viene mai caricato su server centralizzati, IPFS o blockchain.
-*   **Public Ledger:** Sulla blockchain viene registrata esclusivamente la stringa alfanumerica dell'hash, dalla quale è matematicamente impossibile risalire al contenuto originale (One-Way Function).
+- **Client-Side Hashing:** Il calcolo dell'hash SHA-256 avviene localmente nel browser dell'utente tramite le **Web Crypto API**.
+- **Data Isolation:** Il documento originale (PDF, Immagine, DOCX) **non lascia mai il dispositivo dell'utente**. Non viene mai caricato su server centralizzati, IPFS o blockchain.
+- **Public Ledger:** Sulla blockchain viene registrata esclusivamente la stringa alfanumerica dell'hash, dalla quale è matematicamente impossibile risalire al contenuto originale (One-Way Function).
 
 ---
 
@@ -137,24 +138,28 @@ CypherSeal/
 
 Poiché il progetto utilizza **Moduli ES6** (`type="module"`), è necessario servire i file tramite protocollo HTTP(s) e non direttamente dal file system (`file://`).
 
-1.  **Clona la repository:**
+1. **Clona la repository:**
+
     ```bash
     git clone https://github.com/TuoUsername/CypherSeal.git
     cd CypherSeal
     ```
 
-2.  **Avvia un Server Locale:**
-    *   **VS Code:** Installa l'estensione *Live Server*, tasto destro su `index.html` → "Open with Live Server".
-    *   **Python:**
+2. **Avvia un Server Locale:**
+    - **VS Code:** Installa l'estensione *Live Server*, tasto destro su `index.html` → "Open with Live Server".
+    - **Python:**
+
         ```bash
         python -m http.server 8000
         ```
-    *   **Node.js:**
+
+    - **Node.js:**
+
         ```bash
         npx http-server .
         ```
 
-3.  **Accesso:**
+3. **Accesso:**
     Apri il browser all'indirizzo `http://localhost:8000`. Assicurati di avere un wallet Web3 (es. MetaMask) installato per l'esperienza completa.
 
 ---
@@ -163,9 +168,9 @@ Poiché il progetto utilizza **Moduli ES6** (`type="module"`), è necessario ser
 
 Attualmente, il file `js/moduleBlockchain.js` opera in modalità **Mock/Simulazione**.
 
-*   **Scopo:** Dimostrare il flusso UX completo (Firma, Attesa Blocco, Conferma, Revoca) e la logica di frontend senza necessitare di ETH su Testnet per la valutazione.
-*   **Comportamento:** Il modulo intercetta le chiamate e restituisce promise asincrone che simulano latenza di rete e generano hash di transazione realistici.
-*   **Production Ready:** L'architettura è progettata per il passaggio in produzione ("Mainnet Switch"). È sufficiente sostituire i metodi mockati con le chiamate `ethers.Contract` utilizzando gli ABI generati dai contratti presenti nella cartella `contract/`.
+- **Scopo:** Dimostrare il flusso UX completo (Firma, Attesa Blocco, Conferma, Revoca) e la logica di frontend senza necessitare di ETH su Testnet per la valutazione.
+- **Comportamento:** Il modulo intercetta le chiamate e restituisce promise asincrone che simulano latenza di rete e generano hash di transazione realistici.
+- **Production Ready:** L'architettura è progettata per il passaggio in produzione ("Mainnet Switch"). È sufficiente sostituire i metodi mockati con le chiamate `ethers.Contract` utilizzando gli ABI generati dai contratti presenti nella cartella `contract/`.
 
 ---
 
@@ -177,4 +182,3 @@ Progetto di *Data Security & Blockchain Technology*
 
 ---
 *CypherSeal © 2026 - All Rights Reserved*
-

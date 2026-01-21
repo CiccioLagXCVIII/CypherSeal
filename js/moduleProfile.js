@@ -37,6 +37,15 @@ export const Profile = {
         const connectionStatus = document.getElementById('connectionStatus');
         const networkDisplay = document.getElementById('networkDisplay');
 
+        // Definizione Oggetto Networks
+        const networks = {
+            '0x1': 'Ethereum Mainnet',
+            '0xaa36a7': 'Sepolia Testnet',
+            '0x5': 'Goerli Testnet',
+            '0x89': 'Polygon Mainnet',
+            '0x13881': 'Mumbai Testnet'
+        };
+
         // Rilevamento Wallet e Network
         if (Blockchain.isProviderAvailable()) {
             // Wallet Info
@@ -48,19 +57,32 @@ export const Profile = {
 
             console.log("CypherSeal: Wallet Identificato:", name);
 
-            // Network
-            const chainId = await Blockchain.getChainId();
-            let networkName = "Unknown Network";
+            // Network Info
+            let chainId = await Blockchain.getChainId();
 
-            const networks = {
-                '0x1': 'Ethereum Mainnet',
-                '0xaa36a7': 'Sepolia Testnet',
-                '0x5': 'Goerli Testnet',
-                '0x89': 'Polygon Mainnet',
-                '0x13881': 'Mumbai Testnet'
-            };
+            if (chainId != '0xaa36a7') {
+                console.warn("CypherSeal: Selezionata Rete Errata. Tentativo Di Switch Su Sepolia Testnet Per Funzionamento Corretto.");
+                const switched = await Blockchain.switchToSepolia();
 
-            networkName = networks[chainId] || `Chain ID: ${chainId}`;
+                if (switched) {
+                    chainId = await Blockchain.getChainId();
+                    console.log("CypherSeal: Switch Rete Avvenuto Con Successo. Nuovo Chain ID:", chainId);
+                } else {
+                    // Se Lo Switch Fallisce, Oppure L'Utente Rifiuta, Mostra Messaggio Di Errore
+                    console.error("CypherSeal: Impossibile Passare Alla Sepolia Testnet. Assicurati Di Essere Connesso Alla Rete Corretta.");
+                    // Modifica L'Interfaccia Per Indicare L'Errore
+                    if (networkDisplay) {
+                        networkDisplay.textContent = "Rete Errata - Connetti A Sepolia";
+                        networkDisplay.classList.add("text-danger");
+                    }
+                    // Interrompe Ulteriori Operazioni Perche Non Si E' Sulla Rete Corretta
+                    return;
+                }
+            } else {
+                console.log("CypherSeal: Connesso Alla Sepolia Testnet.");
+            }
+
+            let networkName = networks[chainId] || `Chain ID: ${chainId}`;
 
             if (networkDisplay) {
                 networkDisplay.textContent = networkName;
@@ -81,6 +103,7 @@ export const Profile = {
 
     // Gestione Seconda Colonna (Dati Identità SBT)
     renderSBTInfo(identityInfo) {
+
         // Logica Icona "Randomica" Deterministica
         const avatarImg = document.getElementById('userAvatar');
         const fallbackIcon = document.getElementById('userAvatarFallback');
@@ -348,7 +371,6 @@ export const Profile = {
                 const hasIdentity = await Blockchain.getSBTStatus(walletConnected);
                 const certDocuments = await Blockchain.getUserDocuments(walletConnected);
                 const identityInfo = await Blockchain.getSBTInfo(walletConnected);
-
                 // Aggiorno il localStorage
                 localStorage.setItem('identitySBT', hasIdentity.toString());
 

@@ -2,7 +2,21 @@
 
 // Importazione Costanti E ABI Dei Contratti Necessari Per Interagire Con La Blockchain
 import { contractsConfig } from './configContracts.js';
+// Importazione Ethers.js v6 via CDN (jsDelivr con supporto ESM)
+import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@6.7.0/+esm";
 
+// Definzione Provider
+// Il Provider È Un'Interfaccia Che Consente Di Connettersi Alla Rete Ethereum E Interagire Con Essa
+// const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+// Definizione Signer
+// Il Signer È Un'Interfaccia Che Ha Accesso Alle Chiavi Private Per Firmare Messaggi E Transazioni
+// const signer = provider.getSigner();
+
+// Entrambi Devono Essere Definiti All'Interno Delle Funzioni Che Ne Hanno Bisogno, Peer Evitare Problemi Di Sincronizzazione
+
+// Definizione Contratto
+// È Un Interfaccia Che Permette Di Interagire Con Uno Smart Contract Deployato Sulla Rete Ethereum In Modo Da Poterlo Usare Come Un Oggetto JavaScript
 const {
     cypherSoulAddress,
     cypherSoulABI,
@@ -10,30 +24,48 @@ const {
     notarizerABI
 } = contractsConfig;
 
+
 export const Blockchain = {
 
     // SS Sezione Wallet E Provider
 
+    // NN isProviderAvailable REALE
     // Controllo Disponibilità Provider
     isProviderAvailable() {
-        console.log("Address CypherSoul:", cypherSoulAddress);
-        console.log("Address Notarizer:", notarizerAddress);
+        // Verifica Se Nel Browser È Presente Un'Estensione Come MetaMask
+        // Non Si Devono Usare Propriettà Che Iniziano Con _ Perchè Sono Interne Di Metamask E Quindi Se 
+        // Si Aggiorna O C'È Un Altro Wallet Il Codice Si Rompe
 
-        return typeof window.ethereum !== 'undefined';
+        // Per Sapere Se C'È Il Provider Basta Controllare Se window.ethereum Esiste
+        const injectedProvider = window.ethereum
+        if (typeof injectedProvider !== 'undefined') {
+            console.log("moduleBlockchain: Provider Web3 Rilevato");
+            return true;
+        } else {
+            console.error("moduleBlockchain: Nessun Provider Web3 Rilevato");
+            return false;
+        }
     },
 
-    // Richiesta Connessione Account
-    async requestAccounts() {
-        return await window.ethereum.request({ method: 'eth_requestAccounts' });
-    },
-
-    // Ottiene Il Chain ID Attuale
+    // NN getChainId REALE
+    // Recupera Il Network Collegato
     async getChainId() {
-        return await window.ethereum.request({ method: 'eth_chainId' });
+        // Estrae E Restituisce Il Chain ID Della Rete Collegata In Formato Esadecimale
+        const provider = new ethers.BrowserProvider(window.ethereum);
+
+        const network = await provider.getNetwork();
+
+        // Ether Restituisce Un BigInt Quindi Si Deve Convertire In Stringa
+        // È Meglio Usare window.ethereum Per Il ChainId
+        const networkString = '0x' + network.chainId.toString(16);
+
+        return networkString;
     },
 
-    // Identifica Brand Wallet
+    // NN getWalletBrand REALE
+    // Identifica Il Brand Del Wallet Collegato
     getWalletBrand() {
+
         if (this.isProviderAvailable()) {
             const provider = window.ethereum;
 
@@ -56,57 +88,285 @@ export const Blockchain = {
         }
     },
 
-    // Controlla Acount Autorizzati (Utile Per Verificare Sessione Attiva Al Refresh)
+    // NN switchToSepolia REALE
+    async switchToSepolia() {
+        if (this.isProviderAvailable()) {
+            const sepoliaChainId = '0xaa36a7'; // 11155111 In Decimale
+            const provider = new ethers.BrowserProvider(window.ethereum);
+
+            // Switcha Alla Rete Sepolia
+            try {
+                await provider.send("wallet_switchEthereumChain", [{ chainId: sepoliaChainId }]);
+
+                return true;
+            } catch (switchError) {
+                if (switchError.code === 4902) {
+                    // Rete Non Trovata, Si Deve Aggiungere
+                    const sepoliaParams = {
+                        chainId: '0xaa36a7',
+                        chainName: 'Sepolia Testnet',
+                        nativeCurrency: {
+                            name: 'SepoliaETH',
+                            symbol: 'ETH',
+                            decimals: 18
+                        },
+                        rpcUrls: ['https://sepolia.drpc.org'],
+                        blockExplorerUrls: ['https://sepolia.etherscan.io']
+                    }
+
+                    try {
+                        await provider.send("wallet_addEthereumChain", [sepoliaParams]);
+                        return true;
+                    } catch (addError) {
+                        console.error("moduleBlockchain: Errore Nell'Aggiunta Della Rete Sepolia:", addError);
+                        return false;
+                    }
+                } else {
+                    console.error("moduleBlockchain: Errore Nello Switch Alla Rete Sepolia:", switchError);
+                    return false;
+                }
+            }
+        }
+    },
+
+    // NN getAuthorizedAccounts REALE
+    // AA Controlla Account Autorizzati (Controllo Silenzioso)
+    // Controlla Se L'Utente Ha Già Autorizzato Il Sito Ed È Attualmente Connesso
+    // Se L'Utente Non È Connesso, Restituisce Un Array Vuoto E Non Succede Nulla
+    // Si Usa Al Refresh Della Pagina Per Vedere Se L'Utente È Ancora Connesso
     async getAuthorizedAccounts() {
         if (this.isProviderAvailable()) {
             try {
-                // eth_accounts: Restituisce Gli Account Collegati. Se Vuoto, Nessun Account È Collegato.
-                return await window.ethereum.request({ method: 'eth_accounts' });
+                const provider = new ethers.BrowserProvider(window.ethereum);
+                // Si Usa eth_accounts Che A Differenza Di eth_requestAccounts Non Mostra Il Popup
+                // Se È Connesso Ritorna Un Array Di Account Autorizzati, Altrimenti Ritorna Un Array Vuoto
+                const accounts = await provider.send("eth_accounts", []);
+                return accounts;
             } catch (error) {
-                console.error("Errore Recupero Account Autorizzati:", error);
+                console.error("moduleBlockchain: Errore Nel Recupero Degli Account Autorizzati:", error);
                 return [];
             }
+        } else {
+            console.error("moduleBlockchain: Nessun Provider Web3 Rilevato");
+            return [];
         }
-        return [];
     },
+
+    // NN requestAccounts REALE
+    // AA Richiesta Connessione Wallet (Apre Popup MetaMask)
+    // Chiede Attivamente All'Utente Di Connettere Il Sito Al Wallet Per Far Approvare La Connessione All'Utente
+    // Si Usa Quando L'Utente Clicca Sul Bottone "Connetti Wallet"
+    async requestAccounts() {
+        // Permette Di Fare Il Login Vero E Proprio
+
+        // Inizializzazione Connessione Con Il Provider
+        const provider = new ethers.BrowserProvider(window.ethereum);
+
+        // Usando send Si Forza L'Apertutra Del Popup In MetaMask Se Il Sito Non È Ancora Connesso
+        const accounts = await provider.send("eth_requestAccounts", []);
+
+        console.log("requestAccounts: Account Connessi ->", accounts);
+
+        // A Questo Punto Si Può Restituire Gli Account Autorizzati
+        return accounts;
+    },
+
+    // TODO: Funzione Helper (isSignerAvailable)
+    // TODO: Combina isProviderAvailable E getAuthorizedAccounts Per Sapere Se L'Utente Può Effettivamente Interagire Con La DApp E Firmare Transazioni
+    async isWalletConnected() {
+        // Può Esserci Un Provider (Come MetaMask) Ma Nessun Account Connesso E Quindi Non Si Può Firmare Nulla
+        if (this.isProviderAvailable()) {
+            const accounts = await this.getAuthorizedAccounts();
+            if (accounts.length > 0) {
+                console.log("moduleBlockchain: Signer Disponibile (Account Connesso)");
+                return true;
+            }
+        }
+        console.log("moduleBlockchain: Signer Non Disponibile (Nessun Account Connesso)");
+        return false;
+    },
+
 
     // SS Sezione Profilo & Identità (SBT)
 
     // Controlla Se L'Utente Possiede Un'Identità SBT
+    // NN getSBTStatus REALE
+    /*
     async getSBTStatus(userAddress) {
-        console.log(`Blockchain Service: Controllo Identità Per ${userAddress}...`);
+        console.log(`moduleBlockchain: Controllo Identità Per ${userAddress}...`);
+        // Inizializza Il Provider
+        const provider = new ethers.BrowserProvider(window.ethereum);
 
+        // Inizializza Il Contratto CypherSoul
+        const cypherSoulContract = new ethers.Contract(
+            cypherSoulAddress,
+            cypherSoulABI,
+            provider
+            // È Solo In Lettura Quindi Non Serve Il Signer
+        );
+
+
+        try {
+            // Chiama La Funzione hasValidIdentity Del Contratto
+            const hasIdentity = await cypherSoulContract.hasValidIdentity(userAddress);
+            console.log(`moduleBlockchain: L'Utente ${userAddress} Ha Identità SBT: ${hasIdentity}`);
+            return hasIdentity;
+        } catch (error) {
+            console.error("moduleBlockchain: Errore Nel Controllo Dello Stato Dell'Identità SBT:", error);
+            return false;
+        }
+    },
+    */
+
+    // NN mintSBT REALE 
+    /*
+    async mintSBT(userAddress) {
+        console.log(`Blockchain Service: Chiamata mintBadge(${userAddress})...`);
+
+        // Inizializza Il Provider (Per Lettura)
+        const provider = new ethers.BrowserProvider(window.ethereum);
+
+        // Inizializza Il Signer (Per Firmare Transazioni E Pagare Il Gas)
+        const signer = await provider.getSigner();
+
+        // Inizializza Il Contratto CypherSoul Con Il Signer Per Abilitare Le Funzioni Di Scrittura
+        const cypherSoulContract = new ethers.Contract(
+            cypherSoulAddress,
+            cypherSoulABI,
+            signer
+        );
+
+        try {
+            // Definizione URI Metadati SBT (Placeholder)
+            const tokenURI = `https://cypherseal.example.com/sbt/${userAddress}`;
+
+            // Invio Della Transazione Di Minting Dello SBT
+            // A Questo Punto La Transazione È Inviata Alla Rete Ma non Ancora Scritta In Un Blocco
+            // Quindi Si Estraggono I Dati Della Richiesta Di Minting (TransactionResponse)
+            const txResponse = await cypherSoulContract.mintBadge(tokenURI);
+            console.log("Blockchain Service: Transazione Inviata. Hash: ", txResponse.hash);
+            console.log("In Attesa Della Conferma Della Transazione...");
+
+            // Attesa Della Conferma Della Transazione (TransactionReceipt)
+            // In Ethers.js Il Metodo wait() Sul TransactionResponse Sospende L'Esecuzione Finché La Transazione 
+            // Non Viene Validata E Inclusa In Un Blocco. Restituisce Un TransactionReceipt Che Contiene I Dettagli 
+            // L'Esito Finale Della Transazione E Gli Eventi Emessi (In Questo Caso, L'Evento Locked)
+            const txReceipt = await txResponse.wait();
+            console.log("Blockchain Service: Transazione Confermata Nel Blocco: ", txReceipt.blockNumber);
+            return {
+                success: true,
+                txHash: txReceipt.hash,
+                blockNumber: txReceipt.blockNumber,
+                gasUsed: txReceipt.gasUsed.toString(),
+                from: txReceipt.from,
+                to: txReceipt.to
+            };
+        } catch (mintError) {
+            console.error("Blockchain Service: Errore Nel Minting Dello SBT:", mintError);
+            return {
+                success: false,
+                error: mintError.message
+            };
+        }
+    },
+    */
+
+    // NN getSBTInfo REALE
+    /*
+    // Recupera Info SBT In Base All'Indirizzo Utente
+    async getSBTInfo(userAddress) {
+        console.log("moduleBlockchain: Recupero Info SBT...");
+
+        // Inizializza Il Provider
+        const provider = new ethers.BrowserProvider(window.ethereum);
+
+        // Inizializza Il Contratto CypherSoul
+        const cypherSoulContract = new ethers.Contract(
+            cypherSoulAddress,
+            cypherSoulABI,
+            provider
+        );
+
+        try {
+            const hasIdentity = await cypherSoulContract.hasValidIdentity(userAddress);
+            if (!hasIdentity) {
+                // L'Utente Non Ha Un SBT
+                console.warn("moduleBlockchain: L'Utente Non Possiede Un SBT");
+                return null;
+            } else {
+                // L'Utente Ha Un SBT
+                // Poiché Lo Smart Contract Non Fornisce Metodi Diretti Per Ottenere Le Info Dello SBT,
+                // Si Deve Fare Un Filtro Basato Sull'Evento Emesso Durante Il Minting Dello SBT
+                // Poichè La Funzione mintBadge Chiama La Funzione _safeMint Che Emmette L'Evento Transfer
+                // Si Può Usare Questo Evento Per Trovare Le Info
+
+                // Definizione Filtro Evento Transfer Da 0x000... A userAddress
+                // In Pratica Cerca Sulla Blockchain Tutti Gli Eventi Transfer Dove L'Indirizzo from È 
+                // L'Indirizzo Zero (Minting) E L'Indirizzo to È userAddress.
+                // Questo Permette Di Trovare L'Evento Emesso Dal Contratto Quando L'Utente Ha Ricevuto Lo SBT
+                const filter = cypherSoulContract.filters.Transfer(ethers.ZeroAddress, userAddress)
+                const events = await cypherSoulContract.queryFilter(filter);
+                if (events.length === 0) {
+                    console.warn("moduleBlockchain: Nessun Evento Transfer Trovato Per Questo Utente");
+                    return null;
+                } else {
+                    // L'Evento Di Minting Sarà Sicuramente Unico Perche Per Ogni Utente C'è Un Solo SBT
+                    const mintEvent = events[0];
+
+                    const eventArgs = mintEvent.args;
+                    // Si Possono Usare I Parametri (args) Dell'Evento Per Ottenere Le Informazioni Necessarie
+                    // Il Primo Elemmento args[0] È L'Indirizzo From (Zero Address)
+                    // Il Secondo Elemmento args[1] È L'Indirizzo To (userAddress)
+                    // Il Terzo Elemmento args[2] È Il tokenId Dello SBT
+                    const address = eventArgs[1];
+                    const sbtTokenId = eventArgs[2].toString();
+
+                    // Recupero Data Di Emissione Dallo Smart Contract
+                    const sbtBlock = mintEvent.blockNumber;
+                    const blockData = await provider.getBlock(sbtBlock);
+                    const emissionTimestamp = blockData.timestamp;
+                    const emissionDate = new Date(emissionTimestamp * 1000).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+
+                    // Costruzione Oggetto Di Ritorno
+                    const sbtInfo = {
+                        userAddress: address,
+                        sbtTokenId: sbtTokenId,
+                        emissionDate: emissionDate,
+                        registryNet: 'Ethereum (Sepolia)',
+                        // I Seguenti Si Devono Prendere Da getUserDocuments
+                        trustLevel: 'Verified User',
+                        numDocCertificati: 'N/A', 
+                        dataUltCertifica: '---'
+                    };
+
+                    return sbtInfo;
+                }
+            }
+        } catch (error) {
+            console.error("moduleBlockchain: Errore Nel Recupero Delle Info SBT:", error);
+            return null;
+        }
+    },
+    */
+
+    // SS Sezione Notarizzazione & Documenti
+
+
+    // SS ------------------------------------------------------------------------------------------
+    // NN getSBTStatus SIMULATO
+    async getSBTStatus(userAddress) {
+        console.log(`moduleBlockchain: Controllo Identità Per ${userAddress}...`);
         const delay = Math.floor(Math.random() * 1000) + 500;
         await new Promise(r => setTimeout(r, delay));
 
-        //const hasIdentity = !userAddress.endsWith('0');
+        const hasIdentity = !userAddress.endsWith('0');
 
-        const hasIdentity = true;
+        // const hasIdentity = false;
 
         return hasIdentity;
     },
 
-    // Recupera Info SBT In Base All'Indirizzo Utente
-    async getSBTInfo(userAddress) {
-        console.log("CypherSeal: Recupero Info SBT...");
-
-        await new Promise(r => setTimeout(r, 800));
-
-        const shortAddr = userAddress.substring(2, 8).toUpperCase();
-        const now = new Date();
-        const emission = new Date(now.setMonth(now.getMonth() - 2)); // Emesso 2 mesi fa
-
-        return {
-            userAddress: userAddress,
-            sbtTokenId: parseInt(shortAddr, 16).toString(),
-            emissionDate: emission.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' }),
-            registryNet: 'Ethereum (Sepolia)',
-            trustLevel: 'Advanced',
-            numDocCertificati: (parseInt(shortAddr, 16) % 20).toString(),
-            dataUltCertifica: new Date().toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })
-        };
-    },
-
+    // NN mintSBT SIMULATO
     // Simula il minting di un SBT (Creazione Identità)
     async mintSBT(userAddress) {
         console.log(`Blockchain Service: Chiamata safeMint(${userAddress})...`);
@@ -120,8 +380,37 @@ export const Blockchain = {
         };
     },
 
-    // SS Sezione Notarizzazione & Documenti
 
+    // NN getSBTInfo SIMULATO
+    // Recupera Info SBT In Base All'Indirizzo Utente
+    async getSBTInfo(userAddress) {
+        console.log("CypherSeal: Recupero Info SBT...");
+
+        await new Promise(r => setTimeout(r, 800));
+
+        const shortAddr = userAddress.substring(2, 8).toUpperCase();
+        const now = new Date();
+        const emission = new Date(now.setMonth(now.getMonth() - 2)); // Emesso 2 mesi fa
+        const emissionDate = emission.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+
+        // Costruzione Oggetto Di Ritorno
+        const sbtInfo = {
+            userAddress: userAddress,
+            sbtTokenId: parseInt(shortAddr, 16).toString(),
+            emissionDate: emissionDate,
+            registryNet: 'Ethereum (Sepolia)',
+            // I Seguenti Si Devono Prendere Da \getUserDocmuments
+            // trustLevel: 'Advanced',
+            // numDocCertificati: (parseInt(shortAddr, 16) % 20).toString(),
+            // dataUltCertifica: new Date().toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })
+        };
+
+        return sbtInfo;
+    },
+
+    // AA Sezione Notarizzazione & Documenti
+
+    // NN notarizeDocument SIMULATO
     // Simula la notarizzazione di un hash (Scrittura su Blockchain)
     async notarizeDocument(hash) {
         console.log(`Blockchain Service: Chiamata notarizeDocument(${hash})...`);
