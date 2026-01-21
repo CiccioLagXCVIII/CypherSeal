@@ -166,7 +166,7 @@ export const Profile = {
 
         certifiedDocuments.forEach(element => {
             // Gestione Data
-            const documentTimestamp = element.notarizationDate;
+            const documentTimestamp = element.timestamp;
             let formattedDate = "Data Non Valida";
             if (documentTimestamp) {
                 let dateObj;

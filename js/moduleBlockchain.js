@@ -3,7 +3,8 @@
 // Importazione Costanti E ABI Dei Contratti Necessari Per Interagire Con La Blockchain
 import { contractsConfig } from './configContracts.js';
 // Importazione Ethers.js v6 via CDN (jsDelivr con supporto ESM)
-import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@6.7.0/+esm";
+// import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@6.7.0/+esm";
+import * as ethers from "https://esm.sh/ethers@6.7.0?dev";
 
 // Definzione Provider
 // Il Provider È Un'Interfaccia Che Consente Di Connettersi Alla Rete Ethereum E Interagire Con Essa
@@ -29,8 +30,8 @@ export const Blockchain = {
 
     // SS Sezione Wallet E Provider
 
-    // NN isProviderAvailable REALE
-    // Controllo Disponibilità Provider
+    // NN isProviderAvailable
+    // Verifica La Presenza Di Un Provider Web3 Nel Browser
     isProviderAvailable() {
         // Verifica Se Nel Browser È Presente Un'Estensione Come MetaMask
         // Non Si Devono Usare Propriettà Che Iniziano Con _ Perchè Sono Interne Di Metamask E Quindi Se 
@@ -47,8 +48,8 @@ export const Blockchain = {
         }
     },
 
-    // NN getChainId REALE
-    // Recupera Il Network Collegato
+    // NN getChainId
+    // Ottiene L'ID Univoco Della Rete Blockchain Attualmente In Uso
     async getChainId() {
         // Estrae E Restituisce Il Chain ID Della Rete Collegata In Formato Esadecimale
         const provider = new ethers.BrowserProvider(window.ethereum);
@@ -62,8 +63,8 @@ export const Blockchain = {
         return networkString;
     },
 
-    // NN getWalletBrand REALE
-    // Identifica Il Brand Del Wallet Collegato
+    // NN getWalletBrand
+    // Rileva La Tipologia Di Wallet Collegata (Es. Metamask)
     getWalletBrand() {
 
         if (this.isProviderAvailable()) {
@@ -88,7 +89,8 @@ export const Blockchain = {
         }
     },
 
-    // NN switchToSepolia REALE
+    // NN switchToSepolia
+    // Invia Una Richiesta Al Wallet Per Passare Al Network Sepolia
     async switchToSepolia() {
         if (this.isProviderAvailable()) {
             const sepoliaChainId = '0xaa36a7'; // 11155111 In Decimale
@@ -129,8 +131,8 @@ export const Blockchain = {
         }
     },
 
-    // NN getAuthorizedAccounts REALE
-    // AA Controlla Account Autorizzati (Controllo Silenzioso)
+    // NN getAuthorizedAccounts
+    // Controlla Se Esistono Account Già Autorizzati (Controllo Silenzioso)
     // Controlla Se L'Utente Ha Già Autorizzato Il Sito Ed È Attualmente Connesso
     // Se L'Utente Non È Connesso, Restituisce Un Array Vuoto E Non Succede Nulla
     // Si Usa Al Refresh Della Pagina Per Vedere Se L'Utente È Ancora Connesso
@@ -152,8 +154,8 @@ export const Blockchain = {
         }
     },
 
-    // NN requestAccounts REALE
-    // AA Richiesta Connessione Wallet (Apre Popup MetaMask)
+    // NN requestAccounts
+    // Avvia La Procedura Di Connessione Al Wallet Tramite Popup
     // Chiede Attivamente All'Utente Di Connettere Il Sito Al Wallet Per Far Approvare La Connessione All'Utente
     // Si Usa Quando L'Utente Clicca Sul Bottone "Connetti Wallet"
     async requestAccounts() {
@@ -189,9 +191,8 @@ export const Blockchain = {
 
     // SS Sezione Profilo & Identità (SBT)
 
-    // Controlla Se L'Utente Possiede Un'Identità SBT
-    // NN getSBTStatus REALE
-    /*
+    // NN getSBTStatus
+    // Verifica On-Chain Il Possesso Del Badge Di Identità SBT
     async getSBTStatus(userAddress) {
         console.log(`moduleBlockchain: Controllo Identità Per ${userAddress}...`);
         // Inizializza Il Provider
@@ -216,12 +217,11 @@ export const Blockchain = {
             return false;
         }
     },
-    */
 
-    // NN mintSBT REALE 
-    /*
+    // NN mintSBT 
+    // Avvia La Transazione Di Minting Per L'Identità Soulbound
     async mintSBT(userAddress) {
-        console.log(`Blockchain Service: Chiamata mintBadge(${userAddress})...`);
+        console.log(`moduleBlockchain: Chiamata mintBadge(${userAddress})...`);
 
         // Inizializza Il Provider (Per Lettura)
         const provider = new ethers.BrowserProvider(window.ethereum);
@@ -244,16 +244,16 @@ export const Blockchain = {
             // A Questo Punto La Transazione È Inviata Alla Rete Ma non Ancora Scritta In Un Blocco
             // Quindi Si Estraggono I Dati Della Richiesta Di Minting (TransactionResponse)
             const txResponse = await cypherSoulContract.mintBadge(tokenURI);
-            console.log("Blockchain Service: Transazione Inviata. Hash: ", txResponse.hash);
-            console.log("In Attesa Della Conferma Della Transazione...");
+            console.log("moduleBlockchain: Transazione Minting Inviata. Hash: ", txResponse.hash);
+            console.log("moduleBlockchain: In Attesa Della Conferma Della Transazione Minting...");
 
             // Attesa Della Conferma Della Transazione (TransactionReceipt)
             // In Ethers.js Il Metodo wait() Sul TransactionResponse Sospende L'Esecuzione Finché La Transazione 
             // Non Viene Validata E Inclusa In Un Blocco. Restituisce Un TransactionReceipt Che Contiene I Dettagli 
             // L'Esito Finale Della Transazione E Gli Eventi Emessi (In Questo Caso, L'Evento Locked)
             const txReceipt = await txResponse.wait();
-            console.log("Blockchain Service: Transazione Confermata Nel Blocco: ", txReceipt.blockNumber);
-            return {
+            console.log("moduleBlockchain: Transazione Minting Confermata Nel Blocco: ", txReceipt.blockNumber);
+            const returnData = {
                 success: true,
                 txHash: txReceipt.hash,
                 blockNumber: txReceipt.blockNumber,
@@ -261,19 +261,21 @@ export const Blockchain = {
                 from: txReceipt.from,
                 to: txReceipt.to
             };
+
+            return returnData;
         } catch (mintError) {
-            console.error("Blockchain Service: Errore Nel Minting Dello SBT:", mintError);
-            return {
+            console.error("moduleBlockchain: Errore Nel Minting Dello SBT:", mintError);
+            const returnData = {
                 success: false,
                 error: mintError.message
             };
+
+            return returnData;
         }
     },
-    */
 
-    // NN getSBTInfo REALE
-    /*
-    // Recupera Info SBT In Base All'Indirizzo Utente
+    // NN getSBTInfo
+    // Estrae I Metadati Del Profilo Associati Al Badge Dell'utente
     async getSBTInfo(userAddress) {
         console.log("moduleBlockchain: Recupero Info SBT...");
 
@@ -335,7 +337,7 @@ export const Blockchain = {
                         registryNet: 'Ethereum (Sepolia)',
                         // I Seguenti Si Devono Prendere Da getUserDocuments
                         trustLevel: 'Verified User',
-                        numDocCertificati: 'N/A', 
+                        numDocCertificati: 'N/A',
                         dataUltCertifica: '---'
                     };
 
@@ -347,204 +349,371 @@ export const Blockchain = {
             return null;
         }
     },
-    */
+
 
     // SS Sezione Notarizzazione & Documenti
 
-
-    // SS ------------------------------------------------------------------------------------------
-    // NN getSBTStatus SIMULATO
-    async getSBTStatus(userAddress) {
-        console.log(`moduleBlockchain: Controllo Identità Per ${userAddress}...`);
-        const delay = Math.floor(Math.random() * 1000) + 500;
-        await new Promise(r => setTimeout(r, delay));
-
-        const hasIdentity = !userAddress.endsWith('0');
-
-        // const hasIdentity = false;
-
-        return hasIdentity;
-    },
-
-    // NN mintSBT SIMULATO
-    // Simula il minting di un SBT (Creazione Identità)
-    async mintSBT(userAddress) {
-        console.log(`Blockchain Service: Chiamata safeMint(${userAddress})...`);
-
-        // Simulazione attesa conferma transazione
-        await new Promise(r => setTimeout(r, 4000));
-
-        return {
-            success: true,
-            txHash: "0x" + Array(64).fill(0).map(() => Math.floor(Math.random() * 16).toString(16)).join('')
-        };
-    },
-
-
-    // NN getSBTInfo SIMULATO
-    // Recupera Info SBT In Base All'Indirizzo Utente
-    async getSBTInfo(userAddress) {
-        console.log("CypherSeal: Recupero Info SBT...");
-
-        await new Promise(r => setTimeout(r, 800));
-
-        const shortAddr = userAddress.substring(2, 8).toUpperCase();
-        const now = new Date();
-        const emission = new Date(now.setMonth(now.getMonth() - 2)); // Emesso 2 mesi fa
-        const emissionDate = emission.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
-
-        // Costruzione Oggetto Di Ritorno
-        const sbtInfo = {
-            userAddress: userAddress,
-            sbtTokenId: parseInt(shortAddr, 16).toString(),
-            emissionDate: emissionDate,
-            registryNet: 'Ethereum (Sepolia)',
-            // I Seguenti Si Devono Prendere Da \getUserDocmuments
-            // trustLevel: 'Advanced',
-            // numDocCertificati: (parseInt(shortAddr, 16) % 20).toString(),
-            // dataUltCertifica: new Date().toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })
-        };
-
-        return sbtInfo;
-    },
-
-    // AA Sezione Notarizzazione & Documenti
-
-    // NN notarizeDocument SIMULATO
-    // Simula la notarizzazione di un hash (Scrittura su Blockchain)
+    // NN notarizeDocument
+    // Registra L'Impronta Digitale Del Documento (Hash) Sulla Blockchain
     async notarizeDocument(hash) {
-        console.log(`Blockchain Service: Chiamata notarizeDocument(${hash})...`);
+        console.log(`moduleBlockchain: Chiamata notarizeDocument(${hash})...`);
+        if (!this.isProviderAvailable()) {
+            console.error("moduleBlockchain: Nessun Provider Web3 Rilevato");
 
-        await new Promise(r => setTimeout(r, 800));
+            const returnData = {
+                success: false,
+                error: "No Web3 Provider"
+            };
+            return returnData;
+        } else {
+            // Inizializza Il Provider (Per Lettura)
+            const provider = new ethers.BrowserProvider(window.ethereum);
 
-        if (Math.random() < 0.05) {
-            throw new Error("Execution Reverted: Gas estimation failed or User rejected request");
+            // Inizializza Il Signer (Per Firmare Transazioni E Pagare Il Gas)
+            const signer = await provider.getSigner();
+
+            // Inizializza Il Contratto Notarizer Con Il Signer Per Abilitare Le Funzioni Di Scrittura
+            const notarizerContract = new ethers.Contract(
+                notarizerAddress,
+                notarizerABI,
+                signer
+            );
+
+            try {
+                // Invio Della Transazione Di Notarizzazione Del Documento
+                // A Questo Punto La Transazione È Inviata Alla Rete Ma non Ancora Scritta In Un Blocco
+                // Quindi Si Estraggono I Dati Della Richiesta Di Notarizzazione (TransactionResponse)
+                const txResponse = await notarizerContract.notarize(hash);
+                console.log("moduleBlockchain: Transazione Notarizzazione Inviata. Hash: ", txResponse.hash);
+                console.log("moduleBlockchain: In Attesa Della Conferma Della Notarizzazione...");
+
+                // Attesa Della Conferma Della Transazione (TransactionReceipt)
+                // In Ethers.js Il Metodo wait() Sul TransactionResponse Sospende L'Esecuzione Finché La Transazione 
+                // Non Viene Validata E Inclusa In Un Blocco. Restituisce Un TransactionReceipt Che Contiene I Dettagli 
+                // L'Esito Finale Della Transazione E Gli Eventi Emessi (In Questo Caso, L'Evento DocumentNotarized)
+                const txReceipt = await txResponse.wait();
+                console.log("moduleBlockchain: Transazione Notarizzazione Confermata Nel Blocco: ", txReceipt.blockNumber);
+                const returnData = {
+                    // Status Dovrebbe Essere Sempre 1 Qui
+                    status: txReceipt.status,
+                    txHash: txReceipt.hash,
+                    block: txReceipt.blockNumber,
+                    gasUsed: txReceipt.gasUsed.toString()
+                };
+
+                return returnData;
+            } catch (notarizeError) {
+                console.error("moduleBlockchain: Errore Nella Notarizzazione Del Documento:", notarizeError);
+                const returnData = {
+                    success: false,
+                    error: notarizeError.message
+                };
+
+                return returnData;
+            }
         }
-
-        // Simulazione stima gas e tempo di mining del blocco
-        await new Promise(r => setTimeout(r, 2000 + Math.random() * 3000));
-
-        return {
-            success: true,
-            txHash: "0x" + Array(64).fill(0).map(() => Math.floor(Math.random() * 16).toString(16)).join(''),
-            // Blocco realistico (Ethereum Block Height attuale + random)
-            block: 5400000 + Math.floor(Math.random() * 1000)
-        };
     },
 
-    // Simula Il Reale Recupero Dello Stato Di Un Documento (Lettura Da Blockchain)
+    // NN getDocumentStatus
+    // Recupera I Dati Di Validità, Autore E Timestamp Di Un Hash
     async getDocumentStatus(hash) {
-        console.log(`Blockchain Service: Chiamata getDocumentStatus(${hash})`);
+        console.log(`moduleBlockchain: Chiamata getDocumentStatus(${hash})`);
 
-        await new Promise(r => setTimeout(r, 1200));
+        const provider = new ethers.BrowserProvider(window.ethereum);
 
-        const lastChar = hash.slice(-1);
-        // Default: Non Trovato
-        let simulatedStatus = 0;
+        const notarizerContract = new ethers.Contract(
+            notarizerAddress,
+            notarizerABI,
+            provider
+        );
 
-        // Se finisce con numero pari -> Valido (1)
-        // Se finisce con 'a', 'b', 'c' -> Revocato (2)
-        // Altrimenti -> Non Trovato (0)
-        if (!isNaN(lastChar)) {
-            simulatedStatus = 1;
-        } else if (['a', 'b', 'c', 'd', 'e', 'f'].includes(lastChar)) {
-            simulatedStatus = 2;
+        try {
+            const response = await notarizerContract.verify(hash);
+
+            const docHash = response[0];
+            const authorAddress = response[1];
+            const certTimestamp = Number(response[2]);
+            const revTimestamp = Number(response[3]);
+            const isCertified = response[4];
+
+            // Logica Formattazione Data Creazione
+            // AA let formattedCertDate = new Date(certTimestamp * 1000).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+
+            // Inizializzazione Variabili Stato
+            let statusCode = 0;     // Default: 0 (Non Trovato/Errore)
+            // AA let formattedRevocationDate = null;
+
+            // Logica Stati: 2 = Revocato, 1 = Verificato
+            if (isCertified === false && revTimestamp.toString() !== '0') {
+                statusCode = 2;
+                // AA formattedRevocationDate = new Date(revTimestamp * 1000).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+            } else if (isCertified === true) {
+                // Non Serve revTimestamp.toString() === '0' Perchè Se È True Significa Che Non È Revocato
+                statusCode = 1;
+            }
+
+            // Recupero SBT (Con controllo di sicurezza null check)
+            let sbtId = "N/A";
+            try {
+                const sbtInfo = await this.getSBTInfo(authorAddress);
+                if (sbtInfo && sbtInfo.sbtTokenId) {
+                    sbtId = sbtInfo.sbtTokenId.toString();
+                }
+            } catch (errorSBT) {
+                console.warn("moduleBlockchain: Impossibile Recuperare Info SBT Per Autore Documento:", errorSBT);
+            }
+
+            // Costruzione Oggetto Di Ritorno
+            const documentData = {
+                status: statusCode,
+                hash: docHash,
+                author: authorAddress,
+                sbtId: sbtId,
+
+                // Frontend Vuole Il Numero Del Blocco In Cui È Stato Certificato (Per Adesso Placeholder)
+                block: "Archive",
+
+                // Frontend Vuole Timestamp In Stringa E Lo Formatta In Data
+                timestamp: certTimestamp.toString(),
+                revocationTimestamp: revTimestamp.toString()
+            };
+
+            return documentData;
+
+        } catch (error) {
+            // Se Smart Contract Chiama revert DocumentNotFound();
+            console.error("moduleBlockchain: Errore Nel Recupero Dello Stato Del Documento:", error);
+            // Restituisco un oggetto con status 0 per coerenza (invece del primitivo 0)
+            return { status: 0 };
         }
-
-        // Dati Per Testare L'Interfaccia Utente
-        const docStatus = {
-            status: simulatedStatus, // 0 = Non Trovato, 1 = Valido, 2 = Revocato
-            author: "0x" + hash.substring(0, 40),
-            sbtId: "SBT-" + Math.floor(Math.random() * 9000 + 1000),
-            block: 5432100 + Math.floor(Math.random() * 500),
-            timestamp: (Math.floor(Date.now() / 1000) - Math.floor(Math.random() * 2592000)).toString()
-        };
-
-        // Se non trovato, resetta i dati
-        if (simulatedStatus === 0) {
-            docStatus.author = "0x0000000000000000000000000000000000000000";
-            docStatus.sbtId = "0";
-            docStatus.block = 0;
-            docStatus.timestamp = "0";
-        }
-
-        return docStatus;
     },
 
-    // Simula La Revoca Di Un Documento Da Parte Del Proprietario
+    // NN revokeDocument
+    // Invalida Ufficialmente La Certificazione Di Un Documento Notarizzato (Può Essere Fatta Solo Dall'Autore)
     async revokeDocument(hash) {
-        console.log(`Blockchain Service: Chiamata revokeDocument(${hash})...`);
+        console.log(`moduleBlockchain: Chiamata revokeDocument(${hash})...`);
 
-        // Simulazione Tempo Transazione
-        await new Promise(r => setTimeout(r, 2000));
+        // Inizializza Il Provider (Per Lettura)
+        const provider = new ethers.BrowserProvider(window.ethereum);
 
-        return {
-            success: true,
-            txHash: "0x" + Array(64).fill(0).map(() => Math.floor(Math.random() * 16).toString(16)).join('')
-        };
+        // Inizializza Il Signer (Per Firmare Transazioni E Pagare Il Gas)
+        const signer = await provider.getSigner();
+
+        // Inizializza Il Contratto Notarizer Con Il Signer Per Abilitare Le Funzioni Di Scrittura
+        const notarizerContract = new ethers.Contract(
+            notarizerAddress,
+            notarizerABI,
+            signer
+        );
+
+        try {
+            // Invio Della Transazione Di Revoca Del Documento
+            // A Questo Punto La Transazione È Inviata Alla Rete Ma non Ancora Scritta In Un Blocco
+            // Quindi Si Estraggono I Dati Della Richiesta Di Revoca (TransactionResponse)
+            const txResponse = await notarizerContract.revoke(hash);
+            console.log("moduleBlockchain: Transazione Revoca Inviata. Hash: ", txResponse.hash);
+            console.log("moduleBlockchain: In Attesa Della Conferma Della Revoca...");
+
+            // Attesa Della Conferma Della Transazione (TransactionReceipt)
+            // In Ethers.js Il Metodo wait() Sul TransactionResponse Sospende L'Esecuzione Finché La Transazione 
+            // Non Viene Validata E Inclusa In Un Blocco. Restituisce Un TransactionReceipt Che Contiene I Dettagli 
+            // L'Esito Finale Della Transazione E Gli Eventi Emessi (In Questo Caso, L'Evento DocumentNotarized)
+            const txReceipt = await txResponse.wait();
+            console.log("moduleBlockchain: Transazione Revoca Confermata Nel Blocco: ", txReceipt.blockNumber);
+
+            // Estraggo Il Timestamp Della Revoca Dal Blocco
+            const docStatus = await this.getDocumentStatus(hash);
+
+            const revocationTimestamp = docStatus.revocationTimestamp;
+            const docHash = docStatus.hash;
+
+            const returnData = {
+                // Status Dovrebbe Essere Sempre 1 Qui
+                success: true,
+                status: txReceipt.status,
+                txHash: txReceipt.hash,
+                revocationTimestamp: revocationTimestamp,
+                docHash: docHash
+
+            };
+
+            return returnData;
+        } catch (error) {
+            console.error("moduleBlockchain: Errore Nella Revoca Del Documento:", error);
+            const returnData = {
+                success: false,
+                error: error.message
+            };
+        }
     },
 
-    // Simula Il Recupero Della Lista Documenti Di Un Utente
+    // NN getUserDocuments
+    // Ricostruisce L'Elenco Dei Documenti Notarizzati Da Un Indirizzo
     // In Solidity, scrivere dati in una variabile di "Stato" (ovvero nella memoria permanente dello Smart Contract) comporta costi di gas elevati.
     // Al contrario, l'emissione di un Evento è un'operazione molto più economica.
     // Invece di salvare il nome del file in una variabile, lo Smart Contract emette l'evento event 
-    // NN `DocumentNotarized(address author, bytes32 hash, string fileName);` 
+    // AA `DocumentNotarized(address author, bytes32 hash, string fileName);` 
     // che registra le informazioni direttamente nei Logs della transazione. Attraverso la libreria Ethers.js, il frontend può interrogare questi 
     // registri cercando tutti gli eventi emessi da un determinato indirizzo.
     // Questo metodo permette di recuperare la lista completa dei nomi dei file e dei relativi hash direttamente dalla blockchain, garantendo la 
     // persistenza dei dati senza dover ricorrere a database locali e riducendo drasticamente il consumo di gas.
-    async getUserDocuments(wallet) {
-        console.log(`Blockchain Service: Chiamata getDocumentsByAuthor(${wallet})`);
+    async getUserDocuments(userAddress) {
+        console.log(`Blockchain Service: Chiamata getUserDocuments(${userAddress})`);
 
-        // Simulazione Latenza Rete
-        await new Promise(r => setTimeout(r, 1500));
+        // Inizializzazione Provider e Contratto (Una volta sola)
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const notarizerContract = new ethers.Contract(
+            notarizerAddress,
+            notarizerABI,
+            provider
+        );
 
-        // SS Interazione Blockchain
-        console.log("CypherSeal: Richiesta Elenco Documenti Notarizzati In Base A Indirizzo ->", wallet);
+        try {
+            // Lista Documenti Notarizzati
+            const userNotarizedDocs = [];
+            // Lista Documenti Revocati
+            const userRevokedDocs = [];
 
-        // AA Generazione dinamica basata sul wallet
-        // Se il wallet cambia, i documenti (mock) cambiano, dando l'illusione di un DB reale.
-        const walletSnippet = wallet.substring(2, 6);
-        const baseTimestamp = Math.floor(Date.now() / 1000);
+            // Lista Finale Documenti Utente
+            const userDocuments = [];
 
-        const documents = [
-            {
-                name: "Documento Certificato.pdf",
-                notarizationDate: (baseTimestamp - 86400 * 2).toString(), // 2 giorni fa
-                hash: "0x7e4a" + walletSnippet + "f9c8b6d3f2a4c9e0a1b7d8f6e5c3a2b1d4f9e8c7b6a5d0",
-                txHash: "0xd108" + walletSnippet + "7ff2d723eceb36fbbe2661a4175bd240349c66d6581392",
-                status: "Verificato"
-            },
-            {
-                name: "Documento Revocato.pdf",
-                notarizationDate: (baseTimestamp - 86400 * 30).toString(), // 1 mese fa
-                hash: "0x0f8c" + walletSnippet + "2b6a5e4f1c7d3e9a8b0f2c6e1d5a4b7c8f9e3d0a1b2c4",
-                txHash: "0x5429" + walletSnippet + "bc83a3fda6800360060dabab88d88eb5f7f97b47f82163",
-                status: "Revocato"
-            },
-            {
-                name: "Documento In Attesa.pdf",
-                notarizationDate: (baseTimestamp - 3600).toString(), // 1 ora fa
-                hash: "0xb3c9" + walletSnippet + "4a1d8e2f7c5b0a9d4e6c1f8a7b2d3e9c4f5a1b6e8d7c0f2",
-                txHash: "0x9ef0" + walletSnippet + "8624012128366c6e4ee5d13579ee961ce1fe81abfbf72956",
-                status: "In Attesa"
-            },
-            {
-                name: "Documento In Pending.pdf",
-                notarizationDate: (baseTimestamp).toString(), // Adesso
-                hash: "0x1122" + walletSnippet + "4a1d8e2f7c5b0a9d4e6c1f8a7b2d3e9c4f5a1b6e8d7c0f2",
-                txHash: "0x3344" + walletSnippet + "8624012128366c6e4ee5d13579ee961ce1fe81abfbf72956",
-                status: "Pending"
-            },
-            {
-                name: "Documento In Fallito.pdf",
-                notarizationDate: (baseTimestamp - 60).toString(), // 1 min fa
-                hash: "0x5566" + walletSnippet + "2b6a5e4f1c7d3e9a8b0f2c6e1d5a4b7c8f9e3d0a1b2c4",
-                txHash: "0x7788" + walletSnippet + "bc83a3fda6800360060dabab88d88eb5f7f97b47f82163",
-                status: "Fallito"
+            // Definizione Filtro Evento DocumentNotarized Per userAddress
+            // Evento Emesso Alla Creazione Di Una Nuova Notarizzazione
+            // event DocumentNotarized(bytes32 indexed _hash, address indexed author, uint256 timestamp);
+            const filterNotarized = notarizerContract.filters.DocumentNotarized(null, userAddress);
+            const eventsNotarized = await notarizerContract.queryFilter(filterNotarized);
+
+            if (eventsNotarized.length === 0) {
+                console.warn("moduleBlockchain: Nessun Evento DocumentNotarized Trovato Per Questo Utente");
+            } else {
+                // Costruzione Lista Documenti Notarizzati
+                console.log("moduleBlockchain: Trovati", eventsNotarized.length, "Eventi DocumentNotarized");
+
+                for (const notarizationEvent of eventsNotarized) {
+                    const notarizationArgs = notarizationEvent.args;
+
+                    // Estrazione Dati
+                    const docHash = notarizationArgs[0];
+                    const userAddr = notarizationArgs[1];
+                    const notarizationTimestamp = Number(notarizationArgs[2]);
+                    const txHash = notarizationEvent.transactionHash;
+
+                    const notarizedDoc = {
+                        hash: docHash,
+                        userAddress: userAddr,
+                        txHash: txHash,
+                        notarizationTimestamp: notarizationTimestamp
+                    };
+
+                    userNotarizedDocs.push(notarizedDoc);
+                }
             }
-        ];
 
-        return documents;
+            // Definzione Filtro Evento DocumentRevoked Per userAddress
+            // Evento Emesso Quando Un Autore Invalida Un Proprio Documento
+            // event DocumentRevoked(bytes32 indexed _hash, address indexed author);
+            const filterRevoked = notarizerContract.filters.DocumentRevoked(null, userAddress);
+            const eventsRevoked = await notarizerContract.queryFilter(filterRevoked);
+
+            if (eventsRevoked.length === 0) {
+                console.warn("moduleBlockchain: Nessun Evento DocumentRevoked Trovato Per Questo Utente");
+                // NON ritornare null qui. Continua.
+            } else {
+                // Costruzione Lista Documenti Revocati
+                console.log("moduleBlockchain: Trovati", eventsRevoked.length, "Eventi DocumentRevoked");
+
+                for (const revocationEvent of eventsRevoked) {
+                    const revocationArgs = revocationEvent.args;
+
+                    // Estrazione Dati
+                    const docHash = revocationArgs[0];
+                    const userAddr = revocationArgs[1];
+                    const txHash = revocationEvent.transactionHash;
+                    const blockNumber = revocationEvent.blockNumber;
+
+                    // Recupero Timestamp Dal Blocco
+                    const blockData = await provider.getBlock(blockNumber);
+                    const revocationTimestamp = blockData.timestamp;
+
+                    const revokedDoc = {
+                        hash: docHash,
+                        userAddress: userAddr,
+                        txHash: txHash,
+                        revocationTimestamp: revocationTimestamp
+                    };
+                    userRevokedDocs.push(revokedDoc);
+                }
+            }
+
+            console.log("moduleBlockchain: Documenti Notarizzati:", userNotarizedDocs);
+            console.log("moduleBlockchain: Documenti Revocati:", userRevokedDocs);
+
+            // Invece Di Lasciare I Documenti Revocati In Una Lista, Si Costruisce Una Mappa Dove:
+            // Chiave = Hash Del Documento
+            // Valore = Oggetto Documento Revocato (Elemento Lista)
+            const revokedMap = new Map();
+            userRevokedDocs.forEach(doc => revokedMap.set(doc.hash, doc));
+
+            // Iterazione Sui Documenti Notarizzati
+            for (const notarizedDocElement of userNotarizedDocs) {
+                // Estrazione Hash Documento Corrente
+                const docHash = notarizedDocElement.hash;
+                // Controllo Se Il Documento È Stato Revocato (Se È Presente Nella Mappa È Stato Revocato)
+                // has() Restituisce true Se La Chiave Esiste Nella Mappa, Altrimenti false
+                const isRevoked = revokedMap.has(docHash);
+
+                let currentTimestamp;
+                let currentTxHash;
+                let currentStatus;
+
+                // Creazione Nome Custom Per Il File In Quanto Non Salvato In Blockchain Per Risparmiare Gas
+                const fileName = `Documento_${docHash.substring(0, 5)}...`;
+
+                // Gestione Del Timestamp E Del Transaction Hash In Base Alla Revoca
+                if (isRevoked) {
+                    // Documento Revocato
+                    const revocationData = revokedMap.get(docHash);
+                    // Estrazione Data Di Revoca
+                    currentTimestamp = revocationData.revocationTimestamp;
+
+                    // Estrazione Transaction Hash Di Revoca
+                    currentTxHash = revocationData.txHash;
+
+                    // Stato Documento In Stringa
+                    currentStatus = "Revocato";
+                } else {
+                    // Documento Valido
+                    // Estrazione Data Di Notarizzazione
+                    currentTimestamp = notarizedDocElement.notarizationTimestamp;
+
+                    // Estrazione Transaction Hash Di Notarizzazione
+                    currentTxHash = notarizedDocElement.txHash;
+
+                    // Stato Documento In Stringa
+                    currentStatus = "Verificato";
+                }
+
+                const userDocumentElement = {
+                    name: fileName,
+                    hash: docHash,
+                    notarizationDate: currentTimestamp,
+                    txHash: currentTxHash,
+                    status: currentStatus
+                };
+
+                // Aggiunta Documento Alla Lista Finale
+                userDocuments.push(userDocumentElement);
+            }
+
+            // Ordinamento Documenti Per Data Decrescente (Dal Più Recente Al Meno Recente)
+            userDocuments.sort((a, b) => b.notarizationDate - a.notarizationDate);
+            console.log("moduleBlockchain: Documenti Finali Dell'Utente:", userDocuments);
+
+            return userDocuments;
+
+        } catch (error) {
+            console.error("moduleBlockchain: Errore Nel Recupero Dei Documenti Dell'Utente:", error);
+            return null;
+        }
     }
 };
