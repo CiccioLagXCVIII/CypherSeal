@@ -238,6 +238,9 @@ export const Blockchain = {
 
         try {
             // Definizione URI Metadati SBT (Placeholder)
+            // Restituisce un identificatore univoco (URL) che punta a un file JSON contenente i metadati del badge: nome, descrizione, immagine dell'avatar 
+            // e attributi dinamici (come il Trust Level). In breve, è ciò che permette a wallet e interfacce esterne di "leggere" e mostrare graficamente
+            // le informazioni reputazionali contenute nello Smart Contract.
             const tokenURI = `https://cypherseal.example.com/sbt/${userAddress}`;
 
             // Invio Della Transazione Di Minting Dello SBT
@@ -518,6 +521,8 @@ export const Blockchain = {
     async getDocumentStatus(hash) {
         console.log(`moduleBlockchain: Chiamata getDocumentStatus(${hash})`);
 
+        const DEPLOY_BLOCK = 10086015;
+
         const provider = new ethers.BrowserProvider(window.ethereum);
 
         const notarizerContract = new ethers.Contract(
@@ -554,6 +559,28 @@ export const Blockchain = {
                 statusCode = 1;
             }
 
+            // Recupero Numero Blocco
+            let docBlockNumber = "";
+            if (statusCode !== 0) {
+                try {
+                    // Filtro Specifico Per L'Hash
+                    const filter = notarizerContract.filters.DocumentNotarized(formattedHash);
+                    // Filtro Con fromBlock Per Evitare Di Scansionare Tutta La Blockchain
+                    const events = await notarizerContract.queryFilter(filter, DEPLOY_BLOCK);
+
+                    if (events.length > 0) {
+                        docBlockNumber = events[0].blockNumber;
+                    } else {
+                        console.warn("moduleBlockchain: Nessun Evento DocumentNotarized Trovato Per Questo Documento");
+                        docBlockNumber = "N/A";
+                    }
+
+                } catch (errorBlock) {
+                    console.error("moduleBlockchain: Errore Nel Recupero Del Numero Blocco Del Documento:", errorBlock);
+                    docBlockNumber = "Errore RPC";
+                }
+            }
+
             // Gestione SBT
             let sbtId = "N/A";
             try {
@@ -572,8 +599,8 @@ export const Blockchain = {
                 author: authorAddress,
                 sbtId: sbtId,
 
-                // Frontend Vuole Il Numero Del Blocco In Cui È Stato Certificato (Per Adesso Placeholder)
-                block: "Archive",
+                // Frontend Vuole Il Numero Del Blocco In Cui È Stato Certificato
+                block: docBlockNumber.toString(),
 
                 // Frontend Vuole Timestamp In Stringa E Lo Formatta In Data
                 timestamp: certTimestamp.toString(),
@@ -585,7 +612,7 @@ export const Blockchain = {
         } catch (error) {
             // Se Smart Contract Chiama revert DocumentNotFound();
             console.error("moduleBlockchain: Errore Nel Recupero Dello Stato Del Documento:", error);
-            // Restituisco un oggetto con status 0 per coerenza (invece del primitivo 0)
+            // Restituisco un oggetto con status 0
             return { status: 0 };
         }
     },
@@ -670,6 +697,8 @@ export const Blockchain = {
     async getUserDocuments(userAddress) {
         console.log(`Blockchain Service: Chiamata getUserDocuments(${userAddress})`);
 
+        const DEPLOY_BLOCK = 10086015;
+
         // Inizializzazione Provider e Contratto (Una volta sola)
         const provider = new ethers.BrowserProvider(window.ethereum);
         const notarizerContract = new ethers.Contract(
@@ -690,8 +719,11 @@ export const Blockchain = {
             // Definizione Filtro Evento DocumentNotarized Per userAddress
             // Evento Emesso Alla Creazione Di Una Nuova Notarizzazione
             // event DocumentNotarized(bytes32 indexed _hash, address indexed author, uint256 timestamp);
+
             const filterNotarized = notarizerContract.filters.DocumentNotarized(null, userAddress);
-            const eventsNotarized = await notarizerContract.queryFilter(filterNotarized);
+            // Filtro Con fromBlock Per Evitare Di Scansionare Tutta La Blockchain
+            // const eventsNotarized = await notarizerContract.queryFilter(filterNotarized);
+            const eventsNotarized = await notarizerContract.queryFilter(filterNotarized, DEPLOY_BLOCK);
 
             if (eventsNotarized.length === 0) {
                 console.warn("moduleBlockchain: Nessun Evento DocumentNotarized Trovato Per Questo Utente");
@@ -707,12 +739,14 @@ export const Blockchain = {
                     const userAddr = notarizationArgs[1];
                     const notarizationTimestamp = Number(notarizationArgs[2]);
                     const txHash = notarizationEvent.transactionHash;
+                    const blockNum = notarizationEvent.blockNumber;
 
                     const notarizedDoc = {
                         hash: docHash,
                         userAddress: userAddr,
                         txHash: txHash,
-                        notarizationTimestamp: notarizationTimestamp
+                        notarizationTimestamp: notarizationTimestamp,
+                        blockNumber: blockNum
                     };
 
                     userNotarizedDocs.push(notarizedDoc);
@@ -722,12 +756,15 @@ export const Blockchain = {
             // Definzione Filtro Evento DocumentRevoked Per userAddress
             // Evento Emesso Quando Un Autore Invalida Un Proprio Documento
             // event DocumentRevoked(bytes32 indexed _hash, address indexed author);
+
             const filterRevoked = notarizerContract.filters.DocumentRevoked(null, userAddress);
-            const eventsRevoked = await notarizerContract.queryFilter(filterRevoked);
+            // Filtro Con fromBlock Per Evitare Di Scansionare Tutta La Blockchain
+            // const eventsRevoked = await notarizerContract.queryFilter(filterRevoked);
+            const eventsRevoked = await notarizerContract.queryFilter(filterRevoked, DEPLOY_BLOCK);
 
             if (eventsRevoked.length === 0) {
                 console.warn("moduleBlockchain: Nessun Evento DocumentRevoked Trovato Per Questo Utente");
-                // NON ritornare null qui. Continua.
+                // Continua Senza Ritornare Nulla
             } else {
                 // Costruzione Lista Documenti Revocati
                 console.log("moduleBlockchain: Trovati", eventsRevoked.length, "Eventi DocumentRevoked");
@@ -739,17 +776,18 @@ export const Blockchain = {
                     const docHash = revocationArgs[0];
                     const userAddr = revocationArgs[1];
                     const txHash = revocationEvent.transactionHash;
-                    const blockNumber = revocationEvent.blockNumber;
+                    const blockNum = revocationEvent.blockNumber;
 
                     // Recupero Timestamp Dal Blocco
-                    const blockData = await provider.getBlock(blockNumber);
+                    const blockData = await provider.getBlock(blockNum);
                     const revocationTimestamp = blockData.timestamp;
 
                     const revokedDoc = {
                         hash: docHash,
                         userAddress: userAddr,
                         txHash: txHash,
-                        revocationTimestamp: revocationTimestamp
+                        revocationTimestamp: revocationTimestamp,
+                        blockNumber: blockNum
                     };
                     userRevokedDocs.push(revokedDoc);
                 }
@@ -779,6 +817,9 @@ export const Blockchain = {
                 // Creazione Nome Custom Per Il File In Quanto Non Salvato In Blockchain Per Risparmiare Gas
                 const fileName = `Documento_${docHash.substring(0, 5)}...`;
 
+                // Estrazione Numero Del Blocco Del Documento
+                let docBlockNum = notarizedDocElement.blockNumber;
+
                 // Gestione Del Timestamp E Del Transaction Hash In Base Alla Revoca
                 if (isRevoked) {
                     // Documento Revocato
@@ -791,6 +832,9 @@ export const Blockchain = {
 
                     // Stato Documento In Stringa
                     currentStatus = "Revocato";
+
+                    // NN: Si Potrebbe Voler Sovrascrivere docBlockNum Con Quello Della Revoca Se Il Documento È Stato Revocato
+                    // NN: Ma Si Mostra Il Blocco Di Notarizzazione Come Origine Per Proof Of Existence
                 } else {
                     // Documento Valido
                     // Estrazione Data Di Notarizzazione
@@ -806,9 +850,10 @@ export const Blockchain = {
                 const userDocumentElement = {
                     name: fileName,
                     hash: docHash,
-                    notarizationDate: currentTimestamp,
+                    timestamp: currentTimestamp,
                     txHash: currentTxHash,
-                    status: currentStatus
+                    status: currentStatus,
+                    blockNumber: docBlockNum
                 };
 
                 // Aggiunta Documento Alla Lista Finale
@@ -816,7 +861,7 @@ export const Blockchain = {
             }
 
             // Ordinamento Documenti Per Data Decrescente (Dal Più Recente Al Meno Recente)
-            userDocuments.sort((a, b) => b.notarizationDate - a.notarizationDate);
+            userDocuments.sort((a, b) => b.timestamp - a.timestamp);
             console.log("moduleBlockchain: Documenti Finali Dell'Utente:", userDocuments);
 
             return userDocuments;

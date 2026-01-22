@@ -1,89 +1,87 @@
-# 🔏 CypherSeal: Trustless Digital Notarization & SSI Protocol
+# 🔏 CypherSeal: Notarizzazione Digitale & SSI Protocol
 
-![Version](https://img.shields.io/badge/version-2.0.0-blue?style=flat-square)
-![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
-![Status](https://img.shields.io/badge/status-Architectural%20Prototype-orange?style=flat-square)
-![Network](https://img.shields.io/badge/network-Ethereum%20Sepolia-c0c0c0?style=flat-square&logo=ethereum)
-![Standard](https://img.shields.io/badge/standard-EIP--5192%20(SBT)-red?style=flat-square)
+![Version](https://img.shields.io/badge/version-2.1.0-blue?style=for-the-badge)
+![Network](https://img.shields.io/badge/network-Ethereum%20Sepolia-c0c0c0?style=for-the-badge&logo=ethereum)
+![Standard](https://img.shields.io/badge/standard-EIP--5192%20(SBT)-red?style=for-the-badge)
+![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
 
 > **Ridefinire la fiducia digitale attraverso la crittografia asimmetrica e l'identità sovrana.**
 
-**CypherSeal** è una Decentralized Application (DApp) *Privacy-by-Design* che permette la notarizzazione immutabile di documenti su blockchain Ethereum.
-Il progetto supera i limiti dei notai digitali tradizionali integrando il paradigma della **Self-Sovereign Identity (SSI)**: l'autore di un documento non è un semplice indirizzo esadecimale anonimo, ma un'entità verificata attraverso il possesso di un **Soulbound Token (SBT)**.
+**CypherSeal** è una Decentralized Application (DApp) di grado forense progettata per la notarizzazione immutabile di asset digitali. Fondendo la certezza matematica della blockchain di Ethereum con i paradigmi della **Self-Sovereign Identity (SSI)**, CypherSeal garantisce che ogni documento notarizzato non sia solo integro, ma riconducibile a un'identità verificata e non trasferibile tramite **Soulbound Tokens (SBT)**.
 
 ---
 
 ## 📑 Indice
 
-- [🔏 CypherSeal: Trustless Digital Notarization \& SSI Protocol](#-cypherseal-trustless-digital-notarization--ssi-protocol)
+- [🔏 CypherSeal: Notarizzazione Digitale \& SSI Protocol](#-cypherseal-notarizzazione-digitale--ssi-protocol)
   - [📑 Indice](#-indice)
-  - [💡 Visione e Architettura](#-visione-e-architettura)
-    - [Gestione del Ciclo di Vita (Revoca)](#gestione-del-ciclo-di-vita-revoca)
-  - [🛡️ CypherSoul: Il Modello di Identità (EIP-5192)](#️-cyphersoul-il-modello-di-identità-eip-5192)
-  - [🔒 Privacy \& Sicurezza (GDPR)](#-privacy--sicurezza-gdpr)
-  - [🛠 Stack Tecnologico](#-stack-tecnologico)
-  - [📂 Struttura della Repository](#-struttura-della-repository)
-  - [⚡ Installazione e Avvio](#-installazione-e-avvio)
-  - [⚠️ Nota Tecnica: Simulation Mode](#️-nota-tecnica-simulation-mode)
-  - [👤 Autore e Riferimenti](#-autore-e-riferimenti)
+  - [💡 Visione e Proprietà Forensi](#-visione-e-proprietà-forensi)
+    - [Revoca Logica (Semantic Revocation)](#revoca-logica-semantic-revocation)
+  - [🛡️ Architettura dell'Identità (EIP-5192)](#️-architettura-dellidentità-eip-5192)
+  - [🔒 Privacy-by-Design \& GDPR](#-privacy-by-design--gdpr)
+  - [🏗️ Ottimizzazione On-Chain (Gas Saving)](#️-ottimizzazione-on-chain-gas-saving)
+  - [🛠️ Stack Tecnologico](#️-stack-tecnologico)
+  - [📂 Struttura del Progetto](#-struttura-del-progetto)
+  - [⚡ Quick Start](#-quick-start)
+  - [👤 Autore](#-autore)
 
 ---
 
-## 💡 Visione e Architettura
+## 💡 Visione e Proprietà Forensi
 
-CypherSeal orchestra un flusso di lavoro che garantisce tre proprietà fondamentali per la forensica digitale:
+CypherSeal abilita un protocollo di fiducia decentralizzato basato su tre pilastri:
 
-1. **Proof of Integrity:** Utilizzando l'algoritmo **SHA-256**, viene generata un'impronta digitale univoca. La modifica di un singolo bit del file originale altera radicalmente l'hash (Effetto Avalanche), rendendo evidente qualsiasi manomissione.
-2. **Proof of Existence:** La registrazione dell'hash in un blocco Ethereum fornisce una data certa (Timestamp) inoppugnabile e resistente alla censura.
-3. **Proof of Authorship (Anti-Sybil):** Grazie all'implementazione di uno Smart Contract di *Gatekeeping*, solo gli utenti in possesso del badge identitario possono notarizzare documenti, prevenendo spam e garantendo la tracciabilità.
+1. **Proof of Integrity:** Attraverso l'hashing **SHA-256**, viene generata un'impronta digitale univoca del file. L'architettura sfrutta l'"effetto avalanche" per rendere immediatamente rilevabile anche la modifica di un singolo bit.
+2. **Proof of Existence:** Il timestamping on-chain fornisce una prova temporale immutabile, opponibile a terzi e resistente alla censura.
+3. **Proof of Ownership (SSI):** A differenza dei sistemi di notarizzazione anonimi, CypherSeal richiede un **Identity Badge**. Questo crea un legame crittografico tra l'autore (la sua reputazione on-chain) e il sigillo digitale.
 
-### Gestione del Ciclo di Vita (Revoca)
+### Revoca Logica (Semantic Revocation)
 
-A differenza dei database tradizionali, la blockchain è *append-only*. CypherSeal implementa una logica di **Revoca Semantica**: l'autore può invalidare un documento precedentemente emesso aggiornando lo stato dello Smart Contract. Il documento rimane nello storico, ma viene marcato pubblicamente come "Revocato".
-
----
-
-## 🛡️ CypherSoul: Il Modello di Identità (EIP-5192)
-
-Il sistema si basa su una **Dual Contract Architecture**:
-
-1. **Identity Contract (`CypherSoul`)**:
-    - Implementa lo standard **EIP-5192** (Minimal Soulbound Interface).
-    - Il token (CYID) è **non trasferibile**: una volta mintato, è legato indissolubilmente al wallet dell'utente ("Soul").
-    - Funge da passaporto reputazionale on-chain.
-
-2. **Notarizer Contract (`CypherSealNotarizer`)**:
-    - Agisce come registro degli hash.
-    - Prima di accettare una transazione di notarizzazione, interroga l'*Identity Contract* (`hasValidIdentity`) per verificare l'autorizzazione del mittente.
+Poiché la blockchain è immutabile, CypherSeal implementa un sistema di **Revoca Logica**. L'autore può emettere una transazione di invalidazione che aggiorna lo stato del documento nel registro pubblico, permettendo la gestione del ciclo di vita di contratti o bozze superate.
 
 ---
 
-## 🔒 Privacy & Sicurezza (GDPR)
+## 🛡️ Architettura dell'Identità (EIP-5192)
 
-CypherSeal adotta un approccio **Zero-Knowledge** rigoroso per garantire la conformità al GDPR e la tutela dei dati sensibili.
+Il protocollo adotta una **Dual-Contract Architecture** per separare la gestione dell'identità dalla logica di notarizzazione:
 
-- **Client-Side Hashing:** Il calcolo dell'hash SHA-256 avviene localmente nel browser dell'utente tramite le **Web Crypto API**.
-- **Data Isolation:** Il documento originale (PDF, Immagine, DOCX) **non lascia mai il dispositivo dell'utente**. Non viene mai caricato su server centralizzati, IPFS o blockchain.
-- **Public Ledger:** Sulla blockchain viene registrata esclusivamente la stringa alfanumerica dell'hash, dalla quale è matematicamente impossibile risalire al contenuto originale (One-Way Function).
-
----
-
-## 🛠 Stack Tecnologico
-
-Il progetto è costruito seguendo i moderni standard di sviluppo Web3:
-
-| Layer            | Tecnologia       | Dettagli                                                              |
-| :--------------- | :--------------- | :-------------------------------------------------------------------- |
-| **Frontend**     | HTML5 / CSS3     | Design system personalizzato con variabili CSS e Dark Mode.           |
-| **Framework**    | Bootstrap 5      | Layout responsivo e componenti modali.                                |
-| **Logic**        | JavaScript ES6   | Architettura modulare nativa (import/export) senza bundler complessi. |
-| **Cryptography** | Web Crypto API   | `crypto.subtle.digest('SHA-256')` per hashing ad alte prestazioni.    |
-| **Blockchain**   | Solidity ^0.8.27 | Smart Contracts ottimizzati per gas (Events vs Storage).              |
-| **Library**      | Ethers.js        | Interazione RPC con i nodi Ethereum (Predisposto).                    |
+- **CypherSoul (SBT):** Implementa lo standard **EIP-5192**. Il token è "Soulbound" (non trasferibile). Una volta emesso, funge da credenziale di accesso permanente e non alienabile.
+- **CypherSealNotarizer:** Agisce come gatekeeper. Prima di ogni scrittura, interroga il contratto CypherSoul tramite un'interfaccia `view` per verificare che il `msg.sender` possieda i requisiti identitari necessari.
 
 ---
 
-## 📂 Struttura della Repository
+## 🔒 Privacy-by-Design & GDPR
+
+La privacy è integrata nel core dell'applicazione:
+
+- **Zero-Knowledge Hashing:** L'impronta digitale del file viene calcolata esclusivamente **lato client** tramite le `Web Crypto API`.
+- **Data Isolation:** Il file originale non lascia mai il dispositivo dell'utente. Non viene caricato su server, né su IPFS, né su blockchain.
+- **Conformità GDPR:** Poiché sulla blockchain viene memorizzato solo l'hash (un dato pseudo-anonimo unidirezionale), il sistema è intrinsecamente conforme alle normative sulla protezione dei dati sensibili.
+
+---
+
+## 🏗️ Ottimizzazione On-Chain (Gas Saving)
+
+Per massimizzare l'efficienza economica sulla rete Ethereum, CypherSeal adotta tecniche avanzate di sviluppo in Solidity:
+
+- **Event-Driven History:** Invece di memorizzare lo storico dei documenti in costosi array di stato, la DApp ricostruisce la dashboard dell'utente filtrando i log degli **Eventi** (`DocumentNotarized`). Ciò riduce il consumo di gas di oltre il 70% rispetto alle architetture basate su storage tradizionale.
+- **Error Handling:** Utilizzo di `Custom Errors` invece di stringhe di errore per minimizzare il deployment e l'esecuzione del bytecode.
+
+---
+
+## 🛠️ Stack Tecnologico
+
+| Layer            | Tecnologia                                            |
+| :--------------- | :---------------------------------------------------- |
+| **Blockchain**   | Solidity 0.8.27, Ethereum (Sepolia Testnet)           |
+| **Web3 Library** | Ethers.js v6 (Modular Implementation)                 |
+| **Cryptography** | SubtleCrypto API (Native Browser SHA-256)             |
+| **Frontend**     | HTML5 Semantico, CSS3 (Custom Variables), Bootstrap 5 |
+| **Identità**     | EIP-5192 (Soulbound Token Standard)                   |
+
+---
+
+## 📂 Struttura del Progetto
 
 ```text
 CypherSeal/
@@ -124,61 +122,29 @@ CypherSeal/
 │   ├── moduleProfile.js        # Logica Aggiornamento Dashboard
 │   └── moduleVerifier.js       # Logica Verifica
 │
-├── Images/                     # Immagini
-│
-└── markdown/                   # Note E Appunti
-    ├── Appunti.md
-    ├── ToDo.md
-    └── appuntiSolidity.md
+└── Images/                     # Immagini
 ```
 
 ---
 
-## ⚡ Installazione e Avvio
+## ⚡ Quick Start
 
-Poiché il progetto utilizza **Moduli ES6** (`type="module"`), è necessario servire i file tramite protocollo HTTP(s) e non direttamente dal file system (`file://`).
+Il progetto utilizza **ES6 Modules**, pertanto richiede un server locale per la gestione corretta delle policy CORS.
 
-1. **Clona la repository:**
-
-    ```bash
-    git clone https://github.com/TuoUsername/CypherSeal.git
-    cd CypherSeal
-    ```
-
-2. **Avvia un Server Locale:**
-    - **VS Code:** Installa l'estensione *Live Server*, tasto destro su `index.html` → "Open with Live Server".
-    - **Python:**
-
-        ```bash
-        python -m http.server 8000
-        ```
-
-    - **Node.js:**
-
-        ```bash
-        npx http-server .
-        ```
-
-3. **Accesso:**
-    Apri il browser all'indirizzo `http://localhost:8000`. Assicurati di avere un wallet Web3 (es. MetaMask) installato per l'esperienza completa.
+1. **Clona il repository:** `git clone https://github.com/TuoUsername/CypherSeal.git`
+2. **Avvia un server locale:**
+    - Usando VS Code: estensione *Live Server*.
+    - Usando Python: `python -m http.server 8000`
+3. **Configurazione Wallet:** Assicurati di avere MetaMask installato e connesso alla rete **Sepolia**.
+4. **Onboarding:** Naviga su `connessione.html` per collegare il wallet e procedere al minting del tuo Identity Badge (SBT).
 
 ---
 
-## ⚠️ Nota Tecnica: Simulation Mode
-
-Attualmente, il file `js/moduleBlockchain.js` opera in modalità **Mock/Simulazione**.
-
-- **Scopo:** Dimostrare il flusso UX completo (Firma, Attesa Blocco, Conferma, Revoca) e la logica di frontend senza necessitare di ETH su Testnet per la valutazione.
-- **Comportamento:** Il modulo intercetta le chiamate e restituisce promise asincrone che simulano latenza di rete e generano hash di transazione realistici.
-- **Production Ready:** L'architettura è progettata per il passaggio in produzione ("Mainnet Switch"). È sufficiente sostituire i metodi mockati con le chiamate `ethers.Contract` utilizzando gli ABI generati dai contratti presenti nella cartella `contract/`.
-
----
-
-## 👤 Autore e Riferimenti
+## 👤 Autore
 
 **Francesco Lo Verde**
 *Università degli Studi di Perugia*
-Progetto di *Data Security & Blockchain Technology*
+Progetto d'esame per il corso di **Data Security & Blockchain Technology**.
 
 ---
-*CypherSeal © 2026 - All Rights Reserved*
+*CypherSeal © 2026*

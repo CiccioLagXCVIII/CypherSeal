@@ -130,29 +130,25 @@ export const Profile = {
             fallbackIcon.style.display = 'none';
         }
 
-        // Dati d'esempio (verranno sostituiti dalle chiamate al contract)
+        // Dati Badge Identità
         const sbtTokenId = identityInfo.sbtTokenId;
         const emissionDate = identityInfo.emissionDate;
         const registryNet = identityInfo.registryNet;
         const trustLevel = identityInfo.trustLevel;
-        const numDocCertificati = identityInfo.numDocCertificati;
-        const dataUltCertifica = identityInfo.dataUltCertifica;
+
 
         // Aggiorna L'Interfaccia
         const sbtTokenIdDisplay = document.getElementById('sbtTokenIdDisplay');
         const emissionDateDisplay = document.getElementById('emissionDateDisplay');
         const registryNetDisplay = document.getElementById('registryNetDisplay');
-        const trustLevelDisplay = document.getElementById('trustLevelDisplay');
-        const numDocCertDisplay = document.getElementById('numDocCertificatiDisplay');
-        const dataUltCertDisplay = document.getElementById('dataUltCertificaDisplay');
 
-        if (sbtTokenIdDisplay && emissionDateDisplay && registryNetDisplay && trustLevelDisplay && numDocCertDisplay && dataUltCertDisplay) {
-            sbtTokenIdDisplay.textContent = sbtTokenId;
+
+
+        if (sbtTokenIdDisplay && emissionDateDisplay && registryNetDisplay) {
+            sbtTokenIdDisplay.textContent = `CYID-${sbtTokenId}`;
             emissionDateDisplay.textContent = emissionDate;
             registryNetDisplay.textContent = registryNet;
-            trustLevelDisplay.textContent = trustLevel;
-            numDocCertDisplay.textContent = numDocCertificati;
-            dataUltCertDisplay.textContent = dataUltCertifica;
+
         }
     },
 
@@ -272,6 +268,73 @@ export const Profile = {
             `;
             tbody.appendChild(row);
         });
+
+        // Gestione Dati Badge SBT Che Dipendono Dai Documenti Certificati
+
+        // Data Ultima Certificazione
+        // In moduleBlockchain La Funzione getUserDocuments REstituisce L'Array userDocuments Che È Contenuto In certifiedDocuments
+        // L'Array È Ordinato Dal Più Recente Al Meno Recente Quindi Prendo Il Primo Elemnento
+        const lastDocument = certifiedDocuments[0];
+        const lastTimestamp = lastDocument.timestamp;
+
+        let formattedDate = "Data Non Valida";
+        if (lastTimestamp) {
+            let dateObj;
+            if (!isNaN(lastTimestamp)) {
+                dateObj = new Date(lastTimestamp * 1000);
+            } else {
+                dateObj = new Date(lastTimestamp);
+            }
+
+            formattedDate = dateObj.toLocaleDateString("it-IT", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            });
+        }
+
+        const dataUltCertDisplay = document.getElementById('dataUltCertificaDisplay');
+        dataUltCertDisplay.textContent = formattedDate;
+
+        // Numero Documenti Certificati
+        const numDocCertificati = certifiedDocuments.length;
+        // const numDocCertificati = 31;
+        const numDocCertDisplay = document.getElementById('numDocCertificatiDisplay');
+        numDocCertDisplay.textContent = numDocCertificati;
+
+        const trustLevelDisplay = document.getElementById('trustLevelDisplay');
+
+        // Rimozione Di Tutte Le Classi
+        trustLevelDisplay.classList.remove('bg-light', 'bg-info', 'bg-primary', 'bg-success', 'bg-warning', 'text-dark');
+
+        let levelText = "";
+        let levelClass = "";
+        let textDark = false;
+
+        // Calcolo Range Dal Più Alto Al Più Basso
+        if (numDocCertificati >= 30) {
+            levelText = "Leggendario";
+            levelClass = "bg-warning";
+            textDark = true;
+        } else if (numDocCertificati >= 15) {
+            levelText = "Esperto";
+            levelClass = "bg-success";
+        } else if (numDocCertificati >= 5) {
+            levelText = "Affidabile";
+            levelClass = "bg-primary";
+        } else if (numDocCertificati >= 1) {
+            levelText = "Iniziato";
+            levelClass = "bg-info";
+            textDark = true;
+        } else {
+            levelText = "Nuovo";
+            levelClass = "bg-light";
+            textDark = true;
+        }
+
+        trustLevelDisplay.textContent = levelText;
+        trustLevelDisplay.classList.add(levelClass);
+        if (textDark) trustLevelDisplay.classList.add('text-dark');
     },
 
     // Copia Indirizzo Wallet Click Pulsante E Copia Indirizzo Hash Tabella

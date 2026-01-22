@@ -54,11 +54,24 @@ export const Verifier = {
                 const sbtTokenId = statusResponse.sbtId;
                 const certificationTimestamp = statusResponse.timestamp;
                 const revokeTimestamp = statusResponse.revocationTimestamp;
+                const blockNumber = statusResponse.block;
 
                 authorItem.textContent = authorAddr.substring(0, 6) + "..." + authorAddr.substring(38);
                 authorLinkItem.href = `https://sepolia.etherscan.io/address/${authorAddr}`;
-                sbtItem.textContent = sbtTokenId;
-                blockItem.textContent = statusResponse.block !== "Archive" ? statusResponse.block : "Genesi";
+
+                if (sbtTokenId && sbtTokenId !== "N/A" && sbtTokenId !== "---") {
+                    sbtItem.textContent = `CYID-${sbtTokenId}`;
+                } else {
+                    sbtItem.textContent = "---";
+                }
+
+                if (blockNumber !== "N/A" && blockNumber !== "Errore RPC") {
+                    blockItem.textContent = blockNumber;
+                    blockItem.href = `https://sepolia.etherscan.io/block/${blockNumber}`;
+                } else {
+                    blockItem.textContent = "Non Disponibile";
+                    blockItem.removeAttribute("href");
+                }
 
                 if (statusResponse.status === 2) {
                     // Se Revocato, Mostro La Data Di Revoca
