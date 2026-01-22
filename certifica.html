@@ -93,11 +93,11 @@
                 </div>
 
                 <div class="d-flex flex-column h-100 p-0" id="certificaDashboard">
-                    <!-- AA PRIMA RIGA: Aggiunto g-3 per gestire lo spazio verticale/orizzontale -->
-                    <div id="documentDashboard" class="row upperRow g-3 mb-3">
-                        <!-- Colonna Sinistra: Rimossi mb-3 mb-lg-0 superflui -->
-                        <div class="col-12 col-lg-8 h-100">
-                            <div class="h-100" id="notarizationForm">
+                    <!-- AA PRIMA RIGA -->
+                    <div id="documentDashboard" class="row upperRow">
+                        <!-- SS Colonna Sinistra -->
+                        <div class="col-12 col-lg-8 h-100 d-flex flex-column">
+                            <div class="flex-grow-1 mb-3" id="notarizationForm">
                                 <form class="h-100 m-2">
                                     <!-- SS Area Drag And Drop -->
                                     <div id="dropZone" class="uploadArea">
@@ -123,7 +123,7 @@
                                         <input type="file" id="fileInput" hidden />
                                     </div>
 
-                                    <!-- SS Risultato Hashing -->
+                                    <!-- NN Risultato Hashing -->
                                     <div id="fileInfo" class="p-3 rounded bg-dark border border-secondary border-opacity-25" style="display: none">
                                         <label class="smallest text-muted text-uppercase fw-bold mb-2 d-block">Hash SHA-256 Calcolato</label>
                                         <div class="d-flex align-items-center justify-content-between bg-black bg-opacity-40 p-2 rounded">
@@ -136,7 +136,9 @@
 
                                     <!-- SS Pulsante Azione -->
                                     <div class="ctaContainer text-center">
-                                        <button type="submit" class="btn ctaButton btn-lg px-5 text-white w-100 btnCypherSeal">Notarizza Documento</button>
+                                        <button type="submit" class="btn ctaButton btn-lg px-5 text-white w-100 btnCypherSeal" id="notarizeButton">
+                                            Notarizza Documento
+                                        </button>
 
                                         <div class="d-flex justify-content-center align-items-center mt-3 text-muted smallest">
                                             <i class="bi bi-info-circle me-2"></i>
@@ -147,10 +149,10 @@
                             </div>
                         </div>
 
-                        <!-- Colonna Destra -->
-                        <div class="col-12 col-lg-4 h-100">
-                            <!-- SS Box Dettagli: Rimossi margini interni superflui -->
-                            <div class="h-100" id="detailsPanel">
+                        <!-- SS Colonna Destra -->
+                        <div class="col-12 col-lg-4 h-100 d-flex flex-column">
+                            <!-- SS Box Dettagli -->
+                            <div id="detailsPanel" class="flex-grow-1 mb-3">
                                 <h6 class="text-primary text-uppercase fw-bold smallest mb-4">Riepilogo Notarizzazione</h6>
 
                                 <div class="summaryList">
@@ -172,12 +174,12 @@
                                     <!-- Account -->
                                     <div class="summaryItem">
                                         <span class="summaryLabel">Account:</span>
-                                        <span id="walletShort" class="summaryValue font-monospace text-warning">---</span>
+                                        <span id="walletShort" class="summaryValue font-monospace">---</span>
                                     </div>
                                     <!-- Costo Gas Stimato -->
                                     <div class="summaryItem">
                                         <span class="summaryLabel">Gas Stimato:</span>
-                                        <span class="summaryValue text-success">~ 0.0004 ETH</span>
+                                        <span id="estimatedGas" class="summaryValue text-success">---</span>
                                     </div>
                                 </div>
 
@@ -192,12 +194,11 @@
                         </div>
                     </div>
 
-                    <!-- AA SECONDA RIGA: Aggiunto g-3 per coerenza -->
-                    <div id="info" class="row bottomRow g-3">
+                    <!-- AA SECONDA RIGA -->
+                    <div id="info" class="row bottomRow">
                         <div class="col-12 h-100">
-                            <div class="h-100 mt-3" id="infoPanel">
-                                <!-- Contenuto infoPanel -->
-                                <p class="text-muted">> In attesa di input...</p>
+                            <div class="h-100" id="infoPanel">
+                                <p class="text-muted">> In Attesa Del File...</p>
                             </div>
                         </div>
                     </div>

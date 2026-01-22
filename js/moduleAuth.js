@@ -56,6 +56,11 @@ export const Auth = {
                 const userAddress = localStorage.getItem('walletAddress');
                 console.log("CypherSeal: Preparazione Transazione Per Address ->", userAddress);
 
+                // SS
+                const submitBtn = e.target.querySelector('button[type="submit"]');
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Minting in corso...';
+
                 // SS Interazione Con La Blockchain
                 await Blockchain.mintSBT(userAddress);
 

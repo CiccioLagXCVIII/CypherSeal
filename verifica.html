@@ -92,14 +92,11 @@
                     </div>
                 </div>
 
-                <!-- Aggiunta classe g-3 per spaziature uniformi -->
                 <div class="d-flex flex-column h-100 p-0" id="verificaDashboard">
-                    <!-- AA Upload e Risultati -->
-                    <!-- Rimosso d-flex align-items... superfluo sulla row. Aggiunto g-3 e mb-3 -->
-                    <div class="row upperRow g-3 mb-3">
-                        <!-- SS Box Upload -->
-                        <div class="col-12 col-lg-8 h-100">
-                            <div id="verificationForm" class="h-100 d-flex flex-column">
+                    <div class="row upperRow">
+                        <!-- SS Colonna Sinistra -->
+                        <div class="col-12 col-lg-8 h-100 d-flex flex-column">
+                            <div class="h-100 d-flex flex-column" id="verificationForm">
                                 <!-- NN Area Drag And Drop -->
                                 <div id="dropZone" class="uploadArea flex-grow-1">
                                     <div id="uploadState">
@@ -133,7 +130,7 @@
                             </div>
                         </div>
 
-                        <!-- SS Box Risultati -->
+                        <!-- SS Colonna Destra -->
                         <div class="col-12 col-lg-4 h-100">
                             <div id="resultPanel" class="statusPanelNeutral h-100">
                                 <h6 class="text-primary text-uppercase fw-bold smallest">Esito Verifica</h6>
@@ -150,7 +147,7 @@
                                     <div class="summaryList mb-4">
                                         <!-- AA Data Certificazione -->
                                         <div class="summaryItem">
-                                            <span class="summaryLabel">Data Certificazione:</span>
+                                            <span id="resDateLabel" class="summaryLabel">Data Certificazione:</span>
                                             <span id="resDate" class="summaryValue">---</span>
                                         </div>
 
@@ -179,14 +176,43 @@
                                     </div>
 
                                     <!-- NN Identità Autore -->
-                                    <div id="authorIdentityBox" class="mt-auto p-3 rounded d-none">
-                                        <div class="d-flex align-items-center">
-                                            <div class="identityIconWrapper me-3">
-                                                <i class="bi bi-patch-check-fill text-primary fs-3"></i>
+                                    <div class="mt-auto">
+                                        <!-- Utente Con SBT -->
+                                        <div id="idBoxVerified" class="identityBox verified d-none">
+                                            <div class="d-flex align-items-center">
+                                                <div class="identityIconWrapper me-3">
+                                                    <i class="bi bi-patch-check-fill fs-3"></i>
+                                                </div>
+                                                <div>
+                                                    <p class="mb-0 text-white small fw-bold">La tua Identità è Verificata</p>
+                                                    <p class="mb-0 extraSmall text-muted">Stai operando con un Badge SBT valido.</p>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <p class="mb-0 text-white small fw-bold">Identità Verificata</p>
-                                                <p class="mb-0 extraSmall text-muted">L'autore possiede un Badge SBT</p>
+                                        </div>
+
+                                        <!-- Wallet Connesso Senza SBT -->
+                                        <div id="idBoxUnverified" class="identityBox unverified d-none">
+                                            <div class="d-flex align-items-center">
+                                                <div class="identityIconWrapper me-3">
+                                                    <i class="bi bi-exclamation-circle-fill fs-3"></i>
+                                                </div>
+                                                <div>
+                                                    <p class="mb-0 text-white small fw-bold">Profilo Non Verificato</p>
+                                                    <p class="mb-0 extraSmall text-muted">Il tuo wallet non possiede un Badge SBT.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Ospite -->
+                                        <div id="idBoxGuest" class="identityBox guest d-none">
+                                            <div class="d-flex align-items-center">
+                                                <div class="identityIconWrapper me-3">
+                                                    <i class="bi bi-person-slash fs-3"></i>
+                                                </div>
+                                                <div>
+                                                    <p class="mb-0 text-white small fw-bold">Accesso Ospite</p>
+                                                    <p class="mb-0 extraSmall text-muted">Connetti il wallet per verificare la tua identità.</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

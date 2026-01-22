@@ -2,12 +2,11 @@
 
 /* SS ############### LAYOUT E CONTENITORI PRINCIPALI ############### */
 #notarizationForm,
-#detailsPanel,
-#infoPanel {
+#detailsPanel {
     background-color: var(--card-bg-translucent);
     border: 1px solid var(--border-color);
     border-radius: 12px;
-    padding: 1.5rem;
+    padding: 1rem;
     width: 100%;
     box-shadow: var(--shadow-strong);
 }
@@ -15,10 +14,6 @@
 #certificaDashboard .col-8,
 #certificaDashboard .col-4 {
     padding: 0.5rem;
-}
-
-#notarizationForm {
-    width: 100%;
 }
 
 #notarizationForm form {
@@ -29,9 +24,14 @@
 
 /* SS ############### PANNELLO LOG (TERMINALE) ############### */
 #infoPanel {
+    background-color: var(--card-bg-translucent);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-strong);
     font-family: var(--font-mono);
-    display: flex;
-    flex-direction: column;
+    border-radius: 12px;
+
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 #infoPanel p {
@@ -56,25 +56,22 @@
 #infoPanel .text-muted {
     color: var(--neutral-color) !important;
 }
-
 #infoPanel .text-success {
     color: var(--console-green) !important;
     text-shadow: 0 0 10px rgba(var(--console-green-rgb), 0.2);
 }
-
 #infoPanel .text-warning {
     color: var(--warning-color) !important;
 }
-
 #infoPanel .text-danger {
     color: var(--danger-color) !important;
 }
-
 #infoPanel .border-secondary {
     border-color: var(--border-color) !important;
     opacity: 0.5;
 }
 
+/* Scrollbar Pannello */
 #infoPanel::-webkit-scrollbar {
     width: 6px;
 }
@@ -101,7 +98,7 @@
     border: 2px dashed var(--border-color);
     background-color: var(--bg-dark);
     border-radius: 16px;
-    padding: 20px;
+    padding: 15px !important;
     transition: all 0.3s ease;
     cursor: pointer;
     position: relative;
@@ -132,7 +129,7 @@
 }
 
 #uploadState i {
-    font-size: 3.5rem;
+    font-size: 3rem !important;
     margin-bottom: 1rem;
     color: var(--accent-color);
     opacity: 0.9;
@@ -215,7 +212,7 @@
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
-    padding: 1rem 0;
+    padding: 0.75rem 0;
     border-radius: 8px;
     width: 100%;
     color: var(--white);
@@ -235,7 +232,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 0;
+    padding: 8px 0 !important;
     border-bottom: 1px solid var(--separator-strong);
 }
 
@@ -298,15 +295,7 @@
     bottom: 50px;
 }
 
-/* Stile Desktop (Default)  */
-@media (min-width: 992px) {
-    .upperRow {
-        height: 75%;
-    }
-    .bottomRow {
-        height: 25%;
-    }
-}
+/* SS ############### MEDIA QUERY ############### */
 
 /* Stile Mobile (Sotto i 992px) - Stack verticale */
 @media (max-width: 991.98px) {
@@ -325,10 +314,80 @@
     #detailsPanel {
         min-height: 350px;
         height: auto !important;
+        padding: 1rem !important;
     }
 
     #infoPanel {
+        height: 200px !important;
         min-height: 150px;
-        height: auto !important;
+        padding: 1rem !important;
+        margin-top: 0 !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .content-area {
+        height: 98% !important;
+        overflow: hidden !important;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 1rem;
+    }
+
+    #certificaDashboard {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        overflow: hidden;
+        gap: 0.75rem;
+    }
+
+    .upperRow {
+        flex: 1 1 auto;
+        min-height: 0;
+        margin-bottom: 0 !important;
+    }
+
+    .bottomRow {
+        flex: 0 0 25%;
+        min-height: 150px;
+        margin-top: 0 !important;
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .bottomRow > .col-12 {
+        height: 100% !important;
+        padding: 0;
+    }
+
+    /* Cards interne */
+    #notarizationForm,
+    #detailsPanel {
+        height: 100% !important;
+        max-height: 100% !important;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem !important;
+        margin-top: 0 !important;
+    }
+
+    #infoPanel {
+        height: 100% !important;
+        max-height: 100% !important;
+        display: block;
+        padding: 1rem !important;
+        margin-top: 0 !important;
+    }
+
+    #notarizationForm form {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .uploadArea {
+        flex: 1;
+        margin-bottom: 0.5rem;
     }
 }

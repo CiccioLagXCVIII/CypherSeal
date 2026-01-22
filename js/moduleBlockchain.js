@@ -353,6 +353,95 @@ export const Blockchain = {
 
     // SS Sezione Notarizzazione & Documenti
 
+    // NN getEstimatedGasForNotarization
+    // Calcola Una Stima Del Gas Necessario Per Notarizzare Un Documento
+    async estimateGasForNotarization(hash) {
+
+        if (!this.isProviderAvailable()) {
+            console.error("moduleBlockchain: Nessun Provider Web3 Rilevato");
+            return "0"
+        } else {
+
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            const signer = await provider.getSigner();
+            const notarizerContract = new ethers.Contract(
+                notarizerAddress,
+                notarizerABI,
+                signer
+            );
+
+            try {
+
+                let formattedHash = "";
+                // La Funzione notarize Accetta Un Parametro Di Tipo bytes32 Quindi Si Deve Formattare L'Hash
+                if (hash.startsWith("0x")) {
+                    formattedHash = hash;
+                } else {
+                    formattedHash = "0x" + hash;
+                }
+
+                // Stima Il Gas Senza Inviare La Transazione (Units)
+                const gasUnits = await notarizerContract.notarize.estimateGas(formattedHash);
+
+                // Estrazione Del Prezzo Del Gas Attuale (Price)
+                const feeData = await provider.getFeeData();
+                const gasPrice = feeData.gasPrice || feeData.maxFeePerGas;
+
+                // Calcolo Costo Totale In Wei
+                const estimatedGasWei = gasUnits * gasPrice;
+
+                // Conversione Da Wei A ETH
+                const estimatedGasEth = ethers.formatEther(estimatedGasWei);
+
+                // Formattazione A 6 Decimali
+                const estimatedGas = parseFloat(estimatedGasEth).toFixed(6);
+
+                return estimatedGas;
+
+            } catch (error) {
+                // GESTIONE ERRORI SMART CONTRACT
+
+                // Ethers.js v6 Incapsula L'Errore Dentro error.data o error.info.error.data
+                // Decodifica Errore Tramite ABI Del Contratto
+                let errorData = error.data;
+
+                console.log(errorData);
+
+                // Caso In Cui L'Errore È Incapsulato Diversamente
+                if (!errorData && error.info && error.info.error && error.info.error.data) {
+                    errorData = error.info.error.data;
+                }
+
+                if (errorData) {
+                    try {
+                        // Decodifica Errore
+                        const decodedError = notarizerContract.interface.parseError(errorData);
+
+                        if (decodedError && decodedError.name === 'DocumentAlreadyNotarized') {
+                            console.warn("moduleBlockchain: Documento Già Notarizzato.");
+                            return "ALREADY_EXISTS";
+                        }
+                        if (decodedError && decodedError.name === 'NotAuthorizedNoSBT') {
+                            console.warn("moduleBlockchain: Utente Senza SBT.");
+                            return "NO_SBT";
+                        }
+                    } catch (parseError) {
+                        console.error("Decodifica Non Riuscita", parseError);
+                    }
+                }
+
+                // Fallback per errori generici o se il parsing fallisce
+                // Se la stringa contiene il codice dell'errore (succede spesso con Hardhat/Sepolia)
+                // if (error.message.includes("0x037e1fce") || error.message.includes("DocumentAlreadyNotarized")) {
+                //    return "ALREADY_EXISTS";
+                // }
+
+                console.error("Stima Fallita:", error);
+                return "Error";
+            }
+        }
+    },
+
     // NN notarizeDocument
     // Registra L'Impronta Digitale Del Documento (Hash) Sulla Blockchain
     async notarizeDocument(hash) {
@@ -383,8 +472,18 @@ export const Blockchain = {
                 // Invio Della Transazione Di Notarizzazione Del Documento
                 // A Questo Punto La Transazione È Inviata Alla Rete Ma non Ancora Scritta In Un Blocco
                 // Quindi Si Estraggono I Dati Della Richiesta Di Notarizzazione (TransactionResponse)
-                const txResponse = await notarizerContract.notarize(hash);
+
+                let formattedHash = "";
+                // La Funzione notarize Accetta Un Parametro Di Tipo bytes32 Quindi Si Deve Formattare L'Hash
+                if (hash.startsWith("0x")) {
+                    formattedHash = hash;
+                } else {
+                    formattedHash = "0x" + hash;
+                }
+
+                const txResponse = await notarizerContract.notarize(formattedHash);
                 console.log("moduleBlockchain: Transazione Notarizzazione Inviata. Hash: ", txResponse.hash);
+
                 console.log("moduleBlockchain: In Attesa Della Conferma Della Notarizzazione...");
 
                 // Attesa Della Conferma Della Transazione (TransactionReceipt)
@@ -428,7 +527,16 @@ export const Blockchain = {
         );
 
         try {
-            const response = await notarizerContract.verify(hash);
+
+            let formattedHash = "";
+            // La Funzione notarize Accetta Un Parametro Di Tipo bytes32 Quindi Si Deve Formattare L'Hash
+            if (hash.startsWith("0x")) {
+                formattedHash = hash;
+            } else {
+                formattedHash = "0x" + hash;
+            }
+
+            const response = await notarizerContract.verify(formattedHash);
 
             const docHash = response[0];
             const authorAddress = response[1];
@@ -436,23 +544,17 @@ export const Blockchain = {
             const revTimestamp = Number(response[3]);
             const isCertified = response[4];
 
-            // Logica Formattazione Data Creazione
-            // AA let formattedCertDate = new Date(certTimestamp * 1000).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
-
-            // Inizializzazione Variabili Stato
-            let statusCode = 0;     // Default: 0 (Non Trovato/Errore)
-            // AA let formattedRevocationDate = null;
-
-            // Logica Stati: 2 = Revocato, 1 = Verificato
+            // Gestione Stato Documento
+            // Logica Stati: 0 = Non Trovato, 1 = Verificato, 2 = Revocato
+            let statusCode = 0;
             if (isCertified === false && revTimestamp.toString() !== '0') {
                 statusCode = 2;
-                // AA formattedRevocationDate = new Date(revTimestamp * 1000).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
             } else if (isCertified === true) {
                 // Non Serve revTimestamp.toString() === '0' Perchè Se È True Significa Che Non È Revocato
                 statusCode = 1;
             }
 
-            // Recupero SBT (Con controllo di sicurezza null check)
+            // Gestione SBT
             let sbtId = "N/A";
             try {
                 const sbtInfo = await this.getSBTInfo(authorAddress);
@@ -510,7 +612,15 @@ export const Blockchain = {
             // Invio Della Transazione Di Revoca Del Documento
             // A Questo Punto La Transazione È Inviata Alla Rete Ma non Ancora Scritta In Un Blocco
             // Quindi Si Estraggono I Dati Della Richiesta Di Revoca (TransactionResponse)
-            const txResponse = await notarizerContract.revoke(hash);
+            let formattedHash = "";
+            // La Funzione notarize Accetta Un Parametro Di Tipo bytes32 Quindi Si Deve Formattare L'Hash
+            if (hash.startsWith("0x")) {
+                formattedHash = hash;
+            } else {
+                formattedHash = "0x" + hash;
+            }
+
+            const txResponse = await notarizerContract.revoke(formattedHash);
             console.log("moduleBlockchain: Transazione Revoca Inviata. Hash: ", txResponse.hash);
             console.log("moduleBlockchain: In Attesa Della Conferma Della Revoca...");
 

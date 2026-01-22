@@ -4,68 +4,158 @@ import { Blockchain } from './moduleBlockchain.js';
 export const Verifier = {
 
     async checkDocumentOnChain(hash) {
+
+        // Elementi Interfaccia Utente
         const infoPanel = document.getElementById("infoPanel");
         const resultPlaceholder = document.getElementById("resultPlaceholder");
         const resultData = document.getElementById("resultData");
         const statusBadge = document.getElementById("statusBadge");
 
-        // UI Reset
+        // Elementi Box Esito
+        const authorItem = document.getElementById("resAuthor");
+        const authorLinkItem = document.getElementById("resAuthorLink");
+        const sbtItem = document.getElementById("resSbtId");
+        const blockItem = document.getElementById("resBlock");
+        const dateLabel = document.getElementById("resDateLabel");
+        const dateItem = document.getElementById("resDate");
+        // ID Box Identità
+        const boxVerified = document.getElementById("idBoxVerified");
+        const boxUnverified = document.getElementById("idBoxUnverified");
+        const boxGuest = document.getElementById("idBoxGuest");
+
+        // Reset Iniziale
         resultPlaceholder.classList.add("d-none");
         resultData.classList.remove("d-none");
-        infoPanel.innerHTML += `<p class="text-white"> > Interrogazione Smart Contract per Hash: ${hash.substring(0, 10)}...</p>`;
+        statusBadge.className = "verificationBadge";
+
+        // Nascondi I Box Identità Autore
+        if (boxVerified) {
+            boxVerified.classList.add("d-none");
+        }
+
+        if (boxUnverified) {
+            boxUnverified.classList.add("d-none");
+        }
+
+        if (boxGuest) {
+            boxGuest.classList.add("d-none");
+        }
+        infoPanel.innerHTML += `<p class="text-white"> > Ricerca Hash ${hash.substring(0, 10)} Nella Blockchain...</p>`;
 
         try {
-            // Possibili stati: 0 = Non Trovato, 1 = Valido, 2 = Revocato
+            // Possibili Stati: 0 = Non Trovato, 1 = Valido, 2 = Revocato
             const statusResponse = await Blockchain.getDocumentStatus(hash);
 
-            if (statusResponse.status === 1) {
+            console.log("Risposta Stato Documento:", statusResponse);
+
+            // A Prescindere Che Il Documento Sia Certificato O Revocato, Si Mostrano I Dati Dell'Autore
+            if (statusResponse.status === 1 || statusResponse.status === 2) {
                 const authorAddr = statusResponse.author;
                 const sbtTokenId = statusResponse.sbtId;
-                const blockNumber = statusResponse.block;
-                const date = statusResponse.timestamp;
+                const certificationTimestamp = statusResponse.timestamp;
+                const revokeTimestamp = statusResponse.revocationTimestamp;
 
-                document.getElementById("resAuthor").textContent = authorAddr.substring(0, 6) + "..." + authorAddr.substring(38);
-                document.getElementById("resAuthorLink").href = `https://sepolia.etherscan.io/address/${authorAddr}`;
-                document.getElementById("resSbtId").textContent = sbtTokenId;
-                document.getElementById("resBlock").textContent = blockNumber;
-                document.getElementById("resDate").textContent = new Date(parseInt(date) * 1000).toLocaleDateString();
+                authorItem.textContent = authorAddr.substring(0, 6) + "..." + authorAddr.substring(38);
+                authorLinkItem.href = `https://sepolia.etherscan.io/address/${authorAddr}`;
+                sbtItem.textContent = sbtTokenId;
+                blockItem.textContent = statusResponse.block !== "Archive" ? statusResponse.block : "Genesi";
 
-                // Mostra il badge di identità verificata
-                const authorBox = document.getElementById("authorIdentityBox");
-                // CORRETTO: badgeValid
-                authorBox.classList.add("verified", "badgeValid");
-                authorBox.classList.remove("d-none");
-            } else if (statusResponse.status === 2) {
-                statusBadge.innerHTML = `<i class="bi bi-exclamation-octagon me-2"></i> Documento Revocato`;
-                // CORRETTO: verificationBadge badgeRevoked
-                statusBadge.className = "verificationBadge badgeRevoked";
-                infoPanel.innerHTML += `<p class="text-danger"> > Attenzione: Il documento è stato invalidato dall'autore.</p>`;
+                if (statusResponse.status === 2) {
+                    // Se Revocato, Mostro La Data Di Revoca
+                    dateLabel.textContent = "Data Revoca:";
+                    dateItem.textContent = new Date(parseInt(revokeTimestamp) * 1000).toLocaleDateString();
+                } else {
+                    // Se Certificato, Mostro La Data Di Certificazione
+                    dateItem.textContent = new Date(parseInt(certificationTimestamp) * 1000).toLocaleDateString();
+                }
+
+                const currentUserAddress = localStorage.getItem('walletAddress');
+
+                await this.checkAuthorIdentity(currentUserAddress);
             } else {
-                statusBadge.innerHTML = `<i class="bi bi-x-circle me-2"></i> Non Trovato`;
-                // CORRETTO: verificationBadge badgeNotFound
-                statusBadge.className = "verificationBadge badgeNotFound";
-                infoPanel.innerHTML += `<p class="text-muted"> > Nessuna corrispondenza trovata in blockchain.</p>`;
+                // Se Il Documento Non È Trovato, Si Mostrano I Placeholder
+                authorItem.textContent = "---";
+                sbtItem.textContent = "---";
+                blockItem.textContent = "---";
+                dateItem.textContent = "---";
+
+                // Nascondi I Box Identità Autore
+                if (boxVerified) {
+                    boxVerified.classList.add("d-none");
+                }
+
+                if (boxUnverified) {
+                    boxUnverified.classList.add("d-none");
+                }
+
+                if (boxGuest) {
+                    boxGuest.classList.add("d-none");
+                }
+
+            }
+
+            // Gestione Badge Risultato Verifica E Messaggi In infoPanel
+            if (statusResponse.status === 1) {
+                // CASO: CERTIFICATO (Verde)
+                statusBadge.innerHTML = `<i class="bi bi-patch-check-fill me-2"></i> Documento Autentico`;
+                statusBadge.classList.add("badgeValid");
+
+                infoPanel.innerHTML += `<p class="text-success"> > Successo: Il Documento È Certificato e Immutato.</p>`;
+
+            } else if (statusResponse.status === 2) {
+                // CASO: REVOCATO (Rosso)
+                statusBadge.innerHTML = `<i class="bi bi-exclamation-octagon me-2"></i> Documento Revocato`;
+                statusBadge.classList.add("badgeRevoked");
+
+                infoPanel.innerHTML += `<p class="text-danger"> > Attenzione: Il Documento È Stato Revocato dall'Autore.</p>`;
+
+            } else {
+                // CASO: NON TROVATO (Grigio)
+                statusBadge.innerHTML = `<i class="bi bi-x-circle me-2"></i> Documento Non Trovato`;
+                statusBadge.classList.add("badgeNotFound");
+
+                infoPanel.innerHTML += `<p class="text-muted"> > Attenzione: Documento Non Trovato Nella Blockchain</p>`;
             }
 
         } catch (error) {
             console.error("Errore verifica:", error);
-            infoPanel.innerHTML += `<p class="text-danger"> > Errore durante l'interrogazione on-chain.</p>`;
+            infoPanel.innerHTML += `<p class="text-danger"> > Errore Durante L'Interazione Con La Blockchain</p>`;
         }
     },
 
-    async checkAuthorIdentity(address) {
+    async checkAuthorIdentity(viewerAddress) {
         const infoPanel = document.getElementById("infoPanel");
-        const authorBox = document.getElementById("authorIdentityBox");
 
-        console.log("CypherSeal: Controllo possesso SBT (EIP-5192) per l'indirizzo: " + address);
+        // ID Box Identità
+        const boxVerified = document.getElementById("idBoxVerified");
+        const boxUnverified = document.getElementById("idBoxUnverified");
+        const boxGuest = document.getElementById("idBoxGuest");
 
-        const hasSBT = true;
+        // Reset Iniziale
+        if (boxVerified) boxVerified.classList.add("d-none");
+        if (boxUnverified) boxUnverified.classList.add("d-none");
+        if (boxGuest) boxGuest.classList.add("d-none");
 
-        if (hasSBT) {
-            authorBox.classList.add("verified");
-            authorBox.classList.remove("d-none");
-            infoPanel.innerHTML += `<p class="text-primary"> > Identità Autore confermata tramite Soulbound Token.</p>`;
-            document.getElementById("resAuthor").textContent = address;
+        // Utente Non Connesso (Ospite)
+        if (!viewerAddress) {
+            if (boxGuest) boxGuest.classList.remove("d-none");
+            infoPanel.innerHTML += `<p class="text-muted"> > Visualizzazione come Ospite (Nessun Wallet).</p>`;
+            return;
+        }
+
+        console.log("CypherSeal: Controllo SBT per il visualizzatore: " + viewerAddress);
+
+        // Controllo Blockchain
+        const hasIdentityBadge = await Blockchain.getSBTStatus(viewerAddress);
+
+        if (hasIdentityBadge) {
+            // Utente Connesso Con SBT (Verificato)
+            if (boxVerified) boxVerified.classList.remove("d-none");
+            infoPanel.innerHTML += `<p class="text-primary"> > Identità Utente Confermata (SBT Rilevato).</p>`;
+        } else {
+            // Utente Connesso Senza SBT
+            if (boxUnverified) boxUnverified.classList.remove("d-none");
+            infoPanel.innerHTML += `<p class="text-warning"> > Attenzione: Il tuo wallet non ha un'identità SBT.</p>`;
         }
     },
 
@@ -98,41 +188,76 @@ export const Verifier = {
     },
 
     resetInfoBox() {
+        // Recupero Elementi Interfaccia Grafica
+
+        // Colonna Upload (Sinistra)
         const uploadState = document.getElementById("uploadState");
         const successState = document.getElementById("successState");
         const fileInfo = document.getElementById("fileInfo");
         const fileInput = document.getElementById("fileInput");
         const hashDisplay = document.getElementById("fileHash");
 
+        // Colonna Risultati (Destra)
         const resultPlaceholder = document.getElementById("resultPlaceholder");
         const resultData = document.getElementById("resultData");
-        const authorBox = document.getElementById("authorIdentityBox");
         const statusBadge = document.getElementById("statusBadge");
+
+        // Elementi Box Esito
+        const resDate = document.getElementById("resDate");
+        const resAuthor = document.getElementById("resAuthor");
+        const resBlock = document.getElementById("resBlock");
+
+        // Badge Identità Utente
+        const boxVerified = document.getElementById("idBoxVerified");
+        const boxUnverified = document.getElementById("idBoxUnverified");
+        const boxGuest = document.getElementById("idBoxGuest");
+
+        // info Panel
         const infoPanel = document.getElementById("infoPanel");
 
-        // 1. Reset Sinistra
-        uploadState.classList.remove("d-none");
-        successState.classList.add("d-none");
-        fileInfo.style.display = "none";
-        fileInput.value = "";
-        hashDisplay.textContent = "";
 
-        // 2. Reset Destra
-        resultPlaceholder.classList.remove("d-none");
-        resultData.classList.add("d-none");
-        // CORRETTO: badgeValid
-        authorBox.classList.remove("verified", "badgeValid");
-        authorBox.classList.add("d-none");
-        // CORRETTO: verificationBadge
-        statusBadge.className = "verificationBadge";
-        statusBadge.innerHTML = "";
+        // Reset Stato Iniziale Di Attesa File
+        if (uploadState) {
+            uploadState.classList.remove("d-none");
+        }
+        if (successState) {
+            successState.classList.add("d-none");
+        }
 
-        document.getElementById("resDate").textContent = "---";
-        document.getElementById("resAuthor").textContent = "---";
-        document.getElementById("resBlock").textContent = "---";
+        if (fileInfo) {
+            fileInfo.style.display = "none";
+        }
+        if (fileInput) {
+            fileInput.value = "";
+        }
+        if (hashDisplay) {
+            hashDisplay.textContent = "";
+        }
 
-        // 3. Reset Log
-        infoPanel.innerHTML = `<p class="text-muted">> In attesa di input...</p>`;
+        // Reset Risultati Verifica
+        if (resultPlaceholder) resultPlaceholder.classList.remove("d-none");
+        if (resultData) resultData.classList.add("d-none");
+
+        // Reset Badge Stato Verifica
+        if (statusBadge) {
+            statusBadge.className = "verificationBadge";
+            statusBadge.innerHTML = "";
+        }
+
+        // Reset Dati Box Esito
+        if (resDate) resDate.textContent = "---";
+        if (resAuthor) resAuthor.textContent = "---";
+        if (resBlock) resBlock.textContent = "---";
+
+        // Reset Badge Identità Utente
+        if (boxVerified) boxVerified.classList.add("d-none");
+        if (boxUnverified) boxUnverified.classList.add("d-none");
+        if (boxGuest) boxGuest.classList.add("d-none");
+
+        // Reset infoPanel
+        if (infoPanel) {
+            infoPanel.innerHTML = `<p class="text-muted">> In attesa di input...</p>`;
+        }
     },
 
     init() {

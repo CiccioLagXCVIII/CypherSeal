@@ -1,6 +1,7 @@
 /* verifica.css */
 
-/* SS Pannello di Stato */
+/* SS ########## Layout Generale ########## */
+
 .statusPanelNeutral {
     background-color: var(--card-bg-translucent);
     border: 1px solid var(--border-color);
@@ -8,9 +9,18 @@
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
+    height: 100%;
+    transition: border-color 0.3s ease;
 }
 
-/* SS Badge di Verifica */
+/* Tipografia piccola */
+.extraSmall {
+    font-size: 0.7rem;
+    letter-spacing: 0.3px;
+}
+
+/* SS ########## Box Esito Verifica ########## */
+
 .verificationBadge {
     padding: 1rem;
     border-radius: 8px;
@@ -18,29 +28,47 @@
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+/* Esito Valido (Verde) */
 .badgeValid {
     background: rgba(var(--success-rgb), 0.1);
     border: 1px solid var(--success-color);
     color: var(--success-color);
+    box-shadow: 0 0 15px rgba(var(--success-rgb), 0.1);
 }
 
+/* Esito Revocato (Rosso) */
 .badgeRevoked {
     background: rgba(var(--danger-rgb), 0.1);
     border: 1px solid var(--danger-color);
     color: var(--danger-color);
 }
 
+/* EsitoNon Trovato (Grigio) */
 .badgeNotFound {
     background: rgba(var(--neutral-rgb), 0.1);
     border: 1px solid var(--neutral-color);
     color: var(--neutral-color);
 }
 
-/* SS Elementi Identità */
+/* SS ########## Box Identità ########## */
+
+/* Stile Base Box Identità */
+.identityBox {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: auto; /* Spinge verso il basso nel flex container */
+    animation: slideUp 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border: 1px solid transparent; /* Placeholder per border */
+}
+
+/* Wrapper Icona Circolare */
 .identityIconWrapper {
-    background: rgba(var(--accent-rgb), 0.1);
     width: 45px;
     height: 45px;
     border-radius: 50%;
@@ -48,20 +76,52 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    transition: transform 0.2s ease;
 }
 
-#authorIdentityBox.verified {
-    background: rgba(var(--accent-rgb), 0.1);
-    border: 1px solid rgba(var(--accent-rgb), 0.3);
-    display: block !important;
-    animation: slideUp 0.3s ease-out;
+.identityBox:hover .identityIconWrapper {
+    transform: scale(1.1);
 }
 
-/* SS Animazioni */
+/* Verificato */
+.identityBox.verified {
+    background: rgba(var(--accent-rgb), 0.08);
+    border-color: rgba(var(--accent-rgb), 0.3);
+}
+
+.identityBox.verified .identityIconWrapper {
+    background: rgba(var(--accent-rgb), 0.15);
+    color: var(--accent-color);
+    box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.2);
+}
+
+/* No SBT */
+.identityBox.unverified {
+    background: rgba(var(--warning-rgb), 0.05);
+    border-color: rgba(var(--warning-rgb), 0.3);
+}
+
+.identityBox.unverified .identityIconWrapper {
+    background: rgba(var(--warning-rgb), 0.15);
+    color: var(--warning-color);
+}
+
+/* Ospite */
+.identityBox.guest {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.identityBox.guest .identityIconWrapper {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-muted);
+}
+
+/* SS ########## Animazione ########## */
 @keyframes slideUp {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(15px);
     }
     to {
         opacity: 1;
@@ -69,45 +129,37 @@
     }
 }
 
-/* SS Utility */
-.extraSmall {
-    font-size: 0.7rem;
-}
+/* SS ########## Media Queriess ########## */
 
-/* Media Queries */
-/* Stile Desktop (Default) - Mantiene il layout "App" a tutto schermo */
+/* Stile Desktop (Default) */
 @media (min-width: 992px) {
     .upperRow {
-        height: 75%; /* Sostituisce lo stile inline che hai tolto */
+        height: 75%;
     }
     .bottomRow {
-        height: 25%; /* Sostituisce lo stile inline che hai tolto */
+        height: 25%;
     }
 }
 
-/* Stile Mobile (Sotto i 992px) - Stack verticale */
+/* Stile Mobile (Sotto i 992px) */
 @media (max-width: 991.98px) {
-    /* Rende il contenitore principale scrollabile e alto quanto serve */
     #verificaDashboard {
         height: auto !important;
-        display: block !important; /* Rimuove il comportamento flex rigido */
+        display: block !important;
     }
 
-    /* Resetta le altezze delle righe */
     .upperRow,
     .bottomRow {
         height: auto !important;
         margin-bottom: 1.5rem !important;
     }
 
-    /* Assicura che le card abbiano un'altezza minima decente su mobile */
     #verificationForm,
     #resultPanel {
-        min-height: 350px; /* Altezza minima per estetica */
+        min-height: 350px;
         height: auto !important;
     }
 
-    /* Il pannello Log (terminale) può essere più piccolo su mobile */
     #infoPanel {
         min-height: 150px;
         height: auto !important;
