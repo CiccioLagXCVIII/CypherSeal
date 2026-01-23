@@ -274,27 +274,33 @@ export const Profile = {
         // Data Ultima Certificazione
         // In moduleBlockchain La Funzione getUserDocuments REstituisce L'Array userDocuments Che È Contenuto In certifiedDocuments
         // L'Array È Ordinato Dal Più Recente Al Meno Recente Quindi Prendo Il Primo Elemnento
-        const lastDocument = certifiedDocuments[0];
-        const lastTimestamp = lastDocument.timestamp;
+        if (certifiedDocuments.length === 0) {
+            const dataUltCertDisplay = document.getElementById('dataUltCertificaDisplay');
+            dataUltCertDisplay.textContent = "N/A";
+        } else {
+            const lastDocument = certifiedDocuments[0];
+            const lastTimestamp = lastDocument.timestamp;
 
-        let formattedDate = "Data Non Valida";
-        if (lastTimestamp) {
-            let dateObj;
-            if (!isNaN(lastTimestamp)) {
-                dateObj = new Date(lastTimestamp * 1000);
-            } else {
-                dateObj = new Date(lastTimestamp);
+            let formattedDate = "N/A";
+            if (lastTimestamp) {
+                let dateObj;
+                if (!isNaN(lastTimestamp)) {
+                    dateObj = new Date(lastTimestamp * 1000);
+                } else {
+                    dateObj = new Date(lastTimestamp);
+                }
+
+                formattedDate = dateObj.toLocaleDateString("it-IT", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric"
+                });
             }
 
-            formattedDate = dateObj.toLocaleDateString("it-IT", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric"
-            });
+            const dataUltCertDisplay = document.getElementById('dataUltCertificaDisplay');
+            dataUltCertDisplay.textContent = formattedDate;
         }
 
-        const dataUltCertDisplay = document.getElementById('dataUltCertificaDisplay');
-        dataUltCertDisplay.textContent = formattedDate;
 
         // Numero Documenti Certificati
         const numDocCertificati = certifiedDocuments.length;
@@ -430,35 +436,47 @@ export const Profile = {
             console.log("CypherSeal: Avvio caricamento asincrono...");
 
             try {
-                // Interazone Con La Blockchain Per Caricare I Dati Dell'Utente (Si Ferma Qui Finché Non Riceve Tutto)
+                // Interazione Con La Blockchain Per Caricare I Dati Dell'Utente
                 const hasIdentity = await Blockchain.getSBTStatus(walletConnected);
-                const certDocuments = await Blockchain.getUserDocuments(walletConnected);
-                const identityInfo = await Blockchain.getSBTInfo(walletConnected);
                 // Aggiorno il localStorage
                 localStorage.setItem('identitySBT', hasIdentity.toString());
 
-                // Modifiche UI Basate Sullo Stato Ottenuto Anche Se I Div Sono Nascosti
+                // Modifiche UI Basate Sullo Stato Ottenuto Anche Se I div Sono Nascosti
                 if (walletDisplay) walletDisplay.textContent = walletConnected;
                 await this.renderWalletInfo(walletConnected);
-                this.renderSBTInfo(identityInfo);
                 this.setupEventListeners(walletConnected);
-                this.renderTableData(certDocuments);
-
-                // Nascondo Lo Spinner E Mostro La Sezione Corretta
-                if (loadingSpinner) loadingSpinner.classList.add('d-none');
 
                 if (hasIdentity) {
-                    console.log("CypherSeal: Mostro Dashboard Profilo");
+                    console.log("moduleProfile: Utente Con Identità SBT. Caricamento Dati SBT e Documenti...");
+
+                    // Caricamento Dati Identità SBT
+                    const identityInfo = await Blockchain.getSBTInfo(walletConnected);
+                    if (identityInfo) {
+                        this.renderSBTInfo(identityInfo);
+                    }
+
+                    // Caricamento Documenti SOLO se ha l'identità
+                    const certDocuments = await Blockchain.getUserDocuments(walletConnected);
+
+                    // Creazione Tabella Documenti
+                    this.renderTableData(certDocuments);
+
+                    // Mostra Profilo Nascondi Richiesta
                     if (profileSection) profileSection.classList.remove('d-none');
                     if (requestSection) requestSection.classList.add('d-none');
                 } else {
-                    console.log("CypherSeal: Mostro Richiesta Minting Identità SBT");
+                    console.log("moduleProfile: Utente Senza Identità SBT. Caricamento Richiesta Minting...");
+
+                    // Nascondo Profilo Mostro Richiesta
                     if (requestSection) requestSection.classList.remove('d-none');
                     if (profileSection) profileSection.classList.add('d-none');
                 }
 
+                // Nascondo Lo Spinner E Mostro La Sezione Corretta
+                if (loadingSpinner) loadingSpinner.classList.add('d-none');
+
             } catch (error) {
-                console.error("CypherSeal: Errore Durante Il Caricamento Dati", error);
+                console.error("moduleProfile: Errore Durante Il Caricamento Dati", error);
                 if (loadingSpinner) loadingSpinner.classList.add('d-none');
             }
         }

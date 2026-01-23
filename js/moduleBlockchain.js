@@ -241,7 +241,7 @@ export const Blockchain = {
             // Restituisce un identificatore univoco (URL) che punta a un file JSON contenente i metadati del badge: nome, descrizione, immagine dell'avatar 
             // e attributi dinamici (come il Trust Level). In breve, è ciò che permette a wallet e interfacce esterne di "leggere" e mostrare graficamente
             // le informazioni reputazionali contenute nello Smart Contract.
-            const tokenURI = `https://cypherseal.example.com/sbt/${userAddress}`;
+            const tokenURI = "ipfs://bafkreiarb3vhvcpp5qideb5etjam55bekatxjqoiiizhit3rlduc4j3ve4";
 
             // Invio Della Transazione Di Minting Dello SBT
             // A Questo Punto La Transazione È Inviata Alla Rete Ma non Ancora Scritta In Un Blocco
