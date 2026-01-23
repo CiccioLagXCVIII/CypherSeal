@@ -35,7 +35,7 @@ const definitions = {
 };
 
 export const HomeManager = {
-    init() {
+    handleHome() {
         this.setupModal();
         this.setupAvalanche();
         this.setupStartButton();

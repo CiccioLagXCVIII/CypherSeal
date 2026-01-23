@@ -10,6 +10,11 @@ export const Profile = {
         // Pulsante Per Copiare L'Hash Negli Appunti
         const copyBtn = document.getElementById("copyAddressBtn");
 
+        // Gestione Caso In Cui Gli Elementi Non Esistono
+        if (!fileHashDisplay || !copyBtn) {
+            return;
+        }
+
         // Logica Di Copia Negli Appunti E Notifiche
         if (copyBtn) {
             // Aggiunge Evento Click Al Pulsante Di Copia
@@ -397,7 +402,12 @@ export const Profile = {
                         const result = await Blockchain.revokeDocument(hashToRevoke);
 
                         if (result.success) {
-                            alert(`Documento Revocato Con Successo!\nTX: ${result.txHash}`);
+                            // alert(`Documento Revocato Con Successo!\nTX: ${result.txHash}`);
+                            await General.showCustomAlert(
+                                `Transazione Di Revoca Eseguita Con Successo.\n\nTX ID: ${result.txHash.substring(0, 15)}...`,
+                                "Documento Revocato",
+                                "bi-check-circle-fill"
+                            );
                             // Ricarica La Pagina Per Aggiornare Lo Stato
                             window.location.reload();
                         }
@@ -408,13 +418,6 @@ export const Profile = {
                 }
             };
         }
-    },
-
-    async fetchDocumentData(wallet) {
-        const documents = await Blockchain.getUserDocuments(wallet);
-
-        console.log("Documenti Certificati Da ", wallet, ":", documents);
-        return documents;
     },
 
     // Funzione Principale

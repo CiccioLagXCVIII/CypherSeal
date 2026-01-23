@@ -1,13 +1,8 @@
 // moduleAuth.js
 import { Blockchain } from './moduleBlockchain.js';
+import { General } from './moduleGeneral.js';
 
 export const Auth = {
-
-
-    async checkSBTStatus(userAddress) {
-        // Usa Blockchain
-        return hasIdentity;
-    },
 
     // Funzione Che Gestisce La Connessione Al Wallet MetaMask
     async checkWallet() {
@@ -31,16 +26,25 @@ export const Auth = {
                     console.error("CypherSeal: Nessun Account Trovato Dopo La Richiesta Di Connessione");
                 }
             } catch (error) {
-                if (error.code === 4001) {
+                if (error.code === "ACTION_REJECTED" || error.info.error.code === 4001) {
                     // L'Utente Ha Rifiutato La Connessione
-                    alert("Connessione Al Wallet Rifiutata Dall'Utente");
+                    await General.showCustomAlert(
+                        "Hai Rifiutato La Richiesta Di Connessione Su MetaMask. Riprova Per Accedere.",
+                        "Connessione Rifiutata",
+                        "bi-x-circle-fill"
+                    );
+
                 } else {
                     console.error("CypherSeal: Errore Durante La Connessione Al Wallet", error);
                 }
             }
         } else {
-            // Notifica L'Utente Se Il Provider Web3 Non Ã Installato
-            alert("Per Favore Installa MetaMask!");
+            // Notifica L'Utente Se Il Provider Web3 Non È Installato
+            await General.showCustomAlert(
+                "Nessun Provider Web3 Rilevato. Installa L'Estensione MetaMask Per Continuare.",
+                "MetaMask Non Trovato",
+                "bi-puzzle-fill"
+            );
         }
     },
 
@@ -56,7 +60,6 @@ export const Auth = {
                 const userAddress = localStorage.getItem('walletAddress');
                 console.log("CypherSeal: Preparazione Transazione Per Address ->", userAddress);
 
-                // SS
                 const submitBtn = e.target.querySelector('button[type="submit"]');
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Minting in corso...';

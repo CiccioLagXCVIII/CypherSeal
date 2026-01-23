@@ -7,9 +7,6 @@ import { Notarizer } from './moduleNotarizer.js';
 import { Profile } from './moduleProfile.js';
 import { Verifier } from './moduleVerifier.js';
 
-
-window.Blockchain = Blockchain; // Per Debugging Nel Browser Console
-
 document.addEventListener('DOMContentLoaded', async () => {
 
     // Logiche Generali Per Tutte Le Pagine
@@ -20,14 +17,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Controllo Silenzioso Dello Stato Di Connessione Al Caricamento Della Pagina
     console.log("CypherSeal: Controllo Se L'Utente Ha Già Autorizzato Il Sito...");
     const accounts = await Blockchain.getAuthorizedAccounts();
-    // console.log("CypherSeal: Risultato getAuthorizedAccounts ->", accounts);
 
     // Logiche Specifiche In Base Alla Pagina
     const page = General.findPage();
 
     switch (page) {
         case 'index.html':
-            HomeManager.init();
+            HomeManager.handleHome();
             break;
         case 'connessione.html':
             // Assegna La Funzione Di Connessione Al Bottone
@@ -50,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         case 'verifica.html':
             Notarizer.manageFileUpload();
             Notarizer.copyHashToClipboard();
-            Verifier.init();
+            Verifier.handleVerification();
 
             break;
         default:

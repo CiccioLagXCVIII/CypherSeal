@@ -1,10 +1,8 @@
 // moduleBlockchain.js
 
 // Importazione Costanti E ABI Dei Contratti Necessari Per Interagire Con La Blockchain
-import { contractsConfig } from './configContracts.js';
-// Importazione Ethers.js v6 via CDN (jsDelivr con supporto ESM)
-// import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@6.7.0/+esm";
 import * as ethers from "https://esm.sh/ethers@6.7.0?dev";
+import { contractsConfig } from './configContracts.js';
 
 // Definzione Provider
 // Il Provider È Un'Interfaccia Che Consente Di Connettersi Alla Rete Ethereum E Interagire Con Essa
@@ -55,7 +53,6 @@ export const Blockchain = {
         const provider = new ethers.BrowserProvider(window.ethereum);
 
         const network = await provider.getNetwork();
-
         // Ether Restituisce Un BigInt Quindi Si Deve Convertire In Stringa
         // È Meglio Usare window.ethereum Per Il ChainId
         const networkString = '0x' + network.chainId.toString(16);
@@ -172,22 +169,6 @@ export const Blockchain = {
         // A Questo Punto Si Può Restituire Gli Account Autorizzati
         return accounts;
     },
-
-    // TODO: Funzione Helper (isSignerAvailable)
-    // TODO: Combina isProviderAvailable E getAuthorizedAccounts Per Sapere Se L'Utente Può Effettivamente Interagire Con La DApp E Firmare Transazioni
-    async isWalletConnected() {
-        // Può Esserci Un Provider (Come MetaMask) Ma Nessun Account Connesso E Quindi Non Si Può Firmare Nulla
-        if (this.isProviderAvailable()) {
-            const accounts = await this.getAuthorizedAccounts();
-            if (accounts.length > 0) {
-                console.log("moduleBlockchain: Signer Disponibile (Account Connesso)");
-                return true;
-            }
-        }
-        console.log("moduleBlockchain: Signer Non Disponibile (Nessun Account Connesso)");
-        return false;
-    },
-
 
     // SS Sezione Profilo & Identità (SBT)
 

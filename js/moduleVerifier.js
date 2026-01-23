@@ -3,6 +3,7 @@ import { Blockchain } from './moduleBlockchain.js';
 
 export const Verifier = {
 
+    // Funzione Principale Di Verifica Del Documento Sulla Blockchain
     async checkDocumentOnChain(hash) {
 
         // Elementi Interfaccia Utente
@@ -136,6 +137,7 @@ export const Verifier = {
         }
     },
 
+    // Funzione Per Controllare L'Identità Dell'Autore Tramite SBT
     async checkAuthorIdentity(viewerAddress) {
         const infoPanel = document.getElementById("infoPanel");
 
@@ -172,6 +174,7 @@ export const Verifier = {
         }
     },
 
+    // Funzione Per Gestire La Selezione Del File
     async handleFileSelection(file) {
         if (!file) return;
 
@@ -200,6 +203,7 @@ export const Verifier = {
         await this.checkDocumentOnChain(hashHex);
     },
 
+    // Funzione Per Resettare L'Interfaccia Grafica
     resetInfoBox() {
         // Recupero Elementi Interfaccia Grafica
 
@@ -273,7 +277,8 @@ export const Verifier = {
         }
     },
 
-    init() {
+    // Funzione Di Inizializzazione Per Collegare Gli Eventi
+    handleVerification() {
         const fileInput = document.getElementById("fileInput");
         const dropZone = document.getElementById("dropZone");
         const resetBtn = document.getElementById("resetBtn");

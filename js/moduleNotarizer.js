@@ -1,8 +1,10 @@
 // moduleNotarizer.js
 import { Blockchain } from './moduleBlockchain.js';
+import { General } from './moduleGeneral.js';
 
 export const Notarizer = {
 
+    // Funzione Per Generare L'Hash Del File Caricato
     async generateFileHash(file) {
         const fileNameDisplay = document.getElementById("fileName");
         const fileInfo = document.getElementById("fileInfo");
@@ -12,7 +14,7 @@ export const Notarizer = {
         const successState = document.getElementById("successState");
         const notarizeBtn = document.getElementById("notarizeButton");
 
-        // FIX 1: Recupero elemento Gas
+        // Recupero Valore Gas Stimato
         const estimatedGasDisplay = document.getElementById("estimatedGas");
 
         let infoPanel = document.getElementById("infoPanel");
@@ -23,12 +25,13 @@ export const Notarizer = {
                 successState.classList.remove("d-none");
                 dropZone.classList.add("fileLoaded");
 
-                // ... (logica estensione file invariata) ...
                 const lastDot = file.name.lastIndexOf('.');
                 let fileNameNoExt = lastDot === -1 ? file.name : file.name.substring(0, lastDot);
 
-                infoPanel.innerHTML = `<p class="text-muted mb-2"> > "${fileNameNoExt}" Caricato</p>`;
-                infoPanel.scrollTop = infoPanel.scrollHeight;
+                if (infoPanel) {
+                    infoPanel.innerHTML = `<p class="text-muted mb-2"> > "${fileNameNoExt}" Caricato</p>`;
+                    infoPanel.scrollTop = infoPanel.scrollHeight;
+                }
 
                 const sizeKB = (file.size / 1024).toFixed(2);
                 const fileTypeDisplay = document.getElementById("fileType");
@@ -55,8 +58,10 @@ export const Notarizer = {
                 const hashArray = Array.from(new Uint8Array(hashBuffer));
                 const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
 
-                infoPanel.innerHTML += `<p class="text-success mb-2"> > Hash SHA-256 Generato Correttamente</p>`;
-                infoPanel.scrollTop = infoPanel.scrollHeight;
+                if (infoPanel) {
+                    infoPanel.innerHTML += `<p class="text-success mb-2"> > Hash SHA-256 Generato Correttamente</p>`;
+                    infoPanel.scrollTop = infoPanel.scrollHeight;
+                }
                 fileHashDisplay.textContent = hashHex;
 
                 // Stima Gas
@@ -64,8 +69,10 @@ export const Notarizer = {
 
                 if (estimatedGasETH === "ALREADY_EXISTS") {
                     // Documento Già Notarizzato
-                    infoPanel.innerHTML += `<p class="text-warning mb-2 fw-bold"> > Attenzione: Il Documento Risulta Già Notarizzato!</p>`;
-                    infoPanel.scrollTop = infoPanel.scrollHeight;
+                    if (infoPanel) {
+                        infoPanel.innerHTML += `<p class="text-warning mb-2 fw-bold"> > Attenzione: Il Documento Risulta Già Notarizzato!</p>`;
+                        infoPanel.scrollTop = infoPanel.scrollHeight;
+                    }
                     if (estimatedGasDisplay) {
                         estimatedGasDisplay.textContent = "Esistente";
                         estimatedGasDisplay.classList.add('text-warning');
@@ -78,8 +85,10 @@ export const Notarizer = {
                     }
                 } else if (estimatedGasETH === "NO_SBT") {
                     // Utente Senza SBT
-                    infoPanel.innerHTML += `<p class="text-danger mb-2 fw-bold"> > Attenzione: Devi Possedere Un SBT Per Notarizzare Documenti.</p>`;
-                    infoPanel.scrollTop = infoPanel.scrollHeight;
+                    if (infoPanel) {
+                        infoPanel.innerHTML += `<p class="text-danger mb-2 fw-bold"> > Attenzione: Devi Possedere Un SBT Per Notarizzare Documenti.</p>`;
+                        infoPanel.scrollTop = infoPanel.scrollHeight;
+                    }
 
                     if (estimatedGasDisplay) {
                         estimatedGasDisplay.textContent = "NO SBT";
@@ -121,13 +130,16 @@ export const Notarizer = {
                 if (estimatedGasDisplay) {
                     estimatedGasDisplay.textContent = "Err";
                     console.error(error);
-                    infoPanel.innerHTML += `<p class="text-danger mb-2"> > Errore Critico: Impossibile Calcolare Hash</p>`;
-                    infoPanel.scrollTop = infoPanel.scrollHeight;
+                    if (infoPanel) {
+                        infoPanel.innerHTML += `<p class="text-danger mb-2"> > Errore Critico: Impossibile Calcolare Hash</p>`;
+                        infoPanel.scrollTop = infoPanel.scrollHeight;
+                    }
                 }
             }
         }
     },
 
+    // Funzione Per Gestire Il Caricamento Dei File Tramite Drag & Drop O Selezione
     manageFileUpload() {
         const dropZone = document.getElementById("dropZone");
         const fileInput = document.getElementById("fileInput");
@@ -165,6 +177,7 @@ export const Notarizer = {
         }
     },
 
+    // Funzione Per Resettare L'Interfaccia Grafica
     resetInterface(keepLogs = false) {
         // Recupero Elementi Interfaccia Grafica
         const fileInput = document.getElementById("fileInput");
@@ -230,6 +243,7 @@ export const Notarizer = {
         console.log("moduleNotarizer: Interfaccia Resettata (Logs mantenuti: " + keepLogs + ")");
     },
 
+    // Funzione Per Copiare L'Hash Negli Appunti
     copyHashToClipboard() {
         const fileHashDisplay = document.getElementById("fileHash");
         const copyBtn = document.getElementById("copyAddressBtn");
@@ -247,13 +261,12 @@ export const Notarizer = {
         }
     },
 
+    // Funzione Per Aggiornare Lo Stato Dello SBT E L'Address Visualizzato
     async renderIdentityStatus() {
         const sbtBadge = document.getElementById('certifiedIdBadge');
         const walletShortDisplay = document.getElementById('walletShort');
         const walletAddress = localStorage.getItem('walletAddress');
 
-        // Nota: Assicurati che app.js chiami questa funzione senza awaitare se non necessario, 
-        // oppure gestisca il caricamento, dato che ora è async.
         const hasIdentity = await Blockchain.getSBTStatus(walletAddress);
 
         if (sbtBadge) {
@@ -265,37 +278,42 @@ export const Notarizer = {
         }
     },
 
+    // Funzione Per Scrivere L'Hash Del Documento Sulla Blockchain
     async writeHashToBlockchain(hashDoc) {
         const infoPanel = document.getElementById("infoPanel");
 
         try {
-            infoPanel.innerHTML += `<p class="text-muted mb-1 small"> > Interazione Con La Blockchain In Corso...</p>`;
-            infoPanel.scrollTop = infoPanel.scrollHeight;
-            infoPanel.innerHTML += `<p class="text-warning mb-1"> > <strong>Azione Richiesta:</strong> Conferma transazione...</p>`;
-            infoPanel.scrollTop = infoPanel.scrollHeight;
-            infoPanel.innerHTML += `<p class="text-white mb-1"> > <i class="bi bi-hourglass-split"></i> In Attesa Di Conferma...</p>`;
-            infoPanel.scrollTop = infoPanel.scrollHeight;
-
+            if (infoPanel) {
+                infoPanel.innerHTML += `<p class="text-muted mb-1 small"> > Interazione Con La Blockchain In Corso...</p>`;
+                infoPanel.scrollTop = infoPanel.scrollHeight;
+                infoPanel.innerHTML += `<p class="text-warning mb-1"> > <strong>Azione Richiesta:</strong> Conferma transazione...</p>`;
+                infoPanel.scrollTop = infoPanel.scrollHeight;
+                infoPanel.innerHTML += `<p class="text-white mb-1"> > <i class="bi bi-hourglass-split"></i> In Attesa Di Conferma...</p>`;
+                infoPanel.scrollTop = infoPanel.scrollHeight;
+            }
             const notarizationResult = await Blockchain.notarizeDocument(hashDoc);
 
             if (notarizationResult && notarizationResult.txHash) {
                 // Notarizzazione Avvenuta Con Successo
-                infoPanel.innerHTML += `<p class="text-success mb-1"> > Transazione Confermata! Blocco #${notarizationResult.block}</p>`;
-                infoPanel.scrollTop = infoPanel.scrollHeight;
-                infoPanel.innerHTML += `<p class="text-muted mb-1 small"> > TX ID: ${notarizationResult.txHash.substring(0, 10)}...</p>`;
-                infoPanel.scrollTop = infoPanel.scrollHeight;
-                infoPanel.innerHTML += `<p class="text-success fw-bold mt-2"> > <i class="bi bi-check-circle-fill"></i> Documento Notarizzato !</p>`;
-                infoPanel.scrollTop = infoPanel.scrollHeight;
+                if (infoPanel) {
+                    infoPanel.innerHTML += `<p class="text-success mb-1"> > Transazione Confermata! Blocco #${notarizationResult.block}</p>`;
+                    infoPanel.scrollTop = infoPanel.scrollHeight;
+                    infoPanel.innerHTML += `<p class="text-muted mb-1 small"> > TX ID: ${notarizationResult.txHash.substring(0, 10)}...</p>`;
+                    infoPanel.scrollTop = infoPanel.scrollHeight;
+                    infoPanel.innerHTML += `<p class="text-success fw-bold mt-2"> > <i class="bi bi-check-circle-fill"></i> Documento Notarizzato !</p>`;
+                    infoPanel.scrollTop = infoPanel.scrollHeight;
+                }
 
                 // Reset Automatico Dopo 5 Secondi
                 setTimeout(() => {
                     // Si Usa resetInterface con true Per Non Cancellare I Log
                     this.resetInterface(true);
-
-                    // Riga Che Dice Che È Pronto Per Nuova Notarizzazione
-                    infoPanel.innerHTML += `<div class="my-3 border-top border-secondary opacity-25"></div>`;
-                    infoPanel.innerHTML += `<p class="text-primary mb-1"> > Sistema Pronto Per Una Nuova Notarizzazione</p>`;
-                    infoPanel.scrollTop = infoPanel.scrollHeight;
+                    if (infoPanel) {
+                        // Riga Che Dice Che È Pronto Per Nuova Notarizzazione
+                        infoPanel.innerHTML += `<div class="my-3 border-top border-secondary opacity-25"></div>`;
+                        infoPanel.innerHTML += `<p class="text-primary mb-1"> > Sistema Pronto Per Una Nuova Notarizzazione</p>`;
+                        infoPanel.scrollTop = infoPanel.scrollHeight;
+                    }
                 }, 5000); // 5000 millisecondi = 5 secondi
 
             } else {
@@ -307,9 +325,11 @@ export const Notarizer = {
                 // Visualizza Dettagli Errore in Console
                 console.error("moduleNotarizer [Logic Error]: Notarizzazione Fallita.", errorMsg);
 
-                // Visualizza Messaggio Interfaccia Utente
-                infoPanel.innerHTML += `<p class="text-danger mb-1"> > Attenzione: Impossibile Completare La Notarizzazione.</p>`;
-                infoPanel.scrollTop = infoPanel.scrollHeight;
+                if (infoPanel) {
+                    // Visualizza Messaggio Interfaccia Utente
+                    infoPanel.innerHTML += `<p class="text-danger mb-1"> > Attenzione: Impossibile Completare La Notarizzazione.</p>`;
+                    infoPanel.scrollTop = infoPanel.scrollHeight;
+                }
             }
 
         } catch (error) {
@@ -318,12 +338,15 @@ export const Notarizer = {
             // Visualizza Dettagli Errore in Console
             console.error("moduleNotarizer [Critical Error]: Eccezione Durante La Transazione.", error);
 
-            // Visualizza Messaggio Interfaccia Utente
-            infoPanel.innerHTML += `<p class="text-danger mb-1"> > Errore Critico: Transazione Annullata O Interrotta.</p>`;
-            infoPanel.scrollTop = infoPanel.scrollHeight;
+            if (infoPanel) {
+                // Visualizza Messaggio Interfaccia Utente
+                infoPanel.innerHTML += `<p class="text-danger mb-1"> > Errore Critico: Transazione Annullata O Interrotta.</p>`;
+                infoPanel.scrollTop = infoPanel.scrollHeight;
+            }
         }
     },
 
+    // Funzione Per Gestire La Notarizzazione Al Submit Del Form
     handleNotarization() {
         const notarizationForm = document.getElementById("notarizationForm");
 
@@ -335,14 +358,19 @@ export const Notarizer = {
                 const hash = fileHashDisplay.textContent;
 
                 if (!hash || hash === "Calcolo In Corso..." || hash.includes("Errore")) {
-                    alert("Carica Un File Valido Prima Di Procedere Con La Notarizzazione.");
+                    await General.showCustomAlert(
+                        "È Necessario Trascinare O Selezionare Un File Valido Prima Di Procedere Con La Notarizzazione",
+                        "File Mancante",
+                        "bi-file-earmark-x-fill"
+                    );
                     return;
                 }
-
-                infoPanel.innerHTML += `<div class="my-2 border-top border-secondary"></div>`;
-                infoPanel.scrollTop = infoPanel.scrollHeight;
-                infoPanel.innerHTML += `<p class="text-white mb-1"> > Inizializzazione richiesta Smart Contract...</p>`;
-                infoPanel.scrollTop = infoPanel.scrollHeight;
+                if (infoPanel) {
+                    infoPanel.innerHTML += `<div class="my-2 border-top border-secondary"></div>`;
+                    infoPanel.scrollTop = infoPanel.scrollHeight;
+                    infoPanel.innerHTML += `<p class="text-white mb-1"> > Inizializzazione richiesta Smart Contract...</p>`;
+                    infoPanel.scrollTop = infoPanel.scrollHeight;
+                }
 
                 await this.writeHashToBlockchain(hash);
                 console.log("moduleNotarizer: Richiesta Scrittura Hash Su Smart Contract ->", hash);

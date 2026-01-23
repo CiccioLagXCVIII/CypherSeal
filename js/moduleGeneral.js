@@ -1,6 +1,7 @@
 // moduleGeneral.js
 
 export const General = {
+    // Funzione Per Determinare La Pagina Corrente
     findPage() {
         const path = window.location.pathname;
         if (path.includes('/index.html')) {
@@ -22,6 +23,7 @@ export const General = {
 
     },
 
+    // Funzione Per Attivare Il Link Di Navigazione Corrente
     activeNavLink() {
         const navLinks = document.querySelectorAll('.nav-link');
         const currentPage = this.findPage();
@@ -37,6 +39,7 @@ export const General = {
         });
     },
 
+    // Funzione Per Mostrare Il Modal Di Accesso Negato
     async showAccessDeniedModal() {
         const accessDeniedModal = document.getElementById('accessDeniedModal');
 
@@ -74,6 +77,7 @@ export const General = {
         }
     },
 
+    // Funzione Per Proteggere Le Pagine Private
     async protectPrivatePages() {
         const privatePages = ['profilo.html', 'certifica.html'];
         const walletConnected = localStorage.getItem('walletAddress') || "";
@@ -112,6 +116,7 @@ export const General = {
         }
     },
 
+    // Funzione Per Aggiornare Il Bottone Di Login In Base Alla Connessione Del Wallet
     updateLoginBtn() {
         const authBtn = document.getElementById('connectWalletBtn');
         const headerBtn = document.getElementById('headerActions');
@@ -160,5 +165,93 @@ export const General = {
         }
     },
 
-    // Altre Funzioni Se Necessario
+    // Funzione Per Mostrare Alert Personalizzato
+    async showCustomAlert(message, title = "Avviso", iconClass = "bi-info-circle", btnText = "Chiudi") {
+        return new Promise(async (resolve) => {
+            const customAlert = document.getElementById('customAlertOverlay');
+
+            if (!customAlert) {
+                // Se Non È Presente, Crea E Mostra Il Modal
+
+                // Seleziona il body In Modo Che Sia Sopra Tutto
+                const mainContent = document.body;
+                if (mainContent) {
+                    // Crea Overlay
+                    const overlayDiv = document.createElement('div');
+                    overlayDiv.id = 'customAlertOverlay';
+                    overlayDiv.className = 'd-flex justify-content-center align-items-center position-fixed top-0 start-0 w-100 h-100 bg-black bg-opacity-75';
+                    overlayDiv.style.zIndex = '1060';
+                    overlayDiv.style.backdropFilter = 'blur(5px)';
+
+                    // Richiesta Template HTML
+                    try {
+                        const response = await fetch('customAlert.html');
+                        if (response.ok) {
+                            const modalContent = await response.text();
+                            overlayDiv.innerHTML = modalContent;
+                            mainContent.appendChild(overlayDiv);
+
+                            // Gestione Dati Dinamici
+                            const modalTitle = document.getElementById('customAlertTitle');
+                            const modalIcon = document.getElementById('customAlertIcon');
+                            const modalMessage = document.getElementById('customAlertMessage');
+                            const modalBtn = document.getElementById('customAlertBtn');
+
+
+                            modalTitle.textContent = title;
+                            modalIcon.className = `bi ${iconClass} display-1`;
+                            modalMessage.textContent = message;
+                            modalBtn.textContent = btnText;
+
+                            // Colore Icona In Base Al Tipo Di Avviso
+                            const iconContainer = document.getElementById('customAlertIconContainer');
+                            if (iconClass.includes('exclamation') || title.toLowerCase().includes('errore')) {
+                                // Rosso
+                                iconContainer.classList.add('text-danger');
+                            } else if (iconClass.includes('check')) {
+                                // Verde
+                                iconContainer.classList.add('text-success');
+                            } else if (iconClass.includes('shield') || iconClass.includes('lock')) {
+                                // Ciano
+                                iconContainer.classList.add('text-primary');
+                            } else {
+                                // Giallo
+                                iconContainer.classList.add('text-warning');
+                            }
+
+                            // Gestione Chiusura
+                            // Chiusura Dal Button
+                            const closeAndResolve = () => {
+                                overlayDiv.remove(); // Rimuove dal DOM
+                                resolve(true); // Risolve la Promise
+                            };
+                            modalBtn.addEventListener('click', closeAndResolve);
+
+                            // Chiusura Cliccando Fuori Dal Modal
+                            overlayDiv.addEventListener('click', (e) => {
+                                if (e.target === overlayDiv) closeAndResolve();
+                            });
+
+                        } else {
+                            console.error('Template customAlert.html Non Trovato:', response.status);
+                            // Fallback in caso di errore fetch
+                            resolve(true);
+                        }
+                    } catch (fetchError) {
+                        console.error('Errore Caricamento customAlert:', fetchError);
+                        resolve(true);
+                    }
+                }
+            }
+            // Appendiamo al body per essere sicuri che sia sopra tutto
+
+
+
+            try {
+
+            } catch (error) {
+
+            }
+        });
+    }
 };
