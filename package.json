@@ -1,21 +1,22 @@
 {
   "name": "CypherSeal Notarizer DApp",
-  "version": "1.0.0",
+  "version": "1.9.3",
   "description": "DApp Per La Notarizzazione Digitale E Gestione Dell'Identità SSI Su Ethereum",
   "author": "Francesco Lo Verde",
   "private": true,
   "scripts": {
-    "format": "prettier --write \"**/*.{js,html,css,sol}\""
-  },
+  "start": "http-server -c-1 -o",
+  "format": "prettier --write \"**/*.{js,html,css,sol}\""
+},
   "devDependencies": {
-    "prettier": "^3.7.4",
-    "prettier-plugin-solidity": "^2.2.1"
+    "http-server": "^14.1.1",
+    "prettier": "^3.1.1",
+    "prettier-plugin-solidity": "^1.2.0"
   },
-  "main": "index.js",
   "dependencies": {
-    "@openzeppelin/contracts": "^5.4.0",
-    "ethers": "^6.16.0",
-    "semver": "^7.7.3"
+    "@openzeppelin/contracts": "^5.0.0",
+    "ethers": "^6.9.0",
+    "semver": "^7.5.4"
   },
   "repository": {
     "type": "git",
