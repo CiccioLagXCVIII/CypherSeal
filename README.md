@@ -156,7 +156,7 @@ Se hai Node.js installato, questo è il metodo più rapido e include il live-rel
 
 ```bash
 # 1. Clona il repository
-git clone https://github.com/TuoUsername/CypherSeal.git
+git clone https://github.com/CiccioLagXCVIII/CypherSeal.git
 cd CypherSeal
 
 # 2. Installa le dipendenze
