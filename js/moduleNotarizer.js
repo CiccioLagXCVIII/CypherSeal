@@ -53,8 +53,11 @@ export const Notarizer = {
             }
 
             try {
+                // Conversione File In ArrayBuffer
                 const arrayBuffer = await file.arrayBuffer();
+                // Calcolo Hash SHA-256 Usando Web Crypto API
                 const hashBuffer = await crypto.subtle.digest("SHA-256", arrayBuffer);
+                // Conversione Hash In Stringa Esadecimale
                 const hashArray = Array.from(new Uint8Array(hashBuffer));
                 const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
 

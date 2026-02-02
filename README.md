@@ -1,13 +1,13 @@
 # 🔏 CypherSeal: Notarizzazione Digitale & SSI Protocol
 
-![Version](https://img.shields.io/badge/version-1.9.3-blue?style=for-the-badge)
+![Version](https://img.shields.io/badge/version-1.9.4-blue?style=for-the-badge)
 ![Network](https://img.shields.io/badge/network-Ethereum%20Sepolia-c0c0c0?style=for-the-badge&logo=ethereum)
 ![Standard](https://img.shields.io/badge/standard-EIP--5192%20(SBT)-red?style=for-the-badge)
 ![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
 
 > **Ridefinire la fiducia digitale attraverso la crittografia asimmetrica e l'identità sovrana.**
 
-**CypherSeal** è una Decentralized Application (DApp) di grado forense progettata per la notarizzazione immutabile di asset digitali. Fondendo la certezza matematica della blockchain di Ethereum con i paradigmi della **Self-Sovereign Identity (SSI)**, CypherSeal garantisce che ogni documento notarizzato non sia solo integro, ma riconducibile a un'identità verificata e non trasferibile tramite **Soulbound Tokens (SBT)**.
+**CypherSeal** è una Decentralized Application (DApp) di forense progettata per la notarizzazione immutabile di asset digitali. Fondendo la certezza matematica della blockchain di Ethereum con i paradigmi della **Self-Sovereign Identity (SSI)**, CypherSeal garantisce che ogni documento notarizzato non sia solo integro, ma riconducibile a un'identità verificata e non trasferibile tramite **Soulbound Tokens (SBT)**.
 
 ---
 
