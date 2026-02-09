@@ -6,10 +6,10 @@ export const Auth = {
 
     // Funzione Che Gestisce La Connessione Al Wallet MetaMask
     async checkWallet() {
-        // Non serve Recuperare Il Bottone Qui, Lo Faccio In App.js
+        // Non Serve Recuperare Il Bottone Qui, Lo Faccio In App.js
         if (Blockchain.isProviderAvailable()) {
             try {
-                // Richiede All'Utente Di Connettere Il Sito Al Wallet
+                // Richiede All'Utente Di Connettere Il Wallet
                 const accounts = await Blockchain.requestAccounts();
 
                 // Controllo Di Sicurezza Per Verificare Che Ci Sia Almeno Un Account

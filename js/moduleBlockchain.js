@@ -4,15 +4,15 @@
 import * as ethers from "https://esm.sh/ethers@6.7.0?dev";
 import { contractsConfig } from './configContracts.js';
 
-// Definzione Provider
+// SS Definzione Provider
 // Il Provider È Un'Interfaccia Che Consente Di Connettersi Alla Rete Ethereum E Interagire Con Essa
 // const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-// Definizione Signer
+// SS Definizione Signer
 // Il Signer È Un'Interfaccia Che Ha Accesso Alle Chiavi Private Per Firmare Messaggi E Transazioni
 // const signer = provider.getSigner();
 
-// Entrambi Devono Essere Definiti All'Interno Delle Funzioni Che Ne Hanno Bisogno, Peer Evitare Problemi Di Sincronizzazione
+// AA Entrambi Devono Essere Definiti All'Interno Delle Funzioni Che Ne Hanno Bisogno, Peer Evitare Problemi Di Sincronizzazione
 
 // Definizione Contratto
 // È Un Interfaccia Che Permette Di Interagire Con Uno Smart Contract Deployato Sulla Rete Ethereum In Modo Da Poterlo Usare Come Un Oggetto JavaScript
@@ -678,6 +678,7 @@ export const Blockchain = {
     async getUserDocuments(userAddress) {
         console.log(`Blockchain Service: Chiamata getUserDocuments(${userAddress})`);
 
+        // Blocco Dove E' Deployato Lo Smart Contract Notarizer Per Evitare Di Scansionare Tutta La Blockchain Dall'Inizio
         const DEPLOY_BLOCK = 10086015;
 
         // Inizializzazione Provider e Contratto (Una volta sola)
@@ -815,7 +816,7 @@ export const Blockchain = {
                     currentStatus = "Revocato";
 
                     // NN: Si Potrebbe Voler Sovrascrivere docBlockNum Con Quello Della Revoca Se Il Documento È Stato Revocato
-                    // NN: Ma Si Mostra Il Blocco Di Notarizzazione Come Origine Per Proof Of Existence
+                    // NN: Ma Come Prova Di Validità Mostra Il Blocco Di Notarizzazione Dimostrando Che È Stato Certificato E Poi Revocato
                 } else {
                     // Documento Valido
                     // Estrazione Data Di Notarizzazione

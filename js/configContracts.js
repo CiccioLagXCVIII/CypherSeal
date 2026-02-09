@@ -928,3 +928,4 @@ export const contractsConfig = {
     notarizerAddress,
     notarizerABI
 };
+

@@ -158,7 +158,7 @@ export const Verifier = {
             return;
         }
 
-        console.log("CypherSeal: Controllo SBT per il visualizzatore: " + viewerAddress);
+        console.log("CypherSeal: Controllo SBT Per Visualizzazione: " + viewerAddress);
 
         // Controllo Blockchain
         const hasIdentityBadge = await Blockchain.getSBTStatus(viewerAddress);
@@ -170,7 +170,7 @@ export const Verifier = {
         } else {
             // Utente Connesso Senza SBT
             if (boxUnverified) boxUnverified.classList.remove("d-none");
-            infoPanel.innerHTML += `<p class="text-warning"> > Attenzione: Il tuo wallet non ha un'identità SBT.</p>`;
+            infoPanel.innerHTML += `<p class="text-warning"> > Attenzione: Wallet Non Ha Identità SBT.</p>`;
         }
     },
 

@@ -50,7 +50,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             break;
         default:
-            // Nessuna azione specifica
             break;
     }
 });

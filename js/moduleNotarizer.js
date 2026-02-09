@@ -46,10 +46,10 @@ export const Notarizer = {
             fileInfo.style.display = "block";
             fileHashDisplay.textContent = "Calcolo In Corso...";
 
-            // Pulisco il gas precedente per evitare confusione
+            // Pulizia Valore Gas Precedente
             if (estimatedGasDisplay) {
                 estimatedGasDisplay.textContent = "Calcolo...";
-                estimatedGasDisplay.classList.remove('text-warning', 'text-success'); // Rimuovo colori vecchi
+                estimatedGasDisplay.classList.remove('text-warning', 'text-success');
             }
 
             try {

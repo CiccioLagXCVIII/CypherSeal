@@ -243,9 +243,6 @@ export const General = {
                     }
                 }
             }
-            // Appendiamo al body per essere sicuri che sia sopra tutto
-
-
 
             try {
 
