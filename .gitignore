@@ -1,6 +1,5 @@
 # Dipendenze
 node_modules/
-package-lock.json
 
 # File Temporanei E Di Sistema
 .DS_Store
@@ -17,9 +16,6 @@ contracts/*.json
 # Configurazione Locale E Documentazione Non Necessaria
 .vscode/
 markdown/
-
-# Configurazione Linter / Formatter Locale
-.prettierrc
 
 # Documento Di Progetto Latex
 DocumentoDiProgetto/
