@@ -28,7 +28,7 @@ contract CypherSoul is ERC721, ERC721URIStorage, Ownable {
     // AA Eventi di Blocco (Locking)
     // Evento Per Segnalare Che Il Token Non Può Essere Trasferito.
     event Locked(uint256 tokenId);
-    // Evento Utile Se Si Prevede Di Aggiungere Funzionalità Di Sblocco
+    // Evento Utile Per Funzionalità Di Sblocco
     event Unlocked(uint256 tokenId);
 
     // SS SEZIONE 2.4: Costruttore
